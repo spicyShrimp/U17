@@ -97,6 +97,7 @@
 			children = (
 				5668D3701F7E146B00D24C39 /* Info.plist */,
 				5668D36B1F7E146B00D24C39 /* Assets.xcassets */,
+				566B69C61FCFA531003E0CA7 /* Component */,
 				566B69B11FCFA4CC003E0CA7 /* Extension */,
 				56B18A501F7E1D37008E7175 /* API */,
 				5668D36D1F7E146B00D24C39 /* LaunchScreen.storyboard */,
@@ -121,6 +122,61 @@
 			);
 			name = Extension;
 			path = "../../../未命名文件夹/U17/U17/U17/Extension";
+			sourceTree = "<group>";
+		};
+		566B69C61FCFA531003E0CA7 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				566B69C71FCFA531003E0CA7 /* CollectionViewLayout */,
+				566B69C81FCFA531003E0CA7 /* Refresh */,
+				566B69C91FCFA531003E0CA7 /* EmptyDataSet */,
+				566B69CA1FCFA531003E0CA7 /* SnapKitExtension */,
+				566B69CB1FCFA531003E0CA7 /* ParallaxHeader */,
+				566B69CC1FCFA531003E0CA7 /* NoticeBar */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		566B69C71FCFA531003E0CA7 /* CollectionViewLayout */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CollectionViewLayout;
+			sourceTree = "<group>";
+		};
+		566B69C81FCFA531003E0CA7 /* Refresh */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Refresh;
+			sourceTree = "<group>";
+		};
+		566B69C91FCFA531003E0CA7 /* EmptyDataSet */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EmptyDataSet;
+			sourceTree = "<group>";
+		};
+		566B69CA1FCFA531003E0CA7 /* SnapKitExtension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SnapKitExtension;
+			sourceTree = "<group>";
+		};
+		566B69CB1FCFA531003E0CA7 /* ParallaxHeader */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ParallaxHeader;
+			sourceTree = "<group>";
+		};
+		566B69CC1FCFA531003E0CA7 /* NoticeBar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NoticeBar;
 			sourceTree = "<group>";
 		};
 		56B18A501F7E1D37008E7175 /* API */ = {
