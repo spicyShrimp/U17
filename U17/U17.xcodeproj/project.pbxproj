@@ -11,6 +11,16 @@
 		56286F5B1F9F20A40055DD81 /* UModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56286F5A1F9F20A40055DD81 /* UModel.swift */; };
 		5668D36C1F7E146B00D24C39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5668D36B1F7E146B00D24C39 /* Assets.xcassets */; };
 		5668D36F1F7E146B00D24C39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5668D36D1F7E146B00D24C39 /* LaunchScreen.storyboard */; };
+		566B69BC1FCFA4CC003E0CA7 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69B21FCFA4CC003E0CA7 /* ArrayExtensions.swift */; };
+		566B69BD1FCFA4CC003E0CA7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69B31FCFA4CC003E0CA7 /* UIColorExtension.swift */; };
+		566B69BE1FCFA4CC003E0CA7 /* UIBarButtonItemFixSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69B41FCFA4CC003E0CA7 /* UIBarButtonItemFixSpace.swift */; };
+		566B69BF1FCFA4CC003E0CA7 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69B51FCFA4CC003E0CA7 /* UIViewExtension.swift */; };
+		566B69C01FCFA4CC003E0CA7 /* UIBarButtonItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69B61FCFA4CC003E0CA7 /* UIBarButtonItemExtension.swift */; };
+		566B69C11FCFA4CC003E0CA7 /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69B71FCFA4CC003E0CA7 /* UIDeviceExtension.swift */; };
+		566B69C21FCFA4CC003E0CA7 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69B81FCFA4CC003E0CA7 /* UIImageExtensions.swift */; };
+		566B69C31FCFA4CC003E0CA7 /* DispatchQueueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69B91FCFA4CC003E0CA7 /* DispatchQueueExtension.swift */; };
+		566B69C41FCFA4CC003E0CA7 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69BA1FCFA4CC003E0CA7 /* StringExtension.swift */; };
+		566B69C51FCFA4CC003E0CA7 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69BB1FCFA4CC003E0CA7 /* DictionaryExtension.swift */; };
 		56B18A521F7E1D4D008E7175 /* UAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B18A511F7E1D4D008E7175 /* UAPI.swift */; };
 /* End PBXBuildFile section */
 
@@ -21,6 +31,16 @@
 		5668D36B1F7E146B00D24C39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5668D36E1F7E146B00D24C39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5668D3701F7E146B00D24C39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		566B69B21FCFA4CC003E0CA7 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		566B69B31FCFA4CC003E0CA7 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		566B69B41FCFA4CC003E0CA7 /* UIBarButtonItemFixSpace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemFixSpace.swift; sourceTree = "<group>"; };
+		566B69B51FCFA4CC003E0CA7 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		566B69B61FCFA4CC003E0CA7 /* UIBarButtonItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtension.swift; sourceTree = "<group>"; };
+		566B69B71FCFA4CC003E0CA7 /* UIDeviceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
+		566B69B81FCFA4CC003E0CA7 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		566B69B91FCFA4CC003E0CA7 /* DispatchQueueExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueExtension.swift; sourceTree = "<group>"; };
+		566B69BA1FCFA4CC003E0CA7 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		566B69BB1FCFA4CC003E0CA7 /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		56B18A511F7E1D4D008E7175 /* UAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UAPI.swift; sourceTree = "<group>"; };
 		85B583B6AD0CA533D314EB69 /* Pods-U17.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-U17.release.xcconfig"; path = "Pods/Target Support Files/Pods-U17/Pods-U17.release.xcconfig"; sourceTree = "<group>"; };
 		FFAC76C53431EC466C69E89C /* Pods_U17.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_U17.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,11 +97,30 @@
 			children = (
 				5668D3701F7E146B00D24C39 /* Info.plist */,
 				5668D36B1F7E146B00D24C39 /* Assets.xcassets */,
+				566B69B11FCFA4CC003E0CA7 /* Extension */,
 				56B18A501F7E1D37008E7175 /* API */,
 				5668D36D1F7E146B00D24C39 /* LaunchScreen.storyboard */,
 				56286F591F9F1EDA0055DD81 /* Model */,
 			);
 			path = U17;
+			sourceTree = "<group>";
+		};
+		566B69B11FCFA4CC003E0CA7 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				566B69B21FCFA4CC003E0CA7 /* ArrayExtensions.swift */,
+				566B69B31FCFA4CC003E0CA7 /* UIColorExtension.swift */,
+				566B69B41FCFA4CC003E0CA7 /* UIBarButtonItemFixSpace.swift */,
+				566B69B51FCFA4CC003E0CA7 /* UIViewExtension.swift */,
+				566B69B61FCFA4CC003E0CA7 /* UIBarButtonItemExtension.swift */,
+				566B69B71FCFA4CC003E0CA7 /* UIDeviceExtension.swift */,
+				566B69B81FCFA4CC003E0CA7 /* UIImageExtensions.swift */,
+				566B69B91FCFA4CC003E0CA7 /* DispatchQueueExtension.swift */,
+				566B69BA1FCFA4CC003E0CA7 /* StringExtension.swift */,
+				566B69BB1FCFA4CC003E0CA7 /* DictionaryExtension.swift */,
+			);
+			name = Extension;
+			path = "../../../未命名文件夹/U17/U17/U17/Extension";
 			sourceTree = "<group>";
 		};
 		56B18A501F7E1D37008E7175 /* API */ = {
@@ -259,8 +298,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				566B69C21FCFA4CC003E0CA7 /* UIImageExtensions.swift in Sources */,
+				566B69BF1FCFA4CC003E0CA7 /* UIViewExtension.swift in Sources */,
+				566B69BE1FCFA4CC003E0CA7 /* UIBarButtonItemFixSpace.swift in Sources */,
+				566B69C51FCFA4CC003E0CA7 /* DictionaryExtension.swift in Sources */,
 				56B18A521F7E1D4D008E7175 /* UAPI.swift in Sources */,
+				566B69BC1FCFA4CC003E0CA7 /* ArrayExtensions.swift in Sources */,
+				566B69C01FCFA4CC003E0CA7 /* UIBarButtonItemExtension.swift in Sources */,
+				566B69C11FCFA4CC003E0CA7 /* UIDeviceExtension.swift in Sources */,
+				566B69C31FCFA4CC003E0CA7 /* DispatchQueueExtension.swift in Sources */,
 				56286F5B1F9F20A40055DD81 /* UModel.swift in Sources */,
+				566B69C41FCFA4CC003E0CA7 /* StringExtension.swift in Sources */,
+				566B69BD1FCFA4CC003E0CA7 /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
