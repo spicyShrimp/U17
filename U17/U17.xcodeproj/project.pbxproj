@@ -21,6 +21,7 @@
 		566B69C31FCFA4CC003E0CA7 /* DispatchQueueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69B91FCFA4CC003E0CA7 /* DispatchQueueExtension.swift */; };
 		566B69C41FCFA4CC003E0CA7 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69BA1FCFA4CC003E0CA7 /* StringExtension.swift */; };
 		566B69C51FCFA4CC003E0CA7 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69BB1FCFA4CC003E0CA7 /* DictionaryExtension.swift */; };
+		566B69DB1FCFA560003E0CA7 /* USettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B69D61FCFA560003E0CA7 /* USettingViewController.swift */; };
 		56B18A521F7E1D4D008E7175 /* UAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B18A511F7E1D4D008E7175 /* UAPI.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		566B69B91FCFA4CC003E0CA7 /* DispatchQueueExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueExtension.swift; sourceTree = "<group>"; };
 		566B69BA1FCFA4CC003E0CA7 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		566B69BB1FCFA4CC003E0CA7 /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
+		566B69D61FCFA560003E0CA7 /* USettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = USettingViewController.swift; sourceTree = "<group>"; };
 		56B18A511F7E1D4D008E7175 /* UAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UAPI.swift; sourceTree = "<group>"; };
 		85B583B6AD0CA533D314EB69 /* Pods-U17.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-U17.release.xcconfig"; path = "Pods/Target Support Files/Pods-U17/Pods-U17.release.xcconfig"; sourceTree = "<group>"; };
 		FFAC76C53431EC466C69E89C /* Pods_U17.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_U17.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +99,7 @@
 			children = (
 				5668D3701F7E146B00D24C39 /* Info.plist */,
 				5668D36B1F7E146B00D24C39 /* Assets.xcassets */,
+				566B69CD1FCFA560003E0CA7 /* Procedure */,
 				566B69C61FCFA531003E0CA7 /* Component */,
 				566B69B11FCFA4CC003E0CA7 /* Extension */,
 				56B18A501F7E1D37008E7175 /* API */,
@@ -177,6 +180,110 @@
 			children = (
 			);
 			path = NoticeBar;
+			sourceTree = "<group>";
+		};
+		566B69CD1FCFA560003E0CA7 /* Procedure */ = {
+			isa = PBXGroup;
+			children = (
+				566B69CE1FCFA560003E0CA7 /* Search */,
+				566B69D01FCFA560003E0CA7 /* Cate */,
+				566B69D41FCFA560003E0CA7 /* Mine */,
+				566B69D71FCFA560003E0CA7 /* Book */,
+				566B69D91FCFA560003E0CA7 /* Base */,
+			);
+			path = Procedure;
+			sourceTree = "<group>";
+		};
+		566B69CE1FCFA560003E0CA7 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				566B69CF1FCFA560003E0CA7 /* ViewController */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		566B69CF1FCFA560003E0CA7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		566B69D01FCFA560003E0CA7 /* Cate */ = {
+			isa = PBXGroup;
+			children = (
+				566B69D11FCFA560003E0CA7 /* ViewModel */,
+				566B69D21FCFA560003E0CA7 /* View */,
+				566B69D31FCFA560003E0CA7 /* ViewController */,
+			);
+			path = Cate;
+			sourceTree = "<group>";
+		};
+		566B69D11FCFA560003E0CA7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		566B69D21FCFA560003E0CA7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		566B69D31FCFA560003E0CA7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		566B69D41FCFA560003E0CA7 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				566B69D51FCFA560003E0CA7 /* ViewController */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		566B69D51FCFA560003E0CA7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				566B69D61FCFA560003E0CA7 /* USettingViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		566B69D71FCFA560003E0CA7 /* Book */ = {
+			isa = PBXGroup;
+			children = (
+				566B69D81FCFA560003E0CA7 /* ViewController */,
+			);
+			path = Book;
+			sourceTree = "<group>";
+		};
+		566B69D81FCFA560003E0CA7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		566B69D91FCFA560003E0CA7 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				566B69DA1FCFA560003E0CA7 /* View */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		566B69DA1FCFA560003E0CA7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		56B18A501F7E1D37008E7175 /* API */ = {
@@ -354,6 +461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				566B69DB1FCFA560003E0CA7 /* USettingViewController.swift in Sources */,
 				566B69C21FCFA4CC003E0CA7 /* UIImageExtensions.swift in Sources */,
 				566B69BF1FCFA4CC003E0CA7 /* UIViewExtension.swift in Sources */,
 				566B69BE1FCFA4CC003E0CA7 /* UIBarButtonItemFixSpace.swift in Sources */,
