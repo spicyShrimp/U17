@@ -235,12 +235,12 @@
 			children = (
 				5668D3701F7E146B00D24C39 /* Info.plist */,
 				5668D36B1F7E146B00D24C39 /* Assets.xcassets */,
-				566B6A661FCFA686003E0CA7 /* Component */,
-				566B69DC1FCFA5B2003E0CA7 /* Procedure */,
-				566B69B11FCFA4CC003E0CA7 /* Extension */,
 				56B18A501F7E1D37008E7175 /* API */,
+				566B6A661FCFA686003E0CA7 /* Component */,
+				566B69B11FCFA4CC003E0CA7 /* Extension */,
 				5668D36D1F7E146B00D24C39 /* LaunchScreen.storyboard */,
 				56286F591F9F1EDA0055DD81 /* Model */,
+				566B69DC1FCFA5B2003E0CA7 /* Procedure */,
 			);
 			path = U17;
 			sourceTree = "<group>";
