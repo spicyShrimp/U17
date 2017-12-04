@@ -88,7 +88,7 @@ public extension Array {
     
 
     public var snp: ConstraintArrayDSL {
-        return ConstraintArrayDSL(array: self as! Array<ConstraintView>)
+        return ConstraintArrayDSL(array: self as? Array<ConstraintView> ?? [])
     }
     
 }
