@@ -6,7 +6,7 @@ inhibit_all_warnings!
 target 'U17' do
 
 pod 'SnapKit'
-#pod 'Then'
+pod 'Then'
 #pod 'Moya'
 #pod 'HandyJSON', '~> 4.0.0-beta.1'
 #pod 'Kingfisher'
