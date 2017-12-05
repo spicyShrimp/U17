@@ -15,7 +15,7 @@ pod 'LLCycleScrollView'
 pod 'MJRefresh'
 pod 'MBProgressHUD'
 pod 'HMSegmentedControl'
-#pod 'IQKeyboardManagerSwift'
+pod 'IQKeyboardManagerSwift'
 pod 'ReachabilitySwift'
 pod 'EmptyDataSet-Swift'
 
