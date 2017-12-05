@@ -2,19 +2,28 @@ PODS:
   - Alamofire (4.5.1)
   - HandyJSON (4.0.0-beta.1)
   - Kingfisher (4.3.1)
+  - LLCycleScrollView (1.4.3):
+    - Kingfisher
   - Moya (10.0.1):
     - Moya/Core (= 10.0.1)
   - Moya/Core (10.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
   - Result (3.2.4)
+  - Reusable (4.0.0):
+    - Reusable/Storyboard (= 4.0.0)
+    - Reusable/View (= 4.0.0)
+  - Reusable/Storyboard (4.0.0)
+  - Reusable/View (4.0.0)
   - SnapKit (4.0.0)
   - Then (2.3.0)
 
 DEPENDENCIES:
   - HandyJSON (~> 4.0.0-beta.1)
   - Kingfisher
+  - LLCycleScrollView
   - Moya
+  - Reusable
   - SnapKit
   - Then
 
@@ -22,11 +31,13 @@ SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   HandyJSON: 428bb18e2c34c2a77361accebf90cf64e4f74118
   Kingfisher: 75541c4b62f02e1fde6f9772303de3d9ebe8f5b3
+  LLCycleScrollView: 7df4ac3c2ead3dbaa2ce2e5e569ec27029c8229a
   Moya: 9e621707ff754eeb51ff3ec51a3d54e517c0733a
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  Reusable: 98e5fff1e0e2e00872199699b276dde08ee56c07
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
 
-PODFILE CHECKSUM: 1c2f01ad6c5eaa1469bab426d3beaf72464b343c
+PODFILE CHECKSUM: cc3bdcd00d94ea845ff74055a1f7f52d8a0d80b4
 
 COCOAPODS: 1.4.0.beta.2

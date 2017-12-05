@@ -1,0 +1,6 @@
+framework module LLCycleScrollView {
+  umbrella header "LLCycleScrollView-umbrella.h"
+
+  export *
+  module * { export * }
+}
