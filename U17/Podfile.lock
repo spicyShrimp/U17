@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.5.1)
   - HandyJSON (4.0.0-beta.1)
+  - Kingfisher (4.3.1)
   - Moya (10.0.1):
     - Moya/Core (= 10.0.1)
   - Moya/Core (10.0.1):
@@ -12,6 +13,7 @@ PODS:
 
 DEPENDENCIES:
   - HandyJSON (~> 4.0.0-beta.1)
+  - Kingfisher
   - Moya
   - SnapKit
   - Then
@@ -19,11 +21,12 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   HandyJSON: 428bb18e2c34c2a77361accebf90cf64e4f74118
+  Kingfisher: 75541c4b62f02e1fde6f9772303de3d9ebe8f5b3
   Moya: 9e621707ff754eeb51ff3ec51a3d54e517c0733a
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
 
-PODFILE CHECKSUM: 96a98b44b7c5b4b4cc3f9143bc7ecc0a7383183d
+PODFILE CHECKSUM: 1c2f01ad6c5eaa1469bab426d3beaf72464b343c
 
 COCOAPODS: 1.4.0.beta.2
