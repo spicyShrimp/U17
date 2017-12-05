@@ -14,9 +14,9 @@ pod 'Reusable'
 pod 'LLCycleScrollView'
 pod 'MJRefresh'
 pod 'MBProgressHUD'
-#pod 'HMSegmentedControl'
+pod 'HMSegmentedControl'
 #pod 'IQKeyboardManagerSwift'
-#pod 'ReachabilitySwift'
-#pod 'EmptyDataSet-Swift'
+pod 'ReachabilitySwift'
+pod 'EmptyDataSet-Swift'
 
 end
