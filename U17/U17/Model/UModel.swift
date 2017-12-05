@@ -387,17 +387,13 @@ struct CateListModel: HandyJSON {
 
 extension Array: HandyJSON{}
 
-class ReturnData<T: HandyJSON>: HandyJSON {
+struct ReturnData<T: HandyJSON>: HandyJSON {
     var message:String?
     var returnData: T?
     var stateCode: Int = 0
-    
-    required init() {}
 }
 
-class ResponseData<T: HandyJSON>: HandyJSON {
+struct ResponseData<T: HandyJSON>: HandyJSON {
     var code: Int = 0
     var data: ReturnData<T>?
-    
-    required init() {}
 }
