@@ -95,7 +95,7 @@ extension UCateListViewController: UICollectionViewDelegateFlowLayout, UICollect
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return topList.count
+            return topList.takeMax(3).count
         } else {
             return rankList.count
         }

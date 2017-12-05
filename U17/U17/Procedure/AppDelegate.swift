@@ -54,13 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             default: break
             }
         }
-        reachability?.whenUnreachable = {
-            switch $0.connection {
-            case .none:
-                UNoticeBar(config: UNoticeBarConfig(title: "主人,当前网络状态是木有网了")).show(duration: 2)
-            default: break
-            }
-        }
         try? reachability?.startNotifier()
     }
 
