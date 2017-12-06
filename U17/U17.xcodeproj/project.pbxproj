@@ -248,6 +248,7 @@
 		566B6A661FCFA686003E0CA7 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				566B6B0F1FCFA899003E0CA7 /* UIBarButtonItemFixSpace.swift */,
 				566B6A671FCFA686003E0CA7 /* CollectionViewLayout */,
 				566B6A6A1FCFA686003E0CA7 /* Refresh */,
 				566B6A6C1FCFA686003E0CA7 /* EmptyDataSet */,
@@ -541,7 +542,6 @@
 			children = (
 				566B6B0D1FCFA899003E0CA7 /* ArrayExtensions.swift */,
 				566B6B0E1FCFA899003E0CA7 /* UIColorExtension.swift */,
-				566B6B0F1FCFA899003E0CA7 /* UIBarButtonItemFixSpace.swift */,
 				566B6B101FCFA899003E0CA7 /* UIViewExtension.swift */,
 				566B6B111FCFA899003E0CA7 /* UIBarButtonItemExtension.swift */,
 				566B6B121FCFA899003E0CA7 /* UIDeviceExtension.swift */,
