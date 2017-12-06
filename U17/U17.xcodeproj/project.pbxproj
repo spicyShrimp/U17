@@ -248,13 +248,13 @@
 		566B6A661FCFA686003E0CA7 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				566B6B0F1FCFA899003E0CA7 /* UIBarButtonItemFixSpace.swift */,
+				56BAA6C71FD7815C005D47E1 /* HairPowder */,
+				56BAA6C61FD78132005D47E1 /* BarButtonItem */,
 				566B6A671FCFA686003E0CA7 /* CollectionViewLayout */,
 				566B6A6A1FCFA686003E0CA7 /* Refresh */,
 				566B6A6C1FCFA686003E0CA7 /* EmptyDataSet */,
 				566B6A6E1FCFA686003E0CA7 /* SnapKitExtension */,
 				566B6A711FCFA686003E0CA7 /* ParallaxHeader */,
-				566B6A751FCFA686003E0CA7 /* UHairPowder.swift */,
 				566B6A761FCFA686003E0CA7 /* NoticeBar */,
 			);
 			path = Component;
@@ -559,6 +559,22 @@
 				56B18A511F7E1D4D008E7175 /* UAPI.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		56BAA6C61FD78132005D47E1 /* BarButtonItem */ = {
+			isa = PBXGroup;
+			children = (
+				566B6B0F1FCFA899003E0CA7 /* UIBarButtonItemFixSpace.swift */,
+			);
+			path = BarButtonItem;
+			sourceTree = "<group>";
+		};
+		56BAA6C71FD7815C005D47E1 /* HairPowder */ = {
+			isa = PBXGroup;
+			children = (
+				566B6A751FCFA686003E0CA7 /* UHairPowder.swift */,
+			);
+			path = HairPowder;
 			sourceTree = "<group>";
 		};
 		9EEB24EB93BB2AA700B97EF9 /* Pods */ = {
