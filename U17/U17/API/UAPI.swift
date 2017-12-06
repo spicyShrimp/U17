@@ -11,27 +11,8 @@ import HandyJSON
 import MBProgressHUD
 import Reachability
 
-private var topViewController: UIViewController? {
-    var resultVC: UIViewController?
-    resultVC = _topViewController(UIApplication.shared.keyWindow?.rootViewController)
-    while resultVC?.presentedViewController != nil {
-        resultVC = _topViewController(resultVC?.presentedViewController)
-    }
-    return resultVC
-}
-
-private  func _topViewController(_ vc: UIViewController?) -> UIViewController? {
-    if vc is UINavigationController {
-        return _topViewController((vc as? UINavigationController)?.topViewController)
-    } else if vc is UITabBarController {
-        return _topViewController((vc as? UITabBarController)?.selectedViewController)
-    } else {
-        return vc
-    }
-}
-
 let LoadingPlugin = NetworkActivityPlugin { (type, target) in
-    guard let vc = topViewController else { return }
+    guard let vc = topVC else { return }
     switch type {
     case .began:
         MBProgressHUD.hide(for: vc.view, animated: false)
