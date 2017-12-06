@@ -42,14 +42,6 @@ func uLog<T>(_ message: T, file: String = #file, function: String = #function, l
     #endif
 }
 
-
-extension Kingfisher {
-    public enum UPlaceholderDirection {
-        case horizontal
-        case vertical
-    }
-}
-
 //MARK: Kingfisher
 extension Kingfisher where Base: ImageView {
     @discardableResult
