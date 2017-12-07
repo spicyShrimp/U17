@@ -9,7 +9,6 @@
 import Moya
 import HandyJSON
 import MBProgressHUD
-import Reachability
 
 let LoadingPlugin = NetworkActivityPlugin { (type, target) in
     guard let vc = topVC else { return }

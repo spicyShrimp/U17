@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Reachability
+import Alamofire
 import IQKeyboardManagerSwift
 
 @UIApplicationMain
@@ -15,8 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    lazy var reachability: Reachability? = {
-        return Reachability(hostname: "http://app.u17.com")
+    lazy var reachability: NetworkReachabilityManager? = {
+        return NetworkReachabilityManager(host: "http://app.u17.com")
     }()
     
     var orientation: UIInterfaceOrientationMask = .portrait
@@ -46,15 +46,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.set(1, forKey: String.sexTypeKey)
             defaults.synchronize()
         }
-        
-        reachability?.whenReachable = {
-            switch $0.connection {
-            case .cellular:
+
+        reachability?.listener = { status in
+            switch status {
+            case .reachable(.wwan):
                 UNoticeBar(config: UNoticeBarConfig(title: "主人,检测到您正在使用移动数据")).show(duration: 2)
             default: break
             }
         }
-        try? reachability?.startNotifier()
+        reachability?.startListening()
     }
 
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {

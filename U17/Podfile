@@ -16,7 +16,6 @@ pod 'MJRefresh'
 pod 'MBProgressHUD'
 pod 'HMSegmentedControl'
 pod 'IQKeyboardManagerSwift'
-pod 'ReachabilitySwift'
 pod 'EmptyDataSet-Swift'
 
 end
