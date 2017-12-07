@@ -165,9 +165,10 @@ extension MoyaProvider {
                                     completion: ((_ returnData: T?) -> Void)?) -> Cancellable? {
         
         return request(target, completion: { (result) in
-            guard let completion = completion,
-                let returnData = try? result.value?.mapModel(ResponseData<T>.self) else {
-                    return
+            guard let completion = completion else { return }
+            guard let returnData = try? result.value?.mapModel(ResponseData<T>.self) else {
+                completion(nil)
+                return
             }
             completion(returnData?.data?.returnData)
         })
