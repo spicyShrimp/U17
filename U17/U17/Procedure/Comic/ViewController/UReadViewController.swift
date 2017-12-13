@@ -77,13 +77,13 @@ class UReadViewController: UBaseViewController {
         cw.dataSource = self
         cw.register(cellType: UReadCCell.self)
         cw.uHead = URefreshAutoHeader { [weak self] in
-            let previousIndex = self?.previousIndex
+            let previousIndex = self?.previousIndex ?? 0
             self?.loadData(with: previousIndex, isPreious: true, needClear: false, finished: { [weak self]  (finish) in
                 self?.previousIndex = previousIndex - 1
             })
         }
         cw.uFoot = URefreshAutoFooter { [weak self] in
-            let nextIndex = self?.nextIndex
+            let nextIndex = self?.nextIndex ?? 0
             self?.loadData(with: nextIndex, isPreious: false, needClear: false, finished: { [weak self]  (finish) in
                 self?.nextIndex = nextIndex + 1
             })
