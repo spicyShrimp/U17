@@ -39,8 +39,8 @@ class UCateListViewController: UBaseViewController {
         cw.alwaysBounceVertical = true
         cw.register(cellType: URankCCell.self)
         cw.register(cellType: UTopCCell.self)
-        cw.uHead = URefreshHeader { self.loadData() }
-        cw.uempty = UEmptyView { self.loadData() }
+        cw.uHead = URefreshHeader { [weak self] in self?.loadData() }
+        cw.uempty = UEmptyView { [weak self] in self?.loadData() }
         return cw
     }()
     
