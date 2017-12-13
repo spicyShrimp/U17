@@ -21,8 +21,8 @@ class URankListViewController: UBaseViewController {
         tw.dataSource = self
         tw.separatorStyle = .none
         tw.register(cellType: URankTCell.self)
-        tw.uHead = URefreshHeader{ self.loadData() }
-        tw.uempty = UEmptyView { self.loadData() }
+        tw.uHead = URefreshHeader{ [weak self] in self?.loadData() }
+        tw.uempty = UEmptyView { [weak self] in self?.loadData() }
         return tw
     }()
     

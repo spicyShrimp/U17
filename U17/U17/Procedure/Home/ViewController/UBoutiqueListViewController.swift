@@ -51,7 +51,7 @@ class UBoutiqueListViewController: UBaseViewController {
         cw.register(cellType: UBoardCCell.self)
         cw.register(supplementaryViewType: UComicCHead.self, ofKind: UICollectionElementKindSectionHeader)
         cw.register(supplementaryViewType: UComicCFoot.self, ofKind: UICollectionElementKindSectionFooter)
-        cw.uHead = URefreshHeader { self.loadData(false) }
+        cw.uHead = URefreshHeader { [weak self] in self?.loadData(false) }
         cw.uFoot = URefreshDiscoverFooter()
         cw.uempty = UEmptyView(verticalOffset: -(cw.contentInset.top)) { self.loadData(false) }
         return cw

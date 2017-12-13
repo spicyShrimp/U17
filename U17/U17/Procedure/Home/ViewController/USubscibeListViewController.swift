@@ -24,9 +24,9 @@ class USubscibeListViewController: UBaseViewController {
         cw.register(cellType: UComicCCell.self)
         cw.register(supplementaryViewType: UComicCHead.self, ofKind: UICollectionElementKindSectionHeader)
         cw.register(supplementaryViewType: UComicCFoot.self, ofKind: UICollectionElementKindSectionFooter)
-        cw.uHead = URefreshHeader{ self.loadData() }
+        cw.uHead = URefreshHeader{ [weak self] in self?.loadData() }
         cw.uFoot = URefreshTipKissFooter(with: "使用妖气币可以购买订阅漫画\nVIP会员购买还有优惠哦~")
-        cw.uempty = UEmptyView { self.loadData() }
+        cw.uempty = UEmptyView { [weak self] in self?.loadData() }
         return cw
     }()
     

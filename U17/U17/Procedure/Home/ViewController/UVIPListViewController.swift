@@ -24,9 +24,9 @@ class UVIPListViewController: UBaseViewController {
         cw.register(cellType: UComicCCell.self)
         cw.register(supplementaryViewType: UComicCHead.self, ofKind: UICollectionElementKindSectionHeader)
         cw.register(supplementaryViewType: UComicCFoot.self, ofKind: UICollectionElementKindSectionFooter)
-        cw.uHead = URefreshHeader{ self.loadData() }
+        cw.uHead = URefreshHeader{ [weak self] in self?.loadData() }
         cw.uFoot = URefreshTipKissFooter(with: "VIP用户专享\nVIP用户可以免费阅读全部漫画哦~")
-        cw.uempty = UEmptyView { self.loadData() }
+        cw.uempty = UEmptyView { [weak self] in self?.loadData() }
         return cw
     }()
     

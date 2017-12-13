@@ -25,9 +25,9 @@ class UUpdateListViewController: UBaseViewController {
         tw.delegate = self
         tw.dataSource = self
         tw.register(cellType: UUpdateTCell.self)
-        tw.uHead = URefreshHeader { self.loadData(more: false) }
-        tw.uFoot = URefreshFooter { self.loadData(more: true) }
-        tw.uempty = UEmptyView { self.loadData(more: false) }
+        tw.uHead = URefreshHeader { [weak self] in self?.loadData(more: false) }
+        tw.uFoot = URefreshFooter { [weak self] in self?.loadData(more: true) }
+        tw.uempty = UEmptyView { [weak self] in self?.loadData(more: false) }
         return tw
     }()
     
