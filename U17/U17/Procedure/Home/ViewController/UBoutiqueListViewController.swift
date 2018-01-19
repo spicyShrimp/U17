@@ -101,7 +101,7 @@ class UBoutiqueListViewController: UBaseViewController {
             self?.collectionView.uempty?.allowShow = true
             
             self?.collectionView.reloadData()
-            self?.bannerView.imagePaths = self?.galleryItems.map { guard let v = $0.cover else {return ""} ; return v } ?? []
+            self?.bannerView.imagePaths = self?.galleryItems.filter { $0.cover != nil }.map { $0.cover! } ?? []
         }
     }
     
