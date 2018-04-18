@@ -90,7 +90,6 @@ extension UIScrollView: UIGestureRecognizerDelegate {
                 let view = EmptyDataSetView.init(frame: frame)
                 view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
                 view.isHidden = true
-                
                 let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(didTapContentView(_:)))
                 tapGesture.delegate = self
                 view.addGestureRecognizer(tapGesture)
@@ -218,37 +217,39 @@ extension UIScrollView: UIGestureRecognizerDelegate {
     
     private func willAppear() {
         emptyDataSetDelegate?.emptyDataSetWillAppear(self)
+        emptyDataSetView?.willAppearHandle?()
     }
     
     private func didAppear() {
         emptyDataSetDelegate?.emptyDataSetDidAppear(self)
+        emptyDataSetView?.didAppearHandle?()
     }
     
     private func willDisappear() {
         emptyDataSetDelegate?.emptyDataSetWillDisappear(self)
+        emptyDataSetView?.willDisappearHandle?()
     }
     
     private func didDisappear() {
         emptyDataSetDelegate?.emptyDataSetDidDisappear(self)
+        emptyDataSetView?.didDisappearHandle?()
     }
     
     @objc private func didTapContentView(_ sender: UIView) {
         emptyDataSetDelegate?.emptyDataSet(self, didTapView: sender)
-        if let handle = emptyDataSetView?.didTapContentViewHandle {
-            handle()
-        }
+        emptyDataSetView?.didTapContentViewHandle?()
     }
     
     @objc private func didTapDataButton(_ sender: UIButton) {
         emptyDataSetDelegate?.emptyDataSet(self, didTapButton: sender)
-        if let handle = emptyDataSetView?.didTapDataButtonHandle {
-            handle()
-        }
+        emptyDataSetView?.didTapDataButtonHandle?()
     }
     
     //MARK: - Reload APIs (Public)
-
     public func reloadEmptyDataSet() {
+        guard (emptyDataSetSource != nil || configureEmptyDataSetView != nil) else {
+            return
+        }
         
         if (shouldDisplay && itemsCount == 0) || shouldBeForcedToDisplay {
             // Notifies that the empty dataset view will appear
@@ -353,8 +354,9 @@ extension UIScrollView: UIGestureRecognizerDelegate {
         willDisappear()
         if let view = emptyDataSetView {
             view.prepareForReuse()
-            view.removeFromSuperview()
-            emptyDataSetView = nil
+            view.isHidden = true
+//            view.removeFromSuperview()
+//            emptyDataSetView = nil
         }
         self.isScrollEnabled = true
         didDisappear()
@@ -362,7 +364,6 @@ extension UIScrollView: UIGestureRecognizerDelegate {
     
     
     //MARK: - Method Swizzling
-    
     @objc private func tableViewSwizzledReloadData() {
         tableViewSwizzledReloadData()
         reloadEmptyDataSet()

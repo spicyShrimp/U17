@@ -26,114 +26,131 @@ import UIKit
 
 /** @abstract UITextView with placeholder support   */
 open class IQTextView : UITextView {
-
-    required public init?(coder aDecoder: NSCoder) {
+    
+    @objc required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: Notification.Name.UITextViewTextDidChange, object: self)
     }
-
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
+    
+    @objc override public init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: Notification.Name.UITextViewTextDidChange, object: self)
     }
     
-    override open func awakeFromNib() {
-         super.awakeFromNib()
+    @objc override open func awakeFromNib() {
+        super.awakeFromNib()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: Notification.Name.UITextViewTextDidChange, object: self)
     }
     
     deinit {
+        privatePlaceholderLabel?.removeFromSuperview()
+        privatePlaceholderLabel = nil
         NotificationCenter.default.removeObserver(self)
     }
     
-    fileprivate var placeholderLabel: UILabel?
-    
-    /** @abstract To set textView's placeholder text. Default is ni.    */
-    @IBInspectable open var placeholder : String? {
-
+    private var privatePlaceholderLabel: UILabel?
+    internal var placeholderLabel: UILabel {
         get {
-            return placeholderLabel?.text
-        }
- 
-        set {
-            
-            if placeholderLabel == nil {
+            if let unwrappedPlaceholderLabel = privatePlaceholderLabel {
+                return unwrappedPlaceholderLabel
                 
-                placeholderLabel = UILabel()
+            } else {
+                let label = UILabel()
+                privatePlaceholderLabel = label
                 
-                if let unwrappedPlaceholderLabel = placeholderLabel {
-                    
-                    unwrappedPlaceholderLabel.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                    unwrappedPlaceholderLabel.lineBreakMode = .byWordWrapping
-                    unwrappedPlaceholderLabel.numberOfLines = 0
-                    unwrappedPlaceholderLabel.font = self.font
-                    unwrappedPlaceholderLabel.textAlignment = self.textAlignment
-                    unwrappedPlaceholderLabel.backgroundColor = UIColor.clear
-                    unwrappedPlaceholderLabel.textColor = UIColor(white: 0.7, alpha: 1.0)
-                    unwrappedPlaceholderLabel.alpha = 0
-                    addSubview(unwrappedPlaceholderLabel)
-                }
+                label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                label.lineBreakMode = .byWordWrapping
+                label.numberOfLines = 0
+                label.font = self.font
+                label.textAlignment = self.textAlignment
+                label.backgroundColor = UIColor.clear
+                label.textColor = UIColor(white: 0.7, alpha: 1.0)
+                label.alpha = 0
+                self.addSubview(label)
+                return label
             }
-            
-            placeholderLabel?.text = newValue
+        }
+    }
+    
+    /** @abstract To set textView's placeholder text color. */
+    @IBInspectable open var placeholderTextColor : UIColor? {
+        
+        get {
+            return placeholderLabel.textColor
+        }
+        
+        set {
+            placeholderLabel.textColor = newValue
+        }
+    }
+    
+    /** @abstract To set textView's placeholder text. Default is nil.    */
+    @IBInspectable open var placeholder : String? {
+        
+        get {
+            return placeholderLabel.text
+        }
+        
+        set {
+            placeholderLabel.text = newValue
             refreshPlaceholder()
         }
     }
     
-    open override func layoutSubviews() {
+    @objc override open func layoutSubviews() {
         super.layoutSubviews()
         
-        if let unwrappedPlaceholderLabel = placeholderLabel {
+        if let unwrappedPlaceholderLabel = privatePlaceholderLabel {
             
             let offsetLeft = textContainerInset.left + textContainer.lineFragmentPadding
             let offsetRight = textContainerInset.right + textContainer.lineFragmentPadding
             let offsetTop = textContainerInset.top
             let offsetBottom = textContainerInset.top
-
+            
             let expectedSize = unwrappedPlaceholderLabel.sizeThatFits(CGSize(width: self.frame.width-offsetLeft-offsetRight, height: self.frame.height-offsetTop-offsetBottom))
-
+            
             unwrappedPlaceholderLabel.frame = CGRect(x: offsetLeft, y: offsetTop, width: expectedSize.width, height: expectedSize.height)
         }
     }
-
-    @objc open func refreshPlaceholder() {
+    
+    @objc internal func refreshPlaceholder() {
         
-        if text.characters.count != 0 {
-            placeholderLabel?.alpha = 0
+        if !text.isEmpty {
+            placeholderLabel.alpha = 0
         } else {
-            placeholderLabel?.alpha = 1
+            placeholderLabel.alpha = 1
         }
     }
     
-    override open var text: String! {
+    @objc override open var text: String! {
         
         didSet {
             
             refreshPlaceholder()
-
+            
         }
     }
     
-    override open var font : UIFont? {
-       
+    @objc override open var font : UIFont? {
+        
         didSet {
             
             if let unwrappedFont = font {
-                placeholderLabel?.font = unwrappedFont
+                placeholderLabel.font = unwrappedFont
             } else {
-                placeholderLabel?.font = UIFont.systemFont(ofSize: 12)
+                placeholderLabel.font = UIFont.systemFont(ofSize: 12)
             }
         }
     }
     
-    override open var textAlignment: NSTextAlignment
-    {
+    @objc override open var textAlignment: NSTextAlignment
+        {
         didSet {
-            placeholderLabel?.textAlignment = textAlignment
+            placeholderLabel.textAlignment = textAlignment
         }
     }
     
-    override open var delegate : UITextViewDelegate? {
+    @objc override open var delegate : UITextViewDelegate? {
         
         get {
             refreshPlaceholder()

@@ -21,7 +21,7 @@ let LoadingPlugin = NetworkActivityPlugin { (type, target) in
     }
 }
 
-let timeoutClosure = {(endpoint: Endpoint<UApi>, closure: MoyaProvider<UApi>.RequestResultClosure) -> Void in
+let timeoutClosure = {(endpoint: Endpoint, closure: MoyaProvider<UApi>.RequestResultClosure) -> Void in
     
     if var urlRequest = try? endpoint.urlRequest() {
         urlRequest.timeoutInterval = 20

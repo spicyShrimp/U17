@@ -12,7 +12,7 @@ import UIKit
 
 /// The object that acts as the data source of the empty datasets.
 /// @discussion The data source must adopt the DZNEmptyDataSetSource protocol. The data source is not retained. All data source methods are optional.
-public protocol EmptyDataSetSource: class {
+public protocol EmptyDataSetSource {
     
     /// Asks the data source for the title of the dataset.
     /// The dataset uses a fixed font style by default, if no attributes are set. If you want a different font style, return a attributed string.

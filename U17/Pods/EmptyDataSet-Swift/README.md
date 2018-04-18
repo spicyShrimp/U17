@@ -1,5 +1,5 @@
 # EmptyDataSet-Swift
-![pod](https://img.shields.io/badge/pod-4.0.2-brightgreen.svg)
+![pod](https://img.shields.io/badge/pod-4.0.3-brightgreen.svg)
 ![iOS](https://img.shields.io/badge/iOS-8.0-green.svg)
 ![lisence](https://img.shields.io/badge/license-MIT-orange.svg)
 ![swift](https://img.shields.io/badge/swift-4.0-red.svg)
@@ -10,14 +10,17 @@
 
 ## ScreenShot
 
-![ScreenShot](https://github.com/Xiaoye220/EmptyDataSet-Swift/blob/master/EmptyDataSet-Swift/ScreenShot/ScreenShot.gif)
+![Screenshots_row1](https://github.com/Xiaoye220/EmptyDataSet-Swift/blob/master/EmptyDataSet-Swift/ScreenShot/Screenshots_row1.png)
+
+![Screenshots_row2](https://github.com/Xiaoye220/EmptyDataSet-Swift/blob/master/EmptyDataSet-Swift/ScreenShot/Screenshots_row2.png)
 
 ## CocoaPods
 ```
 use_frameworks!
-pod 'EmptyDataSet-Swift', '~> 4.0.2'
+pod 'EmptyDataSet-Swift', '~> 4.0.3'
 ```
-
+## History
+**4.0.3:** Fix issues [#6](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/6)、[#7](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/7)
 
 ## Usage
 ### Basic 

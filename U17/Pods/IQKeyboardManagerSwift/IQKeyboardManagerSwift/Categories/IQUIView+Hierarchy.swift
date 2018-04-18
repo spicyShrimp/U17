@@ -36,7 +36,7 @@ public extension UIView {
     /**
     Returns the UIViewController object that manages the receiver.
     */
-    public func viewController()->UIViewController? {
+    @objc public func viewContainingController()->UIViewController? {
         
         var nextResponder: UIResponder? = self
         
@@ -55,21 +55,21 @@ public extension UIView {
     /**
     Returns the topMost UIViewController object in hierarchy.
     */
-    public func topMostController()->UIViewController? {
+    @objc public func topMostController()->UIViewController? {
         
         var controllersHierarchy = [UIViewController]()
 
         if var topController = window?.rootViewController {
             controllersHierarchy.append(topController)
 
-            while topController.presentedViewController != nil {
+            while let presented = topController.presentedViewController {
                 
-                topController = topController.presentedViewController!
+                topController = presented
 
-                controllersHierarchy.append(topController)
+                controllersHierarchy.append(presented)
             }
             
-            var matchController :UIResponder? = viewController()
+            var matchController :UIResponder? = viewContainingController()
 
             while matchController != nil && controllersHierarchy.contains(matchController as! UIViewController) == false {
                 
@@ -82,11 +82,59 @@ public extension UIView {
             return matchController as? UIViewController
             
         } else {
-            return viewController()
+            return viewContainingController()
         }
     }
     
-    
+    /**
+     Returns the UIViewController object that is actually the parent of this object. Most of the time it's the viewController object which actually contains it, but result may be different if it's viewController is added as childViewController of another viewController.
+     */
+    @objc public func parentContainerViewController()->UIViewController? {
+        
+        var matchController = viewContainingController()
+        
+        if var navController = matchController?.navigationController {
+            
+            while let parentNav = navController.navigationController {
+                navController = parentNav
+            }
+            
+            var parentController : UIViewController = navController
+
+            while let parent = parentController.parent,
+                (parent.isKind(of: UINavigationController.self) == false &&
+                    parent.isKind(of: UITabBarController.self) == false &&
+                    parent.isKind(of: UISplitViewController.self) == false) {
+                        
+                        parentController = parent
+            }
+
+            if navController == parentController {
+                return navController.topViewController
+            } else {
+                return parentController
+            }
+        }
+        else if let tabController = matchController?.tabBarController {
+            
+            if let navController = tabController.selectedViewController as? UINavigationController {
+                return navController.topViewController
+            } else {
+                return tabController.selectedViewController
+            }
+        } else {
+            while let parentController = matchController?.parent,
+                (parentController.isKind(of: UINavigationController.self) == false &&
+                    parentController.isKind(of: UITabBarController.self) == false &&
+                    parentController.isKind(of: UISplitViewController.self) == false) {
+                        
+                        matchController = parentController
+            }
+
+            return matchController;
+        }
+    }
+
     ///-----------------------------------
     /// MARK: Superviews/Subviews/Siglings
     ///-----------------------------------
@@ -94,7 +142,7 @@ public extension UIView {
     /**
     Returns the superView of provided class type.
     */
-    public func superviewOfClassType(_ classType:UIView.Type)->UIView? {
+    @objc public func superviewOfClassType(_ classType:UIView.Type)->UIView? {
 
         var superView = superview
         
@@ -130,7 +178,7 @@ public extension UIView {
     /**
     Returns all siblings of the receiver which canBecomeFirstResponder.
     */
-    public func responderSiblings()->[UIView] {
+    internal func responderSiblings()->[UIView] {
 
         //Array of (UITextField/UITextView's).
         var tempTextFields = [UIView]()
@@ -152,7 +200,7 @@ public extension UIView {
     /**
     Returns all deep subViews of the receiver which canBecomeFirstResponder.
     */
-    public func deepResponderViews()->[UIView] {
+    internal func deepResponderViews()->[UIView] {
         
         //Array of (UITextField/UITextView's).
         var textfields = [UIView]()
@@ -191,7 +239,7 @@ public extension UIView {
         })
     }
     
-    fileprivate func _IQcanBecomeFirstResponder() -> Bool {
+    private func _IQcanBecomeFirstResponder() -> Bool {
         
         var _IQcanBecomeFirstResponder = false
         
@@ -203,7 +251,7 @@ public extension UIView {
         }
         
         if _IQcanBecomeFirstResponder == true {
-            _IQcanBecomeFirstResponder = isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && isSearchBarTextField() == false
+            _IQcanBecomeFirstResponder = isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && searchBar() == nil
         }
 
         return _IQcanBecomeFirstResponder
@@ -214,119 +262,49 @@ public extension UIView {
     ///-------------------------
     
     /**
-    Returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
+     Returns searchBar if receiver object is UISearchBarTextField, otherwise return nil.
     */
-    public func isSearchBarTextField()-> Bool {
+    internal func searchBar()-> UISearchBar? {
         
-        var searchBar : UIResponder? = self.next
+        var responder : UIResponder? = self.next
         
-        var isSearchBarTextField = false
-        
-        while searchBar != nil && isSearchBarTextField == false {
+        while let bar = responder {
             
-            if searchBar!.isKind(of: UISearchBar.self) {
-                isSearchBarTextField = true
-                break
-            } else if searchBar is UIViewController {
+            if let searchBar = bar as? UISearchBar {
+                return searchBar
+            } else if bar is UIViewController {
                 break
             }
             
-            searchBar = searchBar?.next
+            responder = bar.next
         }
         
-        return isSearchBarTextField
+        return nil
     }
     
     /**
     Returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
     */
-    public func isAlertViewTextField()->Bool {
+    internal func isAlertViewTextField()->Bool {
         
-        var alertViewController : UIResponder? = self.viewController()
+        var alertViewController : UIResponder? = viewContainingController()
         
         var isAlertViewTextField = false
         
-        while alertViewController != nil && isAlertViewTextField == false {
+        while let controller = alertViewController, isAlertViewTextField == false {
             
-            if alertViewController!.isKind(of: UIAlertController.self) {
+            if controller.isKind(of: UIAlertController.self) {
                 isAlertViewTextField = true
                 break
             }
             
-            alertViewController = alertViewController?.next
+            alertViewController = controller.next
         }
         
         return isAlertViewTextField
     }
     
-
-    ///----------------
-    /// MARK: Transform
-    ///----------------
-    
-    /**
-    Returns current view transform with respect to the 'toView'.
-    */
-    public func convertTransformToView(_ toView:UIView?)->CGAffineTransform {
-        
-        var newView = toView
-        
-        if newView == nil {
-            newView = window
-        }
-        
-        //My Transform
-        var myTransform = CGAffineTransform.identity
-        
-        if let superView = superview {
-            myTransform = transform.concatenating(superView.convertTransformToView(nil))
-        } else {
-            myTransform = transform
-        }
-    
-        var viewTransform = CGAffineTransform.identity
-        
-        //view Transform
-        if let unwrappedToView = newView {
-            
-            if let unwrappedSuperView = unwrappedToView.superview {
-                viewTransform = unwrappedToView.transform.concatenating(unwrappedSuperView.convertTransformToView(nil))
-            }
-            else {
-                viewTransform = unwrappedToView.transform
-            }
-        }
-        
-        //Concating MyTransform and ViewTransform
-        return myTransform.concatenating(viewTransform.inverted())
-    }
-    
-    ///-----------------
-    /// TODO: Hierarchy
-    ///-----------------
-    
-//    /**
-//    Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
-//    */
-//    func subHierarchy()->NSString {
-//        
-//    }
-//    
-//    /**
-//    Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
-//    */
-//    func superHierarchy()->NSString {
-//        
-//    }
-//    
-//    /**
-//    Returns an string that represent the information about it's frame positions. You can use this method to debug self positions.
-//    */
-//    func debugHierarchy()->NSString {
-//        
-//    }
-
-    fileprivate func depth()->Int {
+    private func depth()->Int {
         var depth : Int = 0
         
         if let superView = superview {
@@ -341,7 +319,7 @@ public extension UIView {
 
 extension NSObject {
     
-    public func _IQDescription() -> String {
+    internal func _IQDescription() -> String {
         return "<\(self) \(Unmanaged.passUnretained(self).toOpaque())>"
     }
 }

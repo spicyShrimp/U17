@@ -1,21 +1,25 @@
 # Reusable
 
 <p align="center">
-  <img alt="Reusable" src="Example/ReusableDemo/Assets.xcassets/AppIcon.appiconset/AppIcon-167.png" />
+  <img alt="Reusable" src="Logo.png" width="150" height="150"/>
 </p>
 
 A Swift mixin to use `UITableViewCells`, `UICollectionViewCells` and `UIViewControllers` in a **type-safe way**, without the need to manipulate their `String`-typed `reuseIdentifiers`. This library also supports arbitrary `UIView` to be loaded via a XIB using a simple call to `loadFromNib()`
 
+[![CircleCI](https://circleci.com/gh/AliSoftware/Reusable/tree/master.svg?style=svg)](https://circleci.com/gh/AliSoftware/Reusable/tree/master)
 [![Platform](http://cocoapod-badges.herokuapp.com/p/Reusable/badge.png)](http://cocoadocs.org/docsets/Reusable)
 [![Version](http://cocoapod-badges.herokuapp.com/v/Reusable/badge.png)](http://cocoadocs.org/docsets/Reusable)
-[![Language: Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg)](https://swift.org)
+[![Language: Swift 3 & 4](https://img.shields.io/badge/Swift-3%20%26%204-orange.svg)](https://swift.org)
 
 # Requirements
 
 |  Swift Version |  Reusable Version  |
 |----------------|--------------------|
 |    2.2 & 2.3   |        2.5.1       |
-|       3.0      |        3.0.0 +     |
+|       3.0 (†)  |        3.0.0 +     |
+|       4.0      |        4.0.2 +     |
+
+_(†) The Reusable 3.0 code also compiles with Swift 4, you'll need 4.0.2+ only if you're using Carthage for integration_
 
 # Introduction
 
@@ -25,8 +29,8 @@ All of that simply by **marking your classes as conforming to a protocol, withou
 ```swift
 // Example of what Reusable allows you to do
 final class MyCustomCell: UITableViewCell, Reusable { /* And that's it! */ }
-tableView.register(MyCustomCell)
-let cell: MyCustomCell = tableView.dequeueReusableCell(indexPath: indexPath)
+tableView.register(cellType: MyCustomCell.self)
+let cell: MyCustomCell = tableView.dequeueReusableCell(for: indexPath)
 ```
 
 This concept, called a [Mixin](http://alisoftware.github.io/swift/protocol/2015/11/08/mixins-over-inheritance/) (a protocol with default implementation for all its methods), is explained [here in my blog post](http://alisoftware.github.io/swift/generics/2016/01/06/generic-tableviewcells/) in details.
@@ -38,6 +42,7 @@ This concept, called a [Mixin](http://alisoftware.github.io/swift/protocol/2015/
 * [Type-safe ViewControllers from Storyboards](#type-safe-viewcontrollers-from-storyboards)
 * [Additional tips](#additional-tips)
 * [Example project](#example-project)
+* [Talks and Articles about Reusable](#talks-and-articles-about-reusable)
 * [License](#license)
 
 
@@ -133,7 +138,7 @@ Unless you've prototyped your cell in a Storyboard, you'll have to register the 
 To do this, instead of calling `registerClass(…)` or `registerNib(…)` using a String-based `reuseIdentifier`, just call:
 
 ```swift
-tableView.register(theCellClass)
+tableView.register(cellType: theCellClass.self)
 ```
 
 <details>
@@ -145,8 +150,8 @@ class MyViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    tableView.register(CodeBasedCustomCell) // This will register using the class without using a UINib
-    tableView.register(NibBasedCustomCell) // This will register using NibBasedCustomCell.xib
+    tableView.register(cellType: CodeBasedCustomCell.self) // This will register using the class without using a UINib
+    tableView.register(cellType: NibBasedCustomCell.self) // This will register using NibBasedCustomCell.xib
   }
 }
 ```
@@ -158,9 +163,9 @@ To dequeue a cell (typically in your `cellForRowAtIndexPath` implementation), si
 
 ```swift
 // Either
-let cell = tableView.dequeueReusableCell(indexPath: indexPath) as MyCustomCell
+let cell = tableView.dequeueReusableCell(for: indexPath) as MyCustomCell
 // Or
-let cell: MyCustomCell = tableView.dequeueReusableCell(indexPath: indexPath)
+let cell: MyCustomCell = tableView.dequeueReusableCell(for: indexPath)
 ```
 
 As long as **Swift can use type-inference to understand that you'll want a cell of type `MyCustomCell`** (either using `as MyCystomCell` or explicitly typing the receiving variable `cell: MyCustomCell`), it will magically infer both the cell class to use and thus its `reuseIdentifier` needed to dequeue the cell, and which exact type to return to save you a type-cast.
@@ -211,7 +216,7 @@ Now all you have is **a beautiful code and type-safe cells**, with compile-type 
 >   // As `self.cellType(for:)` always returns a `ParentCell` (sub-)class, the type
 >   // of the variable `cell` below is infered to be `ParentCell` too. So only methods
 >   // declared in the parent `ParentCell` class will be accessible on the `cell` variable.
->   let cell = tableView.dequeueReusableCell(indexPath: indexPath, cellType: cellClass)
+>   let cell = tableView.dequeueReusableCell(for: indexPath, cellType: cellClass)
 >   return cell  
 > }
 > ```
@@ -241,7 +246,7 @@ final class NibBasedFileOwnerView: UIView, NibOwnerLoadable { /* and that's it! 
 ```
 
 > 💡 You should use the second approach if you plan to use your custom view in another XIB or Storyboard.  
-> This will allow you to just drop a UIView in a XIB/Storyboard and change its class to the class of your custom XIB-based view to use it. That custom view will then automagically load its own content from the associated XIB when instantiated by the storyboard containing it, without having to write additional code to load the content of the ustom view manually every time.
+> This will allow you to just drop a UIView in a XIB/Storyboard and change its class to the class of your custom XIB-based view to use it. That custom view will then automagically load its own content from the associated XIB when instantiated by the storyboard containing it, without having to write additional code to load the content of the custom view manually every time.
 
 ## 2. Design your view in Interface Builder
 
@@ -304,7 +309,7 @@ final class MyCustomWidget: UIView, NibOwnerLoadable {
 
 Overriding `init?(coder:)` allows your `MyCustomWidget` custom view to load its content from the associated XIB `MyCustomWidget.xib` and add it as subviews of itself.
 
-_💡 Note: it is also possible to override `init(frame:)`, in order to be able to create an instance of that view programatically and call `loadNibContent()` to fill with views if needed.
+_💡 Note: it is also possible to override `init(frame:)`, in order to be able to create an instance of that view programatically and call `loadNibContent()` to fill with views if needed._
 
 ## 3b. Instantiating a `NibLoadable` view
 
@@ -343,7 +348,7 @@ In your swift source declaring your custom `UIViewController` class:
 In this example, `CustomVC` is designed as the initial ViewController of a Storyboard named `CustomVC.storyboard`:
 
 ```swift
-final class CustomVC: UIViewController: StoryboardBased { /* and that's it! */ }
+final class CustomVC: UIViewController, StoryboardBased { /* and that's it! */ }
 ```
 </details>
 
@@ -355,7 +360,7 @@ In this example, `SecondaryVC` is designed in a Storyboard name `CustomVC.storyb
 Conforming to `StoryboardSceneBased` will still require you to implement `static var sceneStoryboard: UIStoryboard { get }` to indicate the Storyboard where this scene is designed. You can typically implement that property using a `let` type constant:
 
 ```swift
-final class SecondaryVC: UIViewController: StoryboardSceneBased {
+final class SecondaryVC: UIViewController, StoryboardSceneBased {
   static let sceneStoryboard = UIStoryboard(name: "CustomVC", bundle: nil)
   /* and that's it! */
 }
@@ -368,8 +373,8 @@ Simply call `instantiate()` on your custom class. This will automatically know w
 
 ```swift
 func presentSecondary() {
-  let vc = SecondaryVC.instantitate() // Init from the "SecondaryVC" scene of CustomVC.storyboard
-  self.presentViewController(vc, animated: true) {}
+  let vc = SecondaryVC.instantiate() // Init from the "SecondaryVC" scene of CustomVC.storyboard
+  self.present(vc, animated: true) {}
 }
 ```
 
@@ -447,6 +452,13 @@ It demonstrates how `Reusable` works for:
 * `UICollectionView`'s `SupplementaryViews` (section Headers)
 * Custom `UIView` designed in a XIB (`NibOwnerLoadable`)
 
+# Talks and Articles about Reusable
+
+The concepts behind Reusable has been presented in various articles and talks:
+
+* [Using Generics to improve TableView cells](https://alisoftware.github.io/swift/generics/2016/01/06/generic-tableviewcells/) on my blog
+* [FrenchKit'16 talk: Mixins over Inheritance](https://youtu.be/BSn4jlunn4I) (video)
+* Same talk was also given at NSSpain'16 ([slides](https://speakerdeck.com/alisoftware/mixins-over-inheritance)) and AppDevCon'17 ([slides](https://speakerdeck.com/alisoftware/mixins-over-inheritance-appdevcon-17))
 
 # License
 

@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 15/4/6.
 //
-//  Copyright (c) 2017 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,7 @@ import UIKit
 public typealias ImageDownloaderProgressBlock = DownloadProgressBlock
 
 /// Completion block of downloader.
-public typealias ImageDownloaderCompletionHandler = ((_ image: Image?, _ error: NSError?, _ url: URL?, _ originalData: Data?) -> ())
+public typealias ImageDownloaderCompletionHandler = ((_ image: Image?, _ error: NSError?, _ url: URL?, _ originalData: Data?) -> Void)
 
 /// Download task.
 public struct RetrieveImageDownloadTask {
@@ -43,11 +43,11 @@ public struct RetrieveImageDownloadTask {
     /// Downloader by which this task is intialized.
     public private(set) weak var ownerDownloader: ImageDownloader?
 
-    /**
-     Cancel this download task. It will trigger the completion handler with an NSURLErrorCancelled error.
-     */
+    
+    /// Cancel this download task. It will trigger the completion handler with an NSURLErrorCancelled error.
+    /// If you want to cancel all downloading tasks, call `cancelAll()` of `ImageDownloader` instance.
     public func cancel() {
-        ownerDownloader?.cancelDownloadingTask(self)
+        ownerDownloader?.cancel(self)
     }
     
     /// The original request URL of this download task.
@@ -402,13 +402,42 @@ extension ImageDownloader {
         }
     }
     
-    func cancelDownloadingTask(_ task: RetrieveImageDownloadTask) {
+    private func cancelTaskImpl(_ task: RetrieveImageDownloadTask, fetchLoad: ImageFetchLoad? = nil, ignoreTaskCount: Bool = false) {
+        
+        func getFetchLoad(from task: RetrieveImageDownloadTask) -> ImageFetchLoad? {
+            guard let URL = task.internalTask.originalRequest?.url,
+                  let imageFetchLoad = self.fetchLoads[URL] else
+            {
+                return nil
+            }
+            return imageFetchLoad
+        }
+        
+        guard let imageFetchLoad = fetchLoad ?? getFetchLoad(from: task) else {
+            return
+        }
+
+        imageFetchLoad.downloadTaskCount -= 1
+        if ignoreTaskCount || imageFetchLoad.downloadTaskCount == 0 {
+            task.internalTask.cancel()
+        }
+    }
+    
+    func cancel(_ task: RetrieveImageDownloadTask) {
+        barrierQueue.sync(flags: .barrier) { cancelTaskImpl(task) }
+    }
+    
+    /// Cancel all downloading tasks. It will trigger the completion handlers for all not-yet-finished
+    /// downloading tasks with an NSURLErrorCancelled error.
+    ///
+    /// If you need to only cancel a certain task, call `cancel()` on the `RetrieveImageDownloadTask`
+    /// returned by the downloading methods.
+    public func cancelAll() {
         barrierQueue.sync(flags: .barrier) {
-            if let URL = task.internalTask.originalRequest?.url, let imageFetchLoad = self.fetchLoads[URL] {
-                imageFetchLoad.downloadTaskCount -= 1
-                if imageFetchLoad.downloadTaskCount == 0 {
-                    task.internalTask.cancel()
-                }
+            fetchLoads.forEach { v in
+                let fetchLoad = v.value
+                guard let task = fetchLoad.downloadTask else { return }
+                cancelTaskImpl(task, fetchLoad: fetchLoad, ignoreTaskCount: true)
             }
         }
     }
@@ -421,7 +450,7 @@ extension ImageDownloader {
 /// If we use `ImageDownloader` as the session delegate, it will not be released.
 /// So we need an additional handler to break the retain cycle.
 // See https://github.com/onevcat/Kingfisher/issues/235
-class ImageDownloaderSessionHandler: NSObject, URLSessionDataDelegate, AuthenticationChallengeResponsable {
+final class ImageDownloaderSessionHandler: NSObject, URLSessionDataDelegate, AuthenticationChallengeResponsable {
     
     // The holder will keep downloader not released while a data task is being executed.
     // It will be set when the task started, and reset when the task finished.
@@ -566,7 +595,6 @@ class ImageDownloaderSessionHandler: NSObject, URLSessionDataDelegate, Authentic
                 let callbackQueue = options.callbackDispatchQueue
                 
                 let processor = options.processor
-                
                 var image = imageCache[processor.identifier]
                 if let data = data, image == nil {
                     image = processor.process(item: .data(data), options: options)
@@ -576,14 +604,17 @@ class ImageDownloaderSessionHandler: NSObject, URLSessionDataDelegate, Authentic
                 }
                 
                 if let image = image {
-                    
+
                     downloader.delegate?.imageDownloader(downloader, didDownload: image, for: url, with: task.response)
-                    
+
+                    let imageModifier = options.imageModifier
+                    let finalImage = imageModifier.modify(image)
+
                     if options.backgroundDecode {
-                        let decodedImage = image.kf.decoded
+                        let decodedImage = finalImage.kf.decoded
                         callbackQueue.safeAsync { completionHandler?(decodedImage, nil, url, data) }
                     } else {
-                        callbackQueue.safeAsync { completionHandler?(image, nil, url, data) }
+                        callbackQueue.safeAsync { completionHandler?(finalImage, nil, url, data) }
                     }
                     
                 } else {

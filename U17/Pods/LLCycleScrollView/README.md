@@ -29,11 +29,18 @@ Swift4 请使用1.4.x版本
 * 支持StoryBoard
 * 支持纯文本
 * 支持CustomPageControl位置设置
+* 支持协议
+
 
 ## Update
 
 版本信息 | 更新描述
 ----    |  ------
+1.4.8   | * fixed #37 'delegate' is inaccessible due to 'internal' protection level
+1.4.7   | * 修复反向滑动问题<br>修改纯文本下高度设置问题；fixed #37 'delegate' is inaccessible due to 'internal' protection level
+1.4.6   | * 新增协议回调方法<br>新增开启/关闭URL特殊字符处理<br>优化数量为0的计算控制
+1.4.5   | * 新增协议回调方法<br>新增开启/关闭URL特殊字符处理<br>优化数量为0的计算控制
+1.4.4   | * 修复：数据为空的时候的不能设置图片的显示mode<br>* 自定义PageControl图标<br>* 修复单张图滚动问题<br>* 修复infiniteLoop为false后的还可以滚动的逻辑问题
 1.4.3   | * 优化没有数据时候，标题背景的显示问题
 1.4.2   | * 增加容错率->titles不使用默认，赋值nil出错问题
 1.4.1   | * UPDATE
@@ -122,6 +129,7 @@ DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
 ## Future
 
 * 优化代码
+* 未来将计划创建新版本，从而使用上更简单明了
 
 ## Author
 

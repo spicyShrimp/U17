@@ -1,31 +1,31 @@
 PODS:
-  - Alamofire (4.5.1)
-  - EmptyDataSet-Swift (4.0.2)
-  - HandyJSON (4.0.0-beta.1)
+  - Alamofire (4.7.2)
+  - EmptyDataSet-Swift (4.0.4)
+  - HandyJSON (4.1.1)
   - HMSegmentedControl (1.5.4)
-  - IQKeyboardManagerSwift (5.0.6)
-  - Kingfisher (4.3.1)
-  - LLCycleScrollView (1.4.3):
+  - IQKeyboardManagerSwift (6.0.1)
+  - Kingfisher (4.7.0)
+  - LLCycleScrollView (1.4.8):
     - Kingfisher
   - MBProgressHUD (1.1.0)
-  - MJRefresh (3.1.15.1)
-  - Moya (10.0.1):
-    - Moya/Core (= 10.0.1)
-  - Moya/Core (10.0.1):
+  - MJRefresh (3.1.15.3)
+  - Moya (11.0.2):
+    - Moya/Core (= 11.0.2)
+  - Moya/Core (11.0.2):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
   - Result (3.2.4)
-  - Reusable (4.0.0):
-    - Reusable/Storyboard (= 4.0.0)
-    - Reusable/View (= 4.0.0)
-  - Reusable/Storyboard (4.0.0)
-  - Reusable/View (4.0.0)
+  - Reusable (4.0.2):
+    - Reusable/Storyboard (= 4.0.2)
+    - Reusable/View (= 4.0.2)
+  - Reusable/Storyboard (4.0.2)
+  - Reusable/View (4.0.2)
   - SnapKit (4.0.0)
   - Then (2.3.0)
 
 DEPENDENCIES:
   - EmptyDataSet-Swift
-  - HandyJSON (~> 4.0.0-beta.1)
+  - HandyJSON
   - HMSegmentedControl
   - IQKeyboardManagerSwift
   - Kingfisher
@@ -38,21 +38,21 @@ DEPENDENCIES:
   - Then
 
 SPEC CHECKSUMS:
-  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  EmptyDataSet-Swift: 6bac1f5e8885acf60967decbf9ec57f4ad293b42
-  HandyJSON: 428bb18e2c34c2a77361accebf90cf64e4f74118
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  EmptyDataSet-Swift: 935ce169c6d4abe371bbc5dd92bcf9ee4dddb1bd
+  HandyJSON: 3a3de917c4118767ffe41c29b5acba23409649f4
   HMSegmentedControl: b25bc4ec44766e073d62c473188fb354ee244b76
-  IQKeyboardManagerSwift: 02bfbb0dff71c66d0ab77d80d25dfce0c3717735
-  Kingfisher: 75541c4b62f02e1fde6f9772303de3d9ebe8f5b3
-  LLCycleScrollView: 7df4ac3c2ead3dbaa2ce2e5e569ec27029c8229a
+  IQKeyboardManagerSwift: 748d06e0f8134fc28934031e6377da3cf3d4f38c
+  Kingfisher: da6b005aa96d37698e3e4f1ccfe96a5b9bbf27d6
+  LLCycleScrollView: ba2f11e78a537cd3b36df58308822babbd41b202
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
-  MJRefresh: 5f8552bc25ca8751c010f621c1098dbdaacbccd6
-  Moya: 9e621707ff754eeb51ff3ec51a3d54e517c0733a
+  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
+  Moya: a725035953bc1c0eb1be505ab903984501d82440
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  Reusable: 98e5fff1e0e2e00872199699b276dde08ee56c07
+  Reusable: 584a5629747c52e0f6a77841b400dc2643f6fa0f
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
 
-PODFILE CHECKSUM: 2fb585e96a1ebf0a76e6f57899f2f6a17d86ec8c
+PODFILE CHECKSUM: 2bc68f0f660ae614b236d3999911a402d52e5830
 
 COCOAPODS: 1.4.0.beta.2

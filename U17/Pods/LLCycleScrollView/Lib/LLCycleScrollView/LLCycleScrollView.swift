@@ -15,12 +15,17 @@ public enum PageControlStyle {
     case fill
     case pill
     case snake
+    case image
 }
 
 public enum PageControlPosition {
     case center
     case left
     case right
+}
+
+@objc public protocol LLCycleScrollViewDelegate: class {
+    @objc func cycleScrollView(_ cycleScrollView: LLCycleScrollView, didSelectItemIndex index: NSInteger)
 }
 
 public typealias LLdidSelectItemAtIndexClosure = (NSInteger) -> Void
@@ -30,7 +35,8 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     open var autoScroll: Bool? = true {
         didSet {
             invalidateTimer()
-            if autoScroll! {
+            // 如果关闭的无限循环，则不进行计时器的操作，否则每次滚动到最后一张就不在进行了。
+            if autoScroll! && infiniteLoop! {
                 setupTimer()
             }
         }
@@ -148,6 +154,9 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         }
     }
     
+    // 开启/关闭URL特殊字符处理
+    open var isAddingPercentEncodingForURLString: Bool = false
+    
     // PageControl x轴文本间距
     open var titleLeading: CGFloat = 15
     
@@ -173,6 +182,21 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         }
     }
     
+    // 自定义pageControl图标
+    open var pageControlActiveImage: UIImage? = nil {
+        didSet {
+            setupPageControl()
+        }
+    }
+    
+    // 当前的pageControl图标
+    open var pageControlInActiveImage: UIImage? = nil {
+        didSet {
+            setupPageControl()
+        }
+    }
+    
+    
     // MARK: 数据源
     // ImagePaths
     open var imagePaths: Array<String> = [] {
@@ -180,16 +204,9 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
             totalItemsCount = infiniteLoop! ? imagePaths.count * 100 : imagePaths.count
             if imagePaths.count > 1 {
                 collectionView.isScrollEnabled = true
-                autoScroll = true
+                autoScroll = self.autoScroll!
             }else{
                 collectionView.isScrollEnabled = false
-            }
-            
-            // 计算最大扩展区大小
-            if scrollDirection == .horizontal {
-                maxSwipeSize = CGFloat(imagePaths.count) * collectionView.frame.width
-            }else{
-                maxSwipeSize = CGFloat(imagePaths.count) * collectionView.frame.height
             }
             
             setupPageControl()
@@ -230,6 +247,9 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     // 回调
     open var lldidSelectItemAtIndex: LLdidSelectItemAtIndexClosure? = nil
     
+    // Delegate
+    open weak var delegate: LLCycleScrollViewDelegate?
+    
     // MARK: Private
     // Identifier
     fileprivate let identifier = "LLCycleScrollViewCell"
@@ -258,6 +278,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     // 是否纯文本
     fileprivate var isOnlyTitle: Bool = false
     
+    
     // Cell Height
     fileprivate var cellHeight: CGFloat = 56
     
@@ -279,7 +300,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     fileprivate var coverViewImage: UIImage! = UIImage(named: "LLCycleScrollView.bundle/llplaceholder.png", in: Bundle(for: LLCycleScrollView.self), compatibleWith: nil)
     
     // MARK: Init
-    override public init(frame: CGRect) {
+    override internal init(frame: CGRect) {
         super.init(frame: frame)
         // setupMainView
         setupMainView()
@@ -319,10 +340,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         
         // Set isOnlyTitle
         llcycleScrollView.isOnlyTitle = true
-        
-        // Cell Height
-        llcycleScrollView.cellHeight = frame.size.height
-        
+
         // Titles Data
         if let titleList = titles, titleList.count > 0 {
             llcycleScrollView.titles = titleList
@@ -357,6 +375,9 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     
     // MARK: 添加Timer
     func setupTimer() {
+        // 仅一张图不进行滚动操纵
+        if self.imagePaths.count <= 1 { return }
+        
         timer = Timer.scheduledTimer(timeInterval: autoScrollTimeInterval as TimeInterval, target: self, selector: #selector(automaticScroll), userInfo: nil, repeats: true)
         RunLoop.main.add(timer!, forMode: .commonModes)
     }
@@ -375,6 +396,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         if pageControl != nil {
             pageControl?.removeFromSuperview()
         }
+        
         if customPageControl != nil {
             customPageControl?.removeFromSuperview()
         }
@@ -420,6 +442,23 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
             (customPageControl as! LLSnakePageControl).pageCount = self.imagePaths.count
             self.addSubview(customPageControl!)
         }
+        
+        if customPageControlStyle == .image {
+            pageControl = LLImagePageControl()
+            pageControl?.pageIndicatorTintColor = UIColor.clear
+            pageControl?.currentPageIndicatorTintColor = UIColor.clear
+            
+            if let activeImage = pageControlActiveImage {
+                (pageControl as? LLImagePageControl)?.dotActiveImage = activeImage
+            }
+            if let inActiveImage = pageControlInActiveImage {
+                (pageControl as? LLImagePageControl)?.dotInActiveImage = inActiveImage
+            }
+            
+            pageControl?.numberOfPages = self.imagePaths.count
+            self.addSubview(pageControl!)
+            pageControl?.isHidden = false
+        }
     }
     
     // MARK: layoutSubviews
@@ -427,10 +466,21 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         super.layoutSubviews()
         // CollectionView
         collectionView.frame = self.bounds
+        
+        // Cell Height
+        cellHeight = collectionView.frame.height
+        
+        // 计算最大扩展区大小
+        if scrollDirection == .horizontal {
+            maxSwipeSize = CGFloat(imagePaths.count) * collectionView.frame.width
+        }else{
+            maxSwipeSize = CGFloat(imagePaths.count) * collectionView.frame.height
+        }
+        
         // Cell Size
         flowLayout?.itemSize = self.frame.size
         // Page Frame
-        if customPageControlStyle == .none || customPageControlStyle == .system {
+        if customPageControlStyle == .none || customPageControlStyle == .system || customPageControlStyle == .image {
             if pageControlPosition == .center {
                 pageControl?.frame = CGRect.init(x: 0, y: self.ll_h-pageControlBottom, width: UIScreen.main.bounds.width, height: 10)
             }else{
@@ -500,7 +550,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     }
     
     func pageControlIndexWithCurrentCellIndex(index: NSInteger) -> (Int) {
-        return Int(index % imagePaths.count)
+        return imagePaths.count == 0 ? 0 : Int(index % imagePaths.count)
     }
     
     
@@ -527,20 +577,22 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
             let itemIndex = pageControlIndexWithCurrentCellIndex(index: indexPath.item)
             cell.title = titles[itemIndex]
         }else{
+            // Mode
+            if let imageViewContentMode = imageViewContentMode {
+                cell.imageView.contentMode = imageViewContentMode
+            }
+            
             // 0==count 占位图
             if imagePaths.count == 0 {
                 cell.imageView.image = coverViewImage
             }else{
                 let itemIndex = pageControlIndexWithCurrentCellIndex(index: indexPath.item)
                 let imagePath = imagePaths[itemIndex]
-                // Mode
-                if let imageViewContentMode = imageViewContentMode {
-                    cell.imageView.contentMode = imageViewContentMode
-                }
                 
                 // 根据imagePath，来判断是网络图片还是本地图
                 if imagePath.hasPrefix("http") {
-                    cell.imageView.kf.setImage(with: URL(string: imagePath), placeholder: placeHolderImage)
+                    let escapedString = imagePath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                    cell.imageView.kf.setImage(with: URL(string: isAddingPercentEncodingForURLString ? escapedString ?? imagePath : imagePath), placeholder: placeHolderImage)
                 }else{
                     if let image = UIImage.init(named: imagePath) {
                         cell.imageView.image = image;
@@ -564,6 +616,8 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let didSelectItemAtIndexPath = lldidSelectItemAtIndex {
             didSelectItemAtIndexPath(pageControlIndexWithCurrentCellIndex(index: indexPath.item))
+        }else if let delegate = delegate {
+            delegate.cycleScrollView(self, didSelectItemIndex: pageControlIndexWithCurrentCellIndex(index: indexPath.item))
         }
     }
     
@@ -571,7 +625,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if imagePaths.count == 0 { return }
         let indexOnPageControl = pageControlIndexWithCurrentCellIndex(index: currentIndex())
-        if customPageControlStyle == .none || customPageControlStyle == .system {
+        if customPageControlStyle == .none || customPageControlStyle == .system || customPageControlStyle == .image {
             pageControl?.currentPage = indexOnPageControl
         }else{
             var progress: CGFloat = 999

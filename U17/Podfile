@@ -8,7 +8,7 @@ target 'U17' do
 pod 'SnapKit'
 pod 'Then'
 pod 'Moya'
-pod 'HandyJSON', '~> 4.0.0-beta.1'
+pod 'HandyJSON'
 pod 'Kingfisher'
 pod 'Reusable'
 pod 'LLCycleScrollView'

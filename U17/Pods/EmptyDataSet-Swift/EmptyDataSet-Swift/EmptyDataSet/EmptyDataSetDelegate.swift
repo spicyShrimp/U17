@@ -14,7 +14,7 @@ import UIKit
 /// @discussion The delegate can adopt the DZNEmptyDataSetDelegate protocol. The delegate is not retained. All delegate methods are optional.
 ///
 /// @discussion All delegate methods are optional. Use this delegate for receiving action callbacks.
-public protocol EmptyDataSetDelegate: class {
+public protocol EmptyDataSetDelegate {
     
     /// Asks the delegate to know if the empty dataset should fade in when displayed. Default is true.
     ///
