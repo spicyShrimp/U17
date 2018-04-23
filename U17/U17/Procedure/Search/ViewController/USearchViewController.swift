@@ -192,7 +192,7 @@ extension USearchViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == historyTableView {
-            return section == 0 ? (searchHistory?.takeMax(5).count ?? 0) : 0
+            return section == 0 ? (searchHistory?.prefix(5).count ?? 0) : 0
         } else if tableView == searchTableView {
             return relative?.count ?? 0
         } else {

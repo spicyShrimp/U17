@@ -138,7 +138,7 @@ extension UBoutiqueListViewController: UCollectionViewSectionBackgroundLayoutDel
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let comicList = comicLists[section]
-        return comicList.comics?.takeMax(4).count ?? 0
+        return comicList.comics?.prefix(4).count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
