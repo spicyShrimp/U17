@@ -111,7 +111,7 @@ public class EmptyDataSetView: UIView {
         didSet {
             if let customView = customView {
                 customView.translatesAutoresizingMaskIntoConstraints = false
-                contentView.addSubview(customView)
+                self.addSubview(customView)
             }
         }
     }
@@ -291,8 +291,6 @@ public class EmptyDataSetView: UIView {
         }
         
     }
-    
-    
     
 }
 

@@ -53,7 +53,7 @@ public protocol EmptyDataSetSource {
     ///   - scrollView: A scrollView subclass object informing the data source.
     ///   - forState: The state that uses the specified title. The possible values are described in UIControlState.
     /// - Returns: An attributed string for the dataset button title, combining font, text color, text pararaph style, etc.
-    func buttonTitle(forEmptyDataSet scrollView: UIScrollView, for state: UIControlState) -> NSAttributedString?
+    func buttonTitle(forEmptyDataSet scrollView: UIScrollView, for state: UIControl.State) -> NSAttributedString?
     
     /// Asks the data source for the image to be used for the specified button state.
     /// This method will override buttonTitleForEmptyDataSet:forState: and present the image only without any text.
@@ -62,7 +62,7 @@ public protocol EmptyDataSetSource {
     ///   - scrollView: A scrollView subclass object informing the data source.
     ///   - forState: The state that uses the specified title. The possible values are described in UIControlState.
     /// - Returns: An image for the dataset button imageview.
-    func buttonImage(forEmptyDataSet scrollView: UIScrollView, for state: UIControlState) -> UIImage?
+    func buttonImage(forEmptyDataSet scrollView: UIScrollView, for state: UIControl.State) -> UIImage?
     
     /// Asks the data source for a background image to be used for the specified button state.
     /// There is no default style for this call.
@@ -71,7 +71,7 @@ public protocol EmptyDataSetSource {
     ///   - scrollView: A scrollView subclass informing the data source.
     ///   - forState: The state that uses the specified image. The values are described in UIControlState.
     /// - Returns: An attributed string for the dataset button title, combining font, text color, text pararaph style, etc.
-    func buttonBackgroundImage(forEmptyDataSet scrollView: UIScrollView, for state: UIControlState) -> UIImage?
+    func buttonBackgroundImage(forEmptyDataSet scrollView: UIScrollView, for state: UIControl.State) -> UIImage?
 
     /// Asks the data source for the background color of the dataset. Default is clear color.
     ///
@@ -123,15 +123,15 @@ public extension EmptyDataSetSource {
         return nil
     }
  
-    func buttonTitle(forEmptyDataSet scrollView: UIScrollView, for state: UIControlState) -> NSAttributedString? {
+    func buttonTitle(forEmptyDataSet scrollView: UIScrollView, for state: UIControl.State) -> NSAttributedString? {
         return nil
     }
     
-    func buttonImage(forEmptyDataSet scrollView: UIScrollView, for state: UIControlState) -> UIImage? {
+    func buttonImage(forEmptyDataSet scrollView: UIScrollView, for state: UIControl.State) -> UIImage? {
         return nil
     }
 
-    func buttonBackgroundImage(forEmptyDataSet scrollView: UIScrollView, for state: UIControlState) -> UIImage? {
+    func buttonBackgroundImage(forEmptyDataSet scrollView: UIScrollView, for state: UIControl.State) -> UIImage? {
         return nil
     }
     

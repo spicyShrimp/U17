@@ -129,6 +129,13 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
                 privateFixedSpaceBarButton = IQBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
             }
             privateFixedSpaceBarButton!.isSystemItem = true
+
+            if #available(iOS 10, *) {
+                privateFixedSpaceBarButton!.width = 6
+            } else {
+                privateFixedSpaceBarButton!.width = 20
+            }
+            
             return privateFixedSpaceBarButton!
         }
         
@@ -142,7 +149,8 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         super.init(frame: frame)
         
         sizeToFit()
-        autoresizingMask = UIViewAutoresizing.flexibleWidth
+        
+        autoresizingMask = .flexibleWidth
         self.isTranslucent = true
     }
     
@@ -151,7 +159,8 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         super.init(coder: aDecoder)
 
         sizeToFit()
-        autoresizingMask = UIViewAutoresizing.flexibleWidth
+
+        autoresizingMask = .flexibleWidth
         self.isTranslucent = true
     }
 

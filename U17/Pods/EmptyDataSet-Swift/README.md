@@ -1,5 +1,5 @@
 # EmptyDataSet-Swift
-![pod](https://img.shields.io/badge/pod-4.0.3-brightgreen.svg)
+![pod](https://img.shields.io/badge/pod-4.0.5-brightgreen.svg)
 ![iOS](https://img.shields.io/badge/iOS-8.0-green.svg)
 ![lisence](https://img.shields.io/badge/license-MIT-orange.svg)
 ![swift](https://img.shields.io/badge/swift-4.0-red.svg)
@@ -17,10 +17,15 @@
 ## CocoaPods
 ```
 use_frameworks!
-pod 'EmptyDataSet-Swift', '~> 4.0.3'
+pod 'EmptyDataSet-Swift', '~> 4.0.5'
 ```
 ## History
 **4.0.3:** Fix issues [#6](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/6)、[#7](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/7)
+
+**4.0.4:** Fix issues [#8](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/8)、[#9](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/9)、[#10](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/10).
+The problem that customView layout will be failed.
+
+**4.0.5:** Fix issues [#13](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/13)、[#14](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/14)
 
 ## Usage
 ### Basic 
@@ -176,28 +181,79 @@ tableView.emptyDataSetView { view in
 
 ```
 
-### CustomView
+### About CustomView
 **注意:** 通过 EmptyDataSetSource 设置了 CustomView 其他设置都会无效。通过链式方式设置 CustomView 其他控件的自动布局会无效。
 
->Set customView with EmptyDataSetSource, other setting will be invalid.Set customView with Extensions, other autolayout will be invalid.
+>Set customView by using EmptyDataSetSource, other setting will be invalid.Set customView by using Extensions, other autolayout will be invalid.
 
+CustomView 显示的规则是：
+
+1. 居中显示
+2. 垂直偏移量根据 EmptyDataSetSource 中 verticalOffset 设置
+3. 长宽以 CustomView 实际值为准。但是 CustomView 是 UILabel 这类 UIView，那么如果未设置 frame 的话会根据内容自动布局合适的长宽
+
+>Rule for displaying CustomView
+>1. CustomView will Display in the center of tableView
+>2. The verticalOffset of customView can be setted by ```func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat```
+>3. The width and height is equel to the frame of customView.But if the customView is UILabel and it's frame is CGRect.zero,it's width and height will be autolayout by it's content.
+
+**Example:**
+
+#### Rule 1
 ```swift
 func customView(forEmptyDataSet scrollView: UIScrollView) -> UIView? {
-    let view = UIView()
-    view.frame = CGRect.init(x: 0, y: 100, width: UIScreen.main.bounds.width, height: 100)
-    view.backgroundColor = UIColor.lightGray
-
-    let label = UILabel()
-    label.frame = CGRect.init(x: 0, y: 10, width: UIScreen.main.bounds.width, height: 40)
-    label.text = "Test CustomView"
-
-    view.addSubview(label)
-
+    let view = CustomView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
     return view
+}
+```
+```swift
+tableView.emptyDataSetView { [weak self] view in
+    view.customView(CustomView(frame: CGRect(x: 0, y: 0, width: 150, height: 150)))
 }
 ```
 上述代码显示效果如下:
 
->will show as follows
+>above code will show as follows
 
-![CustomScreenShot](https://github.com/Xiaoye220/EmptyDataSet-Swift/blob/master/EmptyDataSet-Swift/ScreenShot/CustomViewScreenShot.png)
+![CustomScreenShot_1](https://github.com/Xiaoye220/EmptyDataSet-Swift/blob/master/EmptyDataSet-Swift/ScreenShot/CustomViewScreenShot_1.png)
+
+#### Rule 2
+
+```swift
+func customView(forEmptyDataSet scrollView: UIScrollView) -> UIView? {
+    let view = CustomView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+    return view
+}
+func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat {
+    return 200
+}
+```
+```swift
+tableView.emptyDataSetView { [weak self] view in
+    view.customView(CustomView(frame: CGRect(x: 0, y: 0, width: 150, height: 150)))
+        .verticalOffset(200)
+}
+```
+
+上述代码显示效果如下:
+
+>above code will show as follows
+
+![CustomScreenShot_2](https://github.com/Xiaoye220/EmptyDataSet-Swift/blob/master/EmptyDataSet-Swift/ScreenShot/CustomViewScreenShot_2.png)
+
+#### Rule 3
+
+```swift
+func customView(forEmptyDataSet scrollView: UIScrollView) -> UIView? {
+    let label = UILabel()
+    label.text = "CustomView"
+    label.backgroundColor = UIColor.red
+    return label
+}
+```
+
+上述代码显示效果如下:
+
+>above code will show as follows
+
+![CustomScreenShot_3](https://github.com/Xiaoye220/EmptyDataSet-Swift/blob/master/EmptyDataSet-Swift/ScreenShot/CustomViewScreenShot_3.png)
