@@ -214,7 +214,7 @@ class UReadViewController: UBaseViewController {
     }
     
     override var prefersStatusBarHidden: Bool {
-        return UIScreen.main.bounds.height == 812 ? false : true
+        return isIphoneX ? false : true
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

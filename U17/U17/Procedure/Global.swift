@@ -43,6 +43,12 @@ var topVC: UIViewController? {
     return resultVC
 }
 
+var isIphoneX: Bool {
+    return UI_USER_INTERFACE_IDIOM() == .phone
+        && (max(UIScreen.main.bounds.height, UIScreen.main.bounds.width) == 812
+        || max(UIScreen.main.bounds.height, UIScreen.main.bounds.width) == 896)
+}
+
 private  func _topVC(_ vc: UIViewController?) -> UIViewController? {
     if vc is UINavigationController {
         return _topVC((vc as? UINavigationController)?.topViewController)
