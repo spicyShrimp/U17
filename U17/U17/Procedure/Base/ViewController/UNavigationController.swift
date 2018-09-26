@@ -37,7 +37,6 @@ extension UNavigationController: UIGestureRecognizerDelegate {
         let isLeftToRight = UIApplication.shared.userInterfaceLayoutDirection == .leftToRight
         guard let ges = gestureRecognizer as? UIPanGestureRecognizer else { return true }
         if ges.translation(in: gestureRecognizer.view).x * (isLeftToRight ? 1 : -1) <= 0
-            || value(forKey: "_isTransitioning") as! Bool
             || disablePopGesture {
             return false
         }
