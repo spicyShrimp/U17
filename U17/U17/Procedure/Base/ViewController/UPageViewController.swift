@@ -68,7 +68,7 @@ class UPageViewController: UBaseViewController {
         switch pageStyle {
         case .none:
             pageVC.view.snp.makeConstraints { $0.edges.equalToSuperview() }
-        case .navgationBarSegment:
+        case .navgationBarSegment?:
             segment.backgroundColor = UIColor.clear
             segment.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5),
                                            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20)]
@@ -80,7 +80,7 @@ class UPageViewController: UBaseViewController {
             segment.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 120, height: 40)
             
             pageVC.view.snp.makeConstraints { $0.edges.equalToSuperview() }
-        case .topTabBar:
+        case .topTabBar?:
             segment.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black,
                                            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)]
             segment.selectedTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor(r: 127, g: 221, b: 146),
