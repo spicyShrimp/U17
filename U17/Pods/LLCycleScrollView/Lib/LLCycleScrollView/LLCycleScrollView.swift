@@ -44,14 +44,17 @@ open class LLCycleScrollView: UIView {
             totalItemsCount = infiniteLoop ? imagePaths.count * 100 : imagePaths.count
             if imagePaths.count > 1 {
                 collectionView.isScrollEnabled = true
+                if autoScroll {
+                    setupTimer()
+                }
             }else{
                 collectionView.isScrollEnabled = false
                 invalidateTimer()
             }
             
-            setupPageControl()
-            
             collectionView.reloadData()
+            
+            setupPageControl()
         }
     }
     
@@ -481,6 +484,7 @@ extension LLCycleScrollView {
     
     // MARK: 添加PageControl
     func setupPageControl() {
+        
         // 重新添加
         if pageControl != nil {
             pageControl?.removeFromSuperview()
@@ -552,6 +556,8 @@ extension LLCycleScrollView {
             self.addSubview(pageControl!)
             pageControl?.isHidden = false
         }
+        
+        calcScrollViewToScroll(collectionView)
     }
 }
 
@@ -637,6 +643,8 @@ extension LLCycleScrollView {
     func setupTimer() {
         // 仅一张图不进行滚动操纵
         if self.imagePaths.count <= 1 { return }
+        
+        invalidateTimer()
         
         let l_dtimer = DispatchSource.makeTimerSource()
         l_dtimer.schedule(deadline: .now()+autoScrollTimeInterval, repeating: autoScrollTimeInterval)
@@ -790,6 +798,40 @@ extension LLCycleScrollView: UICollectionViewDelegate, UICollectionViewDataSourc
 extension LLCycleScrollView: UIScrollViewDelegate {
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if imagePaths.count == 0 { return }
+        calcScrollViewToScroll(scrollView)
+    }
+    
+    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if autoScroll {
+            invalidateTimer()
+        }
+    }
+    
+    open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if imagePaths.count == 0 { return }
+        let indexOnPageControl = pageControlIndexWithCurrentCellIndex(index: currentIndex())
+        
+        // 滚动后的回调协议
+        delegate?.cycleScrollView?(self, scrollTo: indexOnPageControl)
+        
+        if autoScroll {
+            setupTimer()
+        }
+    }
+    
+    open func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        if imagePaths.count == 0 { return }
+        let indexOnPageControl = pageControlIndexWithCurrentCellIndex(index: currentIndex())
+        
+        // 滚动后的回调协议
+        delegate?.cycleScrollView?(self, scrollTo: indexOnPageControl)
+        
+        if dtimer == nil && autoScroll {
+            setupTimer()
+        }
+    }
+    
+    fileprivate func calcScrollViewToScroll(_ scrollView: UIScrollView) {
         let indexOnPageControl = pageControlIndexWithCurrentCellIndex(index: currentIndex())
         if customPageControlStyle == .none || customPageControlStyle == .system || customPageControlStyle == .image {
             pageControl?.currentPage = indexOnPageControl
@@ -839,36 +881,6 @@ extension LLCycleScrollView: UIScrollViewDelegate {
             }else if customPageControlStyle == .snake {
                 (customPageControl as? LLSnakePageControl)?.progress = progress
             }
-        }
-    }
-    
-    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if autoScroll {
-            invalidateTimer()
-        }
-    }
-    
-    open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if imagePaths.count == 0 { return }
-        let indexOnPageControl = pageControlIndexWithCurrentCellIndex(index: currentIndex())
-        
-        // 滚动后的回调协议
-        delegate?.cycleScrollView?(self, scrollTo: indexOnPageControl)
-        
-        if autoScroll {
-            setupTimer()
-        }
-    }
-    
-    open func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        if imagePaths.count == 0 { return }
-        let indexOnPageControl = pageControlIndexWithCurrentCellIndex(index: currentIndex())
-        
-        // 滚动后的回调协议
-        delegate?.cycleScrollView?(self, scrollTo: indexOnPageControl)
-        
-        if dtimer == nil && autoScroll {
-            setupTimer()
         }
     }
 }

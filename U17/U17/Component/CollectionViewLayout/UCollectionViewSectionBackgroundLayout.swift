@@ -119,7 +119,7 @@ class UCollectionViewSectionBackgroundLayout: UICollectionViewFlowLayout {
             } else {
                 sectionFrame.origin.y -= headLayout?.frame.height ?? 0
                 sectionFrame.size.width = collectionView?.frame.width ?? 0
-                sectionFrame.size.height += inset.top + inset.bottom + (headLayout?.frame.height ?? 0) + (footLayout?.frame.height ?? 0)
+                sectionFrame.size.height = sectionFrame.size.height + inset.top + inset.bottom + (headLayout?.frame.height ?? 0) + (footLayout?.frame.height ?? 0)
             }
             
             let attr = UCollectionViewLayoutAttributes(forDecorationViewOfKind: SectionBackground, with: IndexPath(item: 0, section: section))

@@ -27,7 +27,7 @@ import UIKit
 private var kIQLayoutGuideConstraint = "kIQLayoutGuideConstraint"
 
 
-public extension UIViewController {
+@objc public extension UIViewController {
 
     /**
     To set customized distance from keyboard for textField/textView. Can't be less than zero
@@ -35,7 +35,7 @@ public extension UIViewController {
      @deprecated    Due to change in core-logic of handling distance between textField and keyboard distance, this layout contraint tweak is no longer needed and things will just work out of the box regardless of constraint pinned with safeArea/layoutGuide/superview
     */
     @available(*,deprecated, message: "Due to change in core-logic of handling distance between textField and keyboard distance, this layout contraint tweak is no longer needed and things will just work out of the box regardless of constraint pinned with safeArea/layoutGuide/superview.")
-    @IBOutlet @objc public var IQLayoutGuideConstraint: NSLayoutConstraint? {
+    @IBOutlet @objc var IQLayoutGuideConstraint: NSLayoutConstraint? {
         get {
             
             return objc_getAssociatedObject(self, &kIQLayoutGuideConstraint) as? NSLayoutConstraint

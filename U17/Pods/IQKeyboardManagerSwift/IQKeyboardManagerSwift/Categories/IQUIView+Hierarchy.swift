@@ -27,7 +27,7 @@ import UIKit
 /**
 UIView hierarchy category.
 */
-public extension UIView {
+@objc public extension UIView {
     
     ///----------------------
     /// MARK: viewControllers
@@ -36,7 +36,7 @@ public extension UIView {
     /**
     Returns the UIViewController object that manages the receiver.
     */
-    @objc public func viewContainingController()->UIViewController? {
+    @objc func viewContainingController()->UIViewController? {
         
         var nextResponder: UIResponder? = self
         
@@ -55,7 +55,7 @@ public extension UIView {
     /**
     Returns the topMost UIViewController object in hierarchy.
     */
-    @objc public func topMostController()->UIViewController? {
+    @objc func topMostController()->UIViewController? {
         
         var controllersHierarchy = [UIViewController]()
 
@@ -89,7 +89,7 @@ public extension UIView {
     /**
      Returns the UIViewController object that is actually the parent of this object. Most of the time it's the viewController object which actually contains it, but result may be different if it's viewController is added as childViewController of another viewController.
      */
-    @objc public func parentContainerViewController()->UIViewController? {
+    @objc func parentContainerViewController()->UIViewController? {
         
         var matchController = viewContainingController()
         var parentContainerViewController : UIViewController?
@@ -148,7 +148,7 @@ public extension UIView {
     /**
     Returns the superView of provided class type.
     */
-    @objc public func superviewOfClassType(_ classType:UIView.Type)->UIView? {
+    @objc func superviewOfClassType(_ classType:UIView.Type)->UIView? {
 
         var superView = superview
         
@@ -257,7 +257,7 @@ public extension UIView {
         }
         
         if _IQcanBecomeFirstResponder == true {
-            _IQcanBecomeFirstResponder = isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && searchBar() == nil
+            _IQcanBecomeFirstResponder = isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && textFieldSearchBar() == nil
         }
 
         return _IQcanBecomeFirstResponder
@@ -270,7 +270,7 @@ public extension UIView {
     /**
      Returns searchBar if receiver object is UISearchBarTextField, otherwise return nil.
     */
-    internal func searchBar()-> UISearchBar? {
+    internal func textFieldSearchBar()-> UISearchBar? {
         
         var responder : UIResponder? = self.next
         
@@ -322,7 +322,7 @@ public extension UIView {
     
 }
 
-public extension UIViewController {
+@objc public extension UIViewController {
 
     func parentIQContainerViewController() -> UIViewController? {
         return self

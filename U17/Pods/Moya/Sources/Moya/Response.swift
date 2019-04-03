@@ -48,7 +48,7 @@ public extension Response {
         - statusCodes: The range of acceptable status codes.
      - throws: `MoyaError.statusCode` when others are encountered.
     */
-    public func filter(statusCodes: ClosedRange<Int>) throws -> Response {
+    public func filter<R: RangeExpression>(statusCodes: R) throws -> Response where R.Bound == Int {
         guard statusCodes.contains(statusCode) else {
             throw MoyaError.statusCode(self)
         }
@@ -84,7 +84,7 @@ public extension Response {
         return try filter(statusCodes: 200...399)
     }
 
-    /// Maps data received from the signal into a UIImage.
+    /// Maps data received from the signal into an Image.
     func mapImage() throws -> Image {
         guard let image = Image(data: data) else {
             throw MoyaError.imageMapping(self)
