@@ -82,7 +82,6 @@
 		566B6B0B1FCFA878003E0CA7 /* UWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6AD11FCFA878003E0CA7 /* UWebViewController.swift */; };
 		566B6B171FCFA899003E0CA7 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6B0D1FCFA899003E0CA7 /* ArrayExtensions.swift */; };
 		566B6B181FCFA899003E0CA7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6B0E1FCFA899003E0CA7 /* UIColorExtension.swift */; };
-		566B6B191FCFA899003E0CA7 /* UIBarButtonItemFixSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6B0F1FCFA899003E0CA7 /* UIBarButtonItemFixSpace.swift */; };
 		566B6B1A1FCFA899003E0CA7 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6B101FCFA899003E0CA7 /* UIViewExtension.swift */; };
 		566B6B1B1FCFA899003E0CA7 /* UIBarButtonItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6B111FCFA899003E0CA7 /* UIBarButtonItemExtension.swift */; };
 		566B6B1C1FCFA899003E0CA7 /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6B121FCFA899003E0CA7 /* UIDeviceExtension.swift */; };
@@ -171,7 +170,6 @@
 		566B6AD11FCFA878003E0CA7 /* UWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UWebViewController.swift; sourceTree = "<group>"; };
 		566B6B0D1FCFA899003E0CA7 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		566B6B0E1FCFA899003E0CA7 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		566B6B0F1FCFA899003E0CA7 /* UIBarButtonItemFixSpace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemFixSpace.swift; sourceTree = "<group>"; };
 		566B6B101FCFA899003E0CA7 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		566B6B111FCFA899003E0CA7 /* UIBarButtonItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtension.swift; sourceTree = "<group>"; };
 		566B6B121FCFA899003E0CA7 /* UIDeviceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
@@ -249,7 +247,6 @@
 			isa = PBXGroup;
 			children = (
 				56BAA6C71FD7815C005D47E1 /* HairPowder */,
-				56BAA6C61FD78132005D47E1 /* BarButtonItem */,
 				566B6A671FCFA686003E0CA7 /* CollectionViewLayout */,
 				566B6A6A1FCFA686003E0CA7 /* Refresh */,
 				566B6A6C1FCFA686003E0CA7 /* EmptyDataSet */,
@@ -561,14 +558,6 @@
 			path = API;
 			sourceTree = "<group>";
 		};
-		56BAA6C61FD78132005D47E1 /* BarButtonItem */ = {
-			isa = PBXGroup;
-			children = (
-				566B6B0F1FCFA899003E0CA7 /* UIBarButtonItemFixSpace.swift */,
-			);
-			path = BarButtonItem;
-			sourceTree = "<group>";
-		};
 		56BAA6C71FD7815C005D47E1 /* HairPowder */ = {
 			isa = PBXGroup;
 			children = (
@@ -696,6 +685,7 @@
 				"${BUILT_PRODUCTS_DIR}/Reusable/Reusable.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
+				"${BUILT_PRODUCTS_DIR}/UINavigation-SXFixSpace-Swift/UINavigation_SXFixSpace_Swift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -713,6 +703,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reusable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UINavigation_SXFixSpace_Swift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -768,7 +759,6 @@
 				566B6A781FCFA686003E0CA7 /* UCollectionViewAlignedLayout.swift in Sources */,
 				566B6B1C1FCFA899003E0CA7 /* UIDeviceExtension.swift in Sources */,
 				566B6AF61FCFA878003E0CA7 /* UReadViewController.swift in Sources */,
-				566B6B191FCFA899003E0CA7 /* UIBarButtonItemFixSpace.swift in Sources */,
 				566B6A7C1FCFA686003E0CA7 /* ConstraintArray+Extensions.swift in Sources */,
 				566B6AE91FCFA878003E0CA7 /* UChapterCCell.swift in Sources */,
 				566B6B201FCFA899003E0CA7 /* DictionaryExtension.swift in Sources */,

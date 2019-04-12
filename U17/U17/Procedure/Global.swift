@@ -112,40 +112,4 @@ extension UICollectionView {
     }
 }
 
-//MARK: swizzledMethod
-extension NSObject {
-    
-    static func swizzleMethod(_ cls: AnyClass, originalSelector: Selector, swizzleSelector: Selector){
-        
-        let originalMethod = class_getInstanceMethod(cls, originalSelector)!
-        let swizzledMethod = class_getInstanceMethod(cls, swizzleSelector)!
-        let didAddMethod = class_addMethod(cls,
-                                           originalSelector,
-                                           method_getImplementation(swizzledMethod),
-                                           method_getTypeEncoding(swizzledMethod))
-        if didAddMethod {
-            class_replaceMethod(cls,
-                                swizzleSelector,
-                                method_getImplementation(originalMethod),
-                                method_getTypeEncoding(originalMethod))
-        } else {
-            method_exchangeImplementations(originalMethod, swizzledMethod)
-        }
-    }
-}
-
-extension UIApplication {
-    
-    private static let u_initialize: Void = {
-        UINavigationController.u_initialize
-        if #available(iOS 11.0, *) {
-            UINavigationBar.u_initialize
-        }
-    }()
-    
-    open override var next: UIResponder? {
-        UIApplication.u_initialize
-        return super.next
-    }
-}
 
