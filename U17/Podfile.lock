@@ -21,6 +21,8 @@ PODS:
   - Reusable/Storyboard (4.0.5)
   - Reusable/View (4.0.5)
   - SnapKit (4.2.0)
+  - SnapKitExtend (1.0.6):
+    - SnapKit
   - Then (2.4.0)
   - UINavigation-SXFixSpace-Swift (1.1.4)
 
@@ -35,7 +37,7 @@ DEPENDENCIES:
   - MJRefresh
   - Moya
   - Reusable
-  - SnapKit
+  - SnapKitExtend
   - Then
   - UINavigation-SXFixSpace-Swift
 
@@ -54,6 +56,7 @@ SPEC REPOS:
     - Result
     - Reusable
     - SnapKit
+    - SnapKitExtend
     - Then
     - UINavigation-SXFixSpace-Swift
 
@@ -71,9 +74,10 @@ SPEC CHECKSUMS:
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   Reusable: 188be1a54ac0691bc66e5bb24ec6eb91971b315b
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SnapKitExtend: 8a018ef80fd8e2658f5436e8722592ad05652f5b
   Then: 71866660c7af35a7343831f7668e7cd2b62ee0f2
   UINavigation-SXFixSpace-Swift: 0db428978f5a10ecd4e1638457de57dd6470af68
 
-PODFILE CHECKSUM: 7f57270dbe70eb6096ff63c2c95ff758a1b2fe03
+PODFILE CHECKSUM: 3e8f9ceb22548966de72c4c3bab3303da0e8e60d
 
 COCOAPODS: 1.6.0

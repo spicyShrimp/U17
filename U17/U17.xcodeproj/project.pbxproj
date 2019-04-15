@@ -15,8 +15,6 @@
 		566B6A791FCFA686003E0CA7 /* UCollectionViewSectionBackgroundLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A691FCFA686003E0CA7 /* UCollectionViewSectionBackgroundLayout.swift */; };
 		566B6A7A1FCFA686003E0CA7 /* URefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A6B1FCFA686003E0CA7 /* URefresh.swift */; };
 		566B6A7B1FCFA686003E0CA7 /* UEmptyDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A6D1FCFA686003E0CA7 /* UEmptyDataSet.swift */; };
-		566B6A7C1FCFA686003E0CA7 /* ConstraintArray+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A6F1FCFA686003E0CA7 /* ConstraintArray+Extensions.swift */; };
-		566B6A7D1FCFA686003E0CA7 /* ConstraintArrayDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A701FCFA686003E0CA7 /* ConstraintArrayDSL.swift */; };
 		566B6A7E1FCFA686003E0CA7 /* ParallaxHeaderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A721FCFA686003E0CA7 /* ParallaxHeaderMode.swift */; };
 		566B6A7F1FCFA686003E0CA7 /* UIScrollView+ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A731FCFA686003E0CA7 /* UIScrollView+ParallaxHeader.swift */; };
 		566B6A801FCFA686003E0CA7 /* ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A741FCFA686003E0CA7 /* ParallaxHeader.swift */; };
@@ -103,8 +101,6 @@
 		566B6A691FCFA686003E0CA7 /* UCollectionViewSectionBackgroundLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UCollectionViewSectionBackgroundLayout.swift; sourceTree = "<group>"; };
 		566B6A6B1FCFA686003E0CA7 /* URefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URefresh.swift; sourceTree = "<group>"; };
 		566B6A6D1FCFA686003E0CA7 /* UEmptyDataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UEmptyDataSet.swift; sourceTree = "<group>"; };
-		566B6A6F1FCFA686003E0CA7 /* ConstraintArray+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConstraintArray+Extensions.swift"; sourceTree = "<group>"; };
-		566B6A701FCFA686003E0CA7 /* ConstraintArrayDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintArrayDSL.swift; sourceTree = "<group>"; };
 		566B6A721FCFA686003E0CA7 /* ParallaxHeaderMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeaderMode.swift; sourceTree = "<group>"; };
 		566B6A731FCFA686003E0CA7 /* UIScrollView+ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ParallaxHeader.swift"; sourceTree = "<group>"; };
 		566B6A741FCFA686003E0CA7 /* ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeader.swift; sourceTree = "<group>"; };
@@ -250,7 +246,6 @@
 				566B6A671FCFA686003E0CA7 /* CollectionViewLayout */,
 				566B6A6A1FCFA686003E0CA7 /* Refresh */,
 				566B6A6C1FCFA686003E0CA7 /* EmptyDataSet */,
-				566B6A6E1FCFA686003E0CA7 /* SnapKitExtension */,
 				566B6A711FCFA686003E0CA7 /* ParallaxHeader */,
 				566B6A761FCFA686003E0CA7 /* NoticeBar */,
 			);
@@ -280,15 +275,6 @@
 				566B6A6D1FCFA686003E0CA7 /* UEmptyDataSet.swift */,
 			);
 			path = EmptyDataSet;
-			sourceTree = "<group>";
-		};
-		566B6A6E1FCFA686003E0CA7 /* SnapKitExtension */ = {
-			isa = PBXGroup;
-			children = (
-				566B6A6F1FCFA686003E0CA7 /* ConstraintArray+Extensions.swift */,
-				566B6A701FCFA686003E0CA7 /* ConstraintArrayDSL.swift */,
-			);
-			path = SnapKitExtension;
 			sourceTree = "<group>";
 		};
 		566B6A711FCFA686003E0CA7 /* ParallaxHeader */ = {
@@ -684,6 +670,7 @@
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/Reusable/Reusable.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKitExtend/SnapKitExtend.framework",
 				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
 				"${BUILT_PRODUCTS_DIR}/UINavigation-SXFixSpace-Swift/UINavigation_SXFixSpace_Swift.framework",
 			);
@@ -702,6 +689,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reusable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKitExtend.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UINavigation_SXFixSpace_Swift.framework",
 			);
@@ -759,7 +747,6 @@
 				566B6A781FCFA686003E0CA7 /* UCollectionViewAlignedLayout.swift in Sources */,
 				566B6B1C1FCFA899003E0CA7 /* UIDeviceExtension.swift in Sources */,
 				566B6AF61FCFA878003E0CA7 /* UReadViewController.swift in Sources */,
-				566B6A7C1FCFA686003E0CA7 /* ConstraintArray+Extensions.swift in Sources */,
 				566B6AE91FCFA878003E0CA7 /* UChapterCCell.swift in Sources */,
 				566B6B201FCFA899003E0CA7 /* DictionaryExtension.swift in Sources */,
 				566B6B181FCFA899003E0CA7 /* UIColorExtension.swift in Sources */,
@@ -791,7 +778,6 @@
 				566B6AD51FCFA878003E0CA7 /* UComicCCell.swift in Sources */,
 				566B6B011FCFA878003E0CA7 /* UDownloadListViewController.swift in Sources */,
 				566B6A801FCFA686003E0CA7 /* ParallaxHeader.swift in Sources */,
-				566B6A7D1FCFA686003E0CA7 /* ConstraintArrayDSL.swift in Sources */,
 				566B6ADF1FCFA878003E0CA7 /* URankListViewController.swift in Sources */,
 				566B6AD71FCFA878003E0CA7 /* UBoardCCell.swift in Sources */,
 				566B6AD31FCFA878003E0CA7 /* URankTCell.swift in Sources */,
