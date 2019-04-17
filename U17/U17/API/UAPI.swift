@@ -106,8 +106,6 @@ extension UApi: TargetType {
             parmeters["argCon"] = argCon
             parmeters["page"] = max(1, page)
             
-        case .cateList: break
-            
         case .comicList(let argCon, let argName, let argValue, let page):
             parmeters["argCon"] = argCon
             if argName.count > 0 { parmeters["argName"] = argName }
