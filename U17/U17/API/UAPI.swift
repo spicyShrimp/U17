@@ -59,9 +59,6 @@ enum UApi {
 }
 
 extension UApi: TargetType {
-    private struct UApiKey {
-        static var key = "fabe6953ce6a1b8738bd2cabebf893a472d2b6274ef7ef6f6a5dc7171e5cafb14933ae65c70bceb97e0e9d47af6324d50394ba70c1bb462e0ed18b88b26095a82be87bc9eddf8e548a2a3859274b25bd0ecfce13e81f8317cfafa822d8ee486fe2c43e7acd93e9f19fdae5c628266dc4762060f6026c5ca83e865844fc6beea59822ed4a70f5288c25edb1367700ebf5c78a27f5cce53036f1dac4a776588cd890cd54f9e5a7adcaeec340c7a69cd986:::open"
-    }
     
     var baseURL: URL { return URL(string: "http://app.u17.com/v3/appV3_3/ios/phone")! }
     
@@ -93,12 +90,7 @@ extension UApi: TargetType {
     
     var method: Moya.Method { return .get }
     var task: Task {
-        var parmeters = ["time": Int32(Date().timeIntervalSince1970),
-                         "device_id": UIDevice.current.identifierForVendor!.uuidString,
-                         "key": UApiKey.key,
-                         "model": UIDevice.current.modelName,
-                         "target": "U17_3.0",
-                         "version": Bundle.main.infoDictionary!["CFBundleShortVersionString"]!]
+        var parmeters: [String : Any] = [:]
         switch self {
         case .searchRelative(let inputText):
             parmeters["inputText"] = inputText
@@ -109,14 +101,12 @@ extension UApi: TargetType {
             
         case .boutiqueList(let sexType):
             parmeters["sexType"] = sexType
-            parmeters["v"] = 3320101
             
         case .special(let argCon,let page):
             parmeters["argCon"] = argCon
             parmeters["page"] = max(1, page)
             
-        case .cateList:
-            parmeters["v"] = 2
+        case .cateList: break
             
         case .comicList(let argCon, let argName, let argValue, let page):
             parmeters["argCon"] = argCon
@@ -127,7 +117,6 @@ extension UApi: TargetType {
         case .detailStatic(let comicid),
              .detailRealtime(let comicid):
             parmeters["comicid"] = comicid
-            parmeters["v"] = 3320101
             
         case .commentList(let object_id, let thread_id, let page):
             parmeters["object_id"] = object_id
