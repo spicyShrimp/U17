@@ -11,21 +11,21 @@ import UIKit
 
 class URankTCell: UBaseTableViewCell {
     
-    private lazy var iconView: UIImageView = {
+    lazy var iconView: UIImageView = {
         let iw = UIImageView()
         iw.contentMode = .scaleAspectFill
         iw.clipsToBounds = true
         return iw
     }()
     
-    private lazy var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let tl = UILabel()
         tl.textColor = UIColor.black
         tl.font = UIFont.systemFont(ofSize: 18)
         return tl
     }()
     
-    private lazy var descLabel: UILabel = {
+    lazy var descLabel: UILabel = {
         let dl = UILabel()
         dl.textColor = UIColor.gray
         dl.numberOfLines = 0

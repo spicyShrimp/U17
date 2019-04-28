@@ -157,7 +157,7 @@ extension MoyaProvider {
                 completion(nil)
                 return
             }
-            completion(returnData?.data?.returnData)
+            completion(returnData.data?.returnData)
         })
     }
 }

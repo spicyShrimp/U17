@@ -79,7 +79,7 @@ extension Kingfisher where Base: ImageView {
 
 extension Kingfisher where Base: UIButton {
     @discardableResult
-    public func setImage(urlString: String?, for state: UIControlState, placeholder: UIImage? = UIImage(named: "normal_placeholder_h")) -> RetrieveImageTask {
+    public func setImage(urlString: String?, for state: UIControl.State, placeholder: UIImage? = UIImage(named: "normal_placeholder_h")) -> RetrieveImageTask {
         return setImage(with: URL(string: urlString ?? ""),
                         for: state,
                         placeholder: placeholder,

@@ -22,8 +22,8 @@ class UCateListViewController: UBaseViewController {
         sn.layer.cornerRadius = 15
         sn.setTitleColor(.white, for: .normal)
         sn.setImage(UIImage(named: "nav_search")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        sn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0)
-        sn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5)
+        sn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
+        sn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
         sn.addTarget(self, action:#selector(searchAction), for: .touchUpInside)
         return sn
     }()
@@ -113,7 +113,7 @@ extension UCateListViewController: UICollectionViewDelegateFlowLayout, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(10, 10, section == 0 ? 0 : 10, 10)
+        return UIEdgeInsets(top: 10, left: 10, bottom: section == 0 ? 0 : 10, right: 10)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

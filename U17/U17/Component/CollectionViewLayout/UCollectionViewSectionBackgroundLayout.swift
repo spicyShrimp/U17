@@ -109,8 +109,8 @@ class UCollectionViewSectionBackgroundLayout: UICollectionViewFlowLayout {
             sectionFrame.origin.x = inset.left
             sectionFrame.origin.y -= inset.top
             
-            let headLayout = layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: indexPath)
-            let footLayout = layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionFooter, at: indexPath)
+            let headLayout = layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath)
+            let footLayout = layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, at: indexPath)
             
             if self.scrollDirection == .horizontal {
                 sectionFrame.origin.y -= headLayout?.frame.height ?? 0

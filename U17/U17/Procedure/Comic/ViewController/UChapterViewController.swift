@@ -19,7 +19,7 @@ class UChapterViewController: UBaseViewController {
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsetsMake(0, 10, 10, 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 10
         layout.itemSize = CGSize(width: floor((screenWidth - 30) / 2), height: 40)
@@ -28,7 +28,7 @@ class UChapterViewController: UBaseViewController {
         cw.delegate = self
         cw.dataSource = self
         cw.alwaysBounceVertical = true
-        cw.register(supplementaryViewType: UChapterCHead.self, ofKind: UICollectionElementKindSectionHeader)
+        cw.register(supplementaryViewType: UChapterCHead.self, ofKind: UICollectionView.elementKindSectionHeader)
         cw.register(cellType: UChapterCCell.self)
         return cw
     }()
@@ -62,7 +62,7 @@ extension UChapterViewController: UICollectionViewDelegateFlowLayout, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let head = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, for: indexPath, viewType: UChapterCHead.self)
+        let head = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, for: indexPath, viewType: UChapterCHead.self)
         head.model = detailStatic
         head.sortClosure { [weak self] (button) in
             if self?.isPositive == true {

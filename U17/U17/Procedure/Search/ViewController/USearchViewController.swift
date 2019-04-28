@@ -37,7 +37,7 @@ class USearchViewController: UBaseViewController {
         sr.clearButtonMode = .whileEditing
         sr.returnKeyType = .search
         sr.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(textFiledTextDidChange(noti:)), name: .UITextFieldTextDidChange, object: sr)
+        NotificationCenter.default.addObserver(self, selector: #selector(textFiledTextDidChange(noti:)), name: UITextField.textDidChangeNotification, object: sr)
         return sr
     }()
     

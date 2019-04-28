@@ -24,14 +24,14 @@ class UDescriptionTCell: UBaseTableViewCell {
         }
         contentView.addSubview(titileLabel)
         titileLabel.snp.makeConstraints{
-            $0.top.left.right.equalToSuperview().inset(UIEdgeInsetsMake(15, 15, 15, 15))
+            $0.top.left.right.equalToSuperview().inset(UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
             $0.height.equalTo(20)
         }
         
         contentView.addSubview(textView)
         textView.snp.makeConstraints{
             $0.top.equalTo(titileLabel.snp.bottom)
-            $0.left.right.bottom.equalToSuperview().inset(UIEdgeInsetsMake(15, 15, 15, 15))
+            $0.left.right.bottom.equalToSuperview().inset(UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
         }
     }
     

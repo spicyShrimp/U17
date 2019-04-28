@@ -10,7 +10,7 @@ import UIKit
 
 class UOtherWorksTCell: UBaseTableViewCell {
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: CellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
         accessoryType = .disclosureIndicator
     }

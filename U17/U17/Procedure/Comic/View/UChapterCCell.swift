@@ -23,7 +23,7 @@ class UChapterCCell: UBaseCollectionViewCell {
         layer.masksToBounds = true
         
         contentView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints { $0.edges.equalToSuperview().inset(UIEdgeInsetsMake(0, 10, 0, 10)) }
+        nameLabel.snp.makeConstraints { $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)) }
     }
     
     var chapterStatic: ChapterStaticModel? {

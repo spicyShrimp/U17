@@ -79,17 +79,17 @@ extension UNoticeBarStyle {
         return originY
     }
     
-    fileprivate var beginWindowLevel: UIWindowLevel {
+    fileprivate var beginWindowLevel: UIWindow.Level {
         switch self {
         case .onStatusBar:
-            return UIWindowLevelStatusBar + 1
+            return .statusBar + 1
         default:
-            return UIWindowLevelNormal
+            return .normal
         }
     }
     
-    fileprivate var endWindowLevel: UIWindowLevel {
-        return UIWindowLevelNormal
+    fileprivate var endWindowLevel: UIWindow.Level {
+        return .normal
     }
     
 }

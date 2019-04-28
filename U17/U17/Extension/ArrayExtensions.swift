@@ -21,12 +21,6 @@ public func ==<T: Equatable>(lhs: [T]?, rhs: [T]?) -> Bool {
 
 extension Array {
 
-    ///EZSE: Get a sub array from range of index
-    public func get(at range: ClosedRange<Int>) -> Array {
-        let halfOpenClampedRange = Range(range).clamped(to: Range(indices))
-        return Array(self[halfOpenClampedRange])
-    }
-
     /// EZSE: Checks if array contains at least 1 item which type is same with given element's type
     public func containsType<T>(of element: T) -> Bool {
         let elementType = type(of: element)
@@ -104,17 +98,17 @@ extension Array where Element: Equatable {
 
     /// EZSE: Checks if the main array contains the parameter array
     public func contains(_ array: [Element]) -> Bool {
-        return array.testAll { self.index(of: $0) ?? -1 >= 0 }
+        return array.testAll { self.firstIndex(of: $0) ?? -1 >= 0 }
     }
 
     /// EZSE: Checks if self contains a list of items.
     public func contains(_ elements: Element...) -> Bool {
-        return elements.testAll { self.index(of: $0) ?? -1 >= 0 }
+        return elements.testAll { self.firstIndex(of: $0) ?? -1 >= 0 }
     }
 
     /// EZSE: Returns the indexes of the object
     public func indexes(of element: Element) -> [Int] {
-        return enumerated().flatMap { ($0.element == element) ? $0.offset : nil }
+        return enumerated().compactMap { ($0.element == element) ? $0.offset : nil }
     }
 
     /// EZSE: Returns the last index of the object
@@ -124,7 +118,7 @@ extension Array where Element: Equatable {
 
     /// EZSE: Removes the first given object
     public mutating func removeFirst(_ element: Element) {
-        guard let index = index(of: element) else { return }
+        guard let index = firstIndex(of: element) else { return }
         self.remove(at: index)
     }
 

@@ -14,7 +14,7 @@ class UOtherWorksViewController: UBaseViewController {
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 10
         let cw = UICollectionView(frame: .zero, collectionViewLayout: layout)

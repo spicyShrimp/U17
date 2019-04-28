@@ -45,12 +45,12 @@ class UBoutiqueListViewController: UBaseViewController {
         cw.delegate = self
         cw.dataSource = self
         cw.alwaysBounceVertical = true
-        cw.contentInset = UIEdgeInsetsMake(screenWidth * 0.467, 0, 0, 0)
+        cw.contentInset = UIEdgeInsets(top: screenWidth * 0.467, left: 0, bottom: 0, right: 0)
         cw.scrollIndicatorInsets = cw.contentInset
         cw.register(cellType: UComicCCell.self)
         cw.register(cellType: UBoardCCell.self)
-        cw.register(supplementaryViewType: UComicCHead.self, ofKind: UICollectionElementKindSectionHeader)
-        cw.register(supplementaryViewType: UComicCFoot.self, ofKind: UICollectionElementKindSectionFooter)
+        cw.register(supplementaryViewType: UComicCHead.self, ofKind: UICollectionView.elementKindSectionHeader)
+        cw.register(supplementaryViewType: UComicCFoot.self, ofKind: UICollectionView.elementKindSectionFooter)
         cw.uHead = URefreshHeader { [weak self] in self?.loadData(false) }
         cw.uFoot = URefreshDiscoverFooter()
         cw.uempty = UEmptyView(verticalOffset: -(cw.contentInset.top)) { self.loadData(false) }
@@ -70,11 +70,11 @@ class UBoutiqueListViewController: UBaseViewController {
     private func didSelectBanner(index: NSInteger) {
         let item = galleryItems[index]
         if item.linkType == 2 {
-            guard let url = item.ext?.flatMap({ return $0.key == "url" ? $0.val : nil }).joined() else { return }
+            guard let url = item.ext?.compactMap({ return $0.key == "url" ? $0.val : nil }).joined() else { return }
             let vc = UWebViewController(url: url)
             navigationController?.pushViewController(vc, animated: true)
         } else {
-            guard let comicIdString = item.ext?.flatMap({ return $0.key == "comicId" ? $0.val : nil }).joined(),
+            guard let comicIdString = item.ext?.compactMap({ return $0.key == "comicId" ? $0.val : nil }).joined(),
                 let comicId = Int(comicIdString) else { return }
             let vc = UComicViewController(comicid: comicId)
             navigationController?.pushViewController(vc, animated: true)
@@ -142,8 +142,8 @@ extension UBoutiqueListViewController: UCollectionViewSectionBackgroundLayoutDel
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader {
-            let head = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, for: indexPath, viewType: UComicCHead.self)
+        if kind == UICollectionView.elementKindSectionHeader {
+            let head = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, for: indexPath, viewType: UComicCHead.self)
             let comicList = comicLists[indexPath.section]
             head.iconView.kf.setImage(urlString: comicList.newTitleIconUrl)
             head.titleLabel.text = comicList.itemTitle
@@ -175,7 +175,7 @@ extension UBoutiqueListViewController: UCollectionViewSectionBackgroundLayoutDel
             }
             return head
         } else {
-            let foot = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, for: indexPath, viewType: UComicCFoot.self)
+            let foot = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, for: indexPath, viewType: UComicCFoot.self)
             return foot
         }
     }

@@ -14,7 +14,7 @@ class UCommentViewController: UBaseViewController {
     var commentList: CommentListModel? {
         didSet {
             guard let commentList = commentList?.commentList else { return }
-            let viewModelArray = commentList.flatMap { (comment) -> UCommentViewModel? in
+            let viewModelArray = commentList.compactMap { (comment) -> UCommentViewModel? in
                 return UCommentViewModel(model: comment)
             }
             listArray.append(contentsOf: viewModelArray)

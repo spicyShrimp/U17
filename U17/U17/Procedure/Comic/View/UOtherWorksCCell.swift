@@ -34,13 +34,13 @@ class UOtherWorksCCell: UBaseCollectionViewCell {
         
         contentView.addSubview(descLabel)
         descLabel.snp.makeConstraints {
-            $0.left.right.bottom.equalToSuperview().inset(UIEdgeInsetsMake(0, 10, 0, 10))
+            $0.left.right.bottom.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10))
             $0.height.equalTo(20)
         }
         
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(UIEdgeInsetsMake(0, 10, 0, 10))
+            $0.left.right.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10))
             $0.height.equalTo(25)
             $0.bottom.equalTo(descLabel.snp.top)
         }

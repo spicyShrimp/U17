@@ -30,7 +30,7 @@ class UUpdateTCell: UBaseTableViewCell {
         
         contentView.addSubview(coverView)
         coverView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(UIEdgeInsetsMake(10, 10, 20, 10))
+            $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 10, left: 10, bottom: 20, right: 10))
         }
         
         coverView.addSubview(tipLabel)

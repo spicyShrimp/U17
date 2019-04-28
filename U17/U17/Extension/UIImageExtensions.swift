@@ -11,28 +11,6 @@
 import UIKit
 
 extension UIImage {
-    
-    /// EZSE: Returns base64 string
-    public var base64: String {
-        return UIImageJPEGRepresentation(self, 1.0)!.base64EncodedString()
-    }
-    
-    /// EZSE: Returns compressed image to rate from 0 to 1
-    public func compressImage(rate: CGFloat) -> Data? {
-        return UIImageJPEGRepresentation(self, rate)
-    }
-
-    /// EZSE: Returns Image size in Bytes
-    public func getSizeAsBytes() -> Int {
-        return UIImageJPEGRepresentation(self, 1)?.count ?? 0
-    }
-
-    /// EZSE: Returns Image size in Kylobites
-    public func getSizeAsKilobytes() -> Int {
-        let sizeAsBytes = getSizeAsBytes()
-        return sizeAsBytes != 0 ? sizeAsBytes / 1024 : 0
-    }
-
     /// EZSE: scales image
     public class func scaleTo(image: UIImage, w: CGFloat, h: CGFloat) -> UIImage {
         let newSize = CGSize(width: w, height: h)
@@ -89,7 +67,7 @@ extension UIImage {
         }
         let scaledBounds: CGRect = CGRect(x: bound.origin.x * self.scale, y: bound.origin.y * self.scale, width: bound.width * self.scale, height: bound.height * self.scale)
         let imageRef = self.cgImage?.cropping(to: scaledBounds)
-        let croppedImage: UIImage = UIImage(cgImage: imageRef!, scale: self.scale, orientation: UIImageOrientation.up)
+        let croppedImage: UIImage = UIImage(cgImage: imageRef!, scale: self.scale, orientation: UIImage.Orientation.up)
         return croppedImage
     }
 

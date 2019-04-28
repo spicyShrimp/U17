@@ -49,7 +49,7 @@ extension UIView {
          * Blur style. After it is changed all subviews on
          * blurContentView & vibrancyContentView will be deleted.
          */
-        var style: UIBlurEffectStyle = .light {
+        var style: UIBlurEffect.Style = .light {
             didSet {
                 guard oldValue != style,
                     !editing else { return }
@@ -76,7 +76,7 @@ extension UIView {
             self.superview = view
         }
         
-        func setup(style: UIBlurEffectStyle, alpha: CGFloat) -> Self {
+        func setup(style: UIBlurEffect.Style, alpha: CGFloat) -> Self {
             self.editing = true
             
             self.style = style
@@ -104,7 +104,7 @@ extension UIView {
             )
         }
         
-        private func applyBlurEffect(style: UIBlurEffectStyle,
+        private func applyBlurEffect(style: UIBlurEffect.Style,
                                      blurAlpha: CGFloat) {
             superview.backgroundColor = UIColor.clear
             
@@ -130,18 +130,18 @@ extension UIView {
     
     private func addAlignedConstrains() {
         translatesAutoresizingMaskIntoConstraints = false
-        addAlignConstraintToSuperview(attribute: NSLayoutAttribute.top)
-        addAlignConstraintToSuperview(attribute: NSLayoutAttribute.leading)
-        addAlignConstraintToSuperview(attribute: NSLayoutAttribute.trailing)
-        addAlignConstraintToSuperview(attribute: NSLayoutAttribute.bottom)
+        addAlignConstraintToSuperview(attribute: NSLayoutConstraint.Attribute.top)
+        addAlignConstraintToSuperview(attribute: NSLayoutConstraint.Attribute.leading)
+        addAlignConstraintToSuperview(attribute: NSLayoutConstraint.Attribute.trailing)
+        addAlignConstraintToSuperview(attribute: NSLayoutConstraint.Attribute.bottom)
     }
     
-    private func addAlignConstraintToSuperview(attribute: NSLayoutAttribute) {
+    private func addAlignConstraintToSuperview(attribute: NSLayoutConstraint.Attribute) {
         superview?.addConstraint(
             NSLayoutConstraint(
                 item: self,
                 attribute: attribute,
-                relatedBy: NSLayoutRelation.equal,
+                relatedBy: NSLayoutConstraint.Relation.equal,
                 toItem: superview,
                 attribute: attribute,
                 multiplier: 1,

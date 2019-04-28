@@ -49,7 +49,7 @@ class UPageViewController: UBaseViewController {
         let index = segment.selectedSegmentIndex
         if currentSelectIndex != index {
             let target:[UIViewController] = [vcs[index]]
-            let direction:UIPageViewControllerNavigationDirection = currentSelectIndex > index ? .reverse : .forward
+            let direction:UIPageViewController.NavigationDirection = currentSelectIndex > index ? .reverse : .forward
             pageVC.setViewControllers(target, direction: direction, animated: false) { [weak self] (finish) in
                 self?.currentSelectIndex = index
             }
@@ -58,7 +58,7 @@ class UPageViewController: UBaseViewController {
     
     override func configUI() {
         guard let vcs = vcs else { return }
-        addChildViewController(pageVC)
+        addChild(pageVC)
         view.addSubview(pageVC.view)
         
         pageVC.dataSource = self
@@ -70,10 +70,10 @@ class UPageViewController: UBaseViewController {
             pageVC.view.snp.makeConstraints { $0.edges.equalToSuperview() }
         case .navgationBarSegment?:
             segment.backgroundColor = UIColor.clear
-            segment.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5),
-                                           NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20)]
-            segment.selectedTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white,
-                                                   NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20)]
+            segment.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.5),
+                                           NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
+            segment.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                                                   NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
             segment.selectionIndicatorLocation = .none
             
             navigationItem.titleView = segment
@@ -81,10 +81,10 @@ class UPageViewController: UBaseViewController {
             
             pageVC.view.snp.makeConstraints { $0.edges.equalToSuperview() }
         case .topTabBar?:
-            segment.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black,
-                                           NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)]
-            segment.selectedTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor(r: 127, g: 221, b: 146),
-                                                   NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)]
+            segment.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black,
+                                           NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
+            segment.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(r: 127, g: 221, b: 146),
+                                                   NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
             segment.selectionIndicatorLocation = .down
             segment.selectionIndicatorColor = UIColor(r: 127, g: 221, b: 146)
             segment.selectionIndicatorHeight = 2
@@ -114,14 +114,14 @@ class UPageViewController: UBaseViewController {
 
 extension UPageViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = vcs.index(of: viewController) else { return nil }
+        guard let index = vcs.firstIndex(of: viewController) else { return nil }
         let beforeIndex = index - 1
         guard beforeIndex >= 0 else { return nil }
         return vcs[beforeIndex]
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index = vcs.index(of: viewController) else { return nil }
+        guard let index = vcs.firstIndex(of: viewController) else { return nil }
         let afterIndex = index + 1
         guard afterIndex <= vcs.count - 1 else { return nil }
         return vcs[afterIndex]
@@ -129,7 +129,7 @@ extension UPageViewController: UIPageViewControllerDataSource, UIPageViewControl
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard let viewController = pageViewController.viewControllers?.last,
-            let index = vcs.index(of: viewController) else {
+            let index = vcs.firstIndex(of: viewController) else {
                 return
         }
         currentSelectIndex = index

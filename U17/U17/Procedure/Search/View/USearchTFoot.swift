@@ -21,7 +21,7 @@ class USearchCCell: UBaseCollectionViewCell {
         layer.borderColor = UIColor.background.cgColor
         
         contentView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { $0.edges.equalToSuperview().inset(UIEdgeInsetsMake(10, 20, 10, 20)) }
+        titleLabel.snp.makeConstraints { $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)) }
     }
 }
 
@@ -41,7 +41,7 @@ class USearchTFoot: UBaseTableViewHeaderFooterView {
         let lt = UCollectionViewAlignedLayout()
         lt.minimumInteritemSpacing = 10
         lt.minimumLineSpacing = 10
-        lt.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
+        lt.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         lt.horizontalAlignment = .left
         lt.estimatedItemSize = CGSize(width: 100, height: 40)
         let cw = UICollectionView(frame: CGRect.zero, collectionViewLayout: lt)

@@ -140,7 +140,7 @@ class UComicViewController: UBaseViewController {
             $0.height.equalToSuperview().offset(-navigationBarY)
         }
 
-        addChildViewController(pageVC)
+        addChild(pageVC)
         contentView.addSubview(pageVC.view)
         pageVC.view.snp.makeConstraints { $0.edges.equalToSuperview() }
 

@@ -36,13 +36,13 @@ class USpecialTCell: UBaseTableViewCell {
     override func configUI() {
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.left.top.right.equalToSuperview().inset(UIEdgeInsetsMake(10, 10, 10, 10))
+            $0.left.top.right.equalToSuperview().inset(UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
             $0.height.equalTo(40)
         }
         
         contentView.addSubview(coverView)
         coverView.snp.makeConstraints {
-            $0.left.right.bottom.equalToSuperview().inset(UIEdgeInsetsMake(10, 10, 20, 10))
+            $0.left.right.bottom.equalToSuperview().inset(UIEdgeInsets(top: 10, left: 10, bottom: 20, right: 10))
             $0.top.equalTo(titleLabel.snp.bottom)
         }
         

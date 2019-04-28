@@ -49,7 +49,7 @@ class UReadBottomBar: UIView {
     private func configUI() {
         addSubview(menuSlider)
         menuSlider.snp.makeConstraints {
-            $0.left.right.top.equalToSuperview().inset(UIEdgeInsetsMake(10, 40, 10, 40))
+            $0.left.right.top.equalToSuperview().inset(UIEdgeInsets(top: 10, left: 40, bottom: 10, right: 40))
             $0.height.equalTo(30)
             
         }
