@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import IQKeyboardManagerSwift
+import UINavigation_SXFixSpace_Swift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -38,15 +39,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func configBase() {
+        //MARK: 键盘处理
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
+        //MARK: 导航栏间距调整
+        UINavigationSXFixSpace.shared.sx_defultFixSpace = 8
+        UINavigationSXFixSpace.shared.sx_fixedSpaceWidth = -12
+        
+        //MARK: 性别缓存
         let defaults = UserDefaults.standard
         if defaults.value(forKey: String.sexTypeKey) == nil {
             defaults.set(1, forKey: String.sexTypeKey)
             defaults.synchronize()
         }
 
+        //MARK: 网络监控
         reachability?.listener = { status in
             switch status {
             case .reachable(.wwan):
@@ -87,6 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension UIApplication {
+    //MRAK: 强制旋转屏幕
     class func changeOrientationTo(landscapeRight: Bool) {
         guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return }
         if landscapeRight == true {

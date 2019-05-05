@@ -9,11 +9,11 @@ PODS:
     - Kingfisher (<= 4.10.1)
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.1.16)
-  - Moya (12.0.1):
-    - Moya/Core (= 12.0.1)
-  - Moya/Core (12.0.1):
+  - Moya (13.0.0):
+    - Moya/Core (= 13.0.0)
+  - Moya/Core (13.0.0):
     - Alamofire (~> 4.1)
-    - Result (~> 4.0)
+    - Result (~> 4.1)
   - Result (4.1.0)
   - Reusable (4.0.5):
     - Reusable/Storyboard (= 4.0.5)
@@ -24,7 +24,7 @@ PODS:
   - SnapKitExtend (1.0.6):
     - SnapKit
   - Then (2.4.0)
-  - UINavigation-SXFixSpace-Swift (1.1.4)
+  - UINavigation-SXFixSpace-Swift (1.1.5)
 
 DEPENDENCIES:
   - EmptyDataSet-Swift
@@ -70,13 +70,13 @@ SPEC CHECKSUMS:
   LLCycleScrollView: 77f6e11980d1cd010ee9ee87e94da4e8026ccd21
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: 7798e16e53a5ef7f332dd05b27664db4e29530fd
-  Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
+  Moya: 161263550064ff8a4948e8ff63137fd72a876292
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   Reusable: 188be1a54ac0691bc66e5bb24ec6eb91971b315b
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SnapKitExtend: 8a018ef80fd8e2658f5436e8722592ad05652f5b
   Then: 71866660c7af35a7343831f7668e7cd2b62ee0f2
-  UINavigation-SXFixSpace-Swift: 0db428978f5a10ecd4e1638457de57dd6470af68
+  UINavigation-SXFixSpace-Swift: d4a55f6a1c866afa3cc4ac68df5eccb1ca82e800
 
 PODFILE CHECKSUM: 3e8f9ceb22548966de72c4c3bab3303da0e8e60d
 

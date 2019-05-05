@@ -49,9 +49,7 @@ extension UIApplication {
     private static let classSwizzedMethod: Void = {
         UINavigationController.sx_initialize
         UINavigationItem.sx_initialize
-        if #available(iOS 11.0, *) {
-            UINavigationBar.sx_initialize
-        }
+        UINavigationBar.sx_initialize
     }()
     
     open override var next: UIResponder? {
@@ -61,7 +59,7 @@ extension UIApplication {
 }
 
 private var sx_tempDisableFixSpace: Bool = false
-extension UINavigationController {
+extension UIViewController {
     
     static let sx_initialize: Void = {
         swizzleMethod(UINavigationController.self,
@@ -71,32 +69,6 @@ extension UINavigationController {
         swizzleMethod(UINavigationController.self,
                       originalSelector: #selector(UINavigationController.viewWillDisappear(_:)),
                       swizzleSelector: #selector(UINavigationController.sx_viewWillDisappear(_:)))
-        
-        if #available(iOS 11.0, *) {
-            swizzleMethod(UINavigationController.self,
-                          originalSelector: #selector(UINavigationController.pushViewController(_:animated:)),
-                          swizzleSelector: #selector(UINavigationController.sx_pushViewController(_:animated:)))
-            
-            swizzleMethod(UINavigationController.self,
-                          originalSelector: #selector(UINavigationController.popViewController(animated:)),
-                          swizzleSelector: #selector(UINavigationController.sx_popViewController(animated:)))
-            
-            swizzleMethod(UINavigationController.self,
-                          originalSelector: #selector(UINavigationController.popToViewController(_:animated:)),
-                          swizzleSelector: #selector(UINavigationController.sx_popToViewController(_:animated:)))
-            
-            swizzleMethod(UINavigationController.self,
-                          originalSelector: #selector(UINavigationController.popToRootViewController(animated:)),
-                          swizzleSelector: #selector(UINavigationController.sx_popToRootViewController(animated:)))
-            
-            swizzleMethod(UINavigationController.self,
-                          originalSelector: #selector(UINavigationController.setViewControllers(_:animated:)),
-                          swizzleSelector: #selector(UINavigationController.sx_setViewControllers(_:animated:)))
-            
-            
-            
-        }
-        
     }()
     
     @objc private func sx_viewWillAppear(_ animated: Bool) {
@@ -105,6 +77,11 @@ extension UINavigationController {
             UINavigationSXFixSpace.shared.sx_disableFixSpace = true;
         }
         sx_viewWillAppear(animated)
+        if #available(iOS 11.0, *) {
+            if animated == false {
+                navigationController?.navigationBar.layoutSubviews()
+            }
+        }
     }
     
     @objc private func sx_viewWillDisappear(_ animated: Bool) {
@@ -112,45 +89,6 @@ extension UINavigationController {
             UINavigationSXFixSpace.shared.sx_disableFixSpace = sx_tempDisableFixSpace;
         }
         sx_viewWillDisappear(animated)
-    }
-    
-    @objc private func sx_pushViewController(_ viewController: UIViewController, animated: Bool) {
-        sx_pushViewController(viewController, animated: animated)
-        if UINavigationSXFixSpace.shared.sx_disableFixSpace == false && animated == false {
-            navigationBar.layoutSubviews()
-        }
-    }
-    
-    
-    @objc private func sx_popViewController(animated: Bool) -> UIViewController? {
-        let vc = sx_popViewController(animated: animated)
-        if UINavigationSXFixSpace.shared.sx_disableFixSpace == false && animated == false {
-            navigationBar.layoutSubviews()
-        }
-        return vc
-    }
-    
-    @objc private func sx_popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
-        let vcs = sx_popToViewController(viewController, animated: animated)
-        if UINavigationSXFixSpace.shared.sx_disableFixSpace == false && animated == false {
-            navigationBar.layoutSubviews()
-        }
-        return vcs
-    }
-    
-    @objc private func sx_popToRootViewController(animated: Bool) -> [UIViewController]? {
-        let vcs = sx_popToRootViewController(animated: animated)
-        if UINavigationSXFixSpace.shared.sx_disableFixSpace == false && animated == false {
-            navigationBar.layoutSubviews()
-        }
-        return vcs
-    }
-    
-    @objc private func sx_setViewControllers(_ viewControllers: [UIViewController], animated: Bool) {
-        sx_setViewControllers(viewControllers, animated: animated)
-        if UINavigationSXFixSpace.shared.sx_disableFixSpace == false && animated == false {
-            navigationBar.layoutSubviews()
-        }
     }
 }
 

@@ -12,6 +12,7 @@ import Kingfisher
 import SnapKit
 import MJRefresh
 
+//MRAK: 应用默认颜色
 extension UIColor {
     class var background: UIColor {
         return UIColor(r: 242, g: 242, b: 242)
