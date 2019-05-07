@@ -1,7 +1,33 @@
+//
+//  SnapKitExtend
+//
+//  MIT License
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+//
+//  Created by charles on 2017/8/2.
+//  Copyright © 2017年 charles. All rights reserved.
+//
 
 import SnapKit
 
-public enum SnapKitAxis : Int {
+public enum ConstraintAxis : Int {
     case horizontal
     case vertical
 }
@@ -60,7 +86,7 @@ public struct ConstraintArrayDSL {
     ///   - fixedSpacing: the spacing between each item
     ///   - leadSpacing: the spacing before the first item and the container
     ///   - tailSpacing: the spacing after the last item and the container
-    public func distributeViewsAlong(axisType:SnapKitAxis, fixedSpacing:CGFloat = 0, leadSpacing:CGFloat = 0, tailSpacing:CGFloat = 0) {
+    public func distributeViewsAlong(axisType:ConstraintAxis, fixedSpacing:CGFloat = 0, leadSpacing:CGFloat = 0, tailSpacing:CGFloat = 0) {
         
         guard self.array.count > 1, let tempSuperView = commonSuperviewOfViews() else {
             return
@@ -108,7 +134,7 @@ public struct ConstraintArrayDSL {
     ///   - fixedItemLength: the fixed length of each item
     ///   - leadSpacing: the spacing before the first item and the container
     ///   - tailSpacing: the spacing after the last item and the container
-    public func distributeViewsAlong(axisType:SnapKitAxis, fixedItemLength:CGFloat = 0, leadSpacing:CGFloat = 0, tailSpacing:CGFloat = 0) {
+    public func distributeViewsAlong(axisType:ConstraintAxis, fixedItemLength:CGFloat = 0, leadSpacing:CGFloat = 0, tailSpacing:CGFloat = 0) {
         
         guard self.array.count > 1, let tempSuperView = commonSuperviewOfViews() else {
             return

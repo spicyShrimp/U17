@@ -11,9 +11,9 @@ import UIKit
 
 public class UINavigationSXFixSpace {
     
-    public var sx_defultFixSpace: CGFloat = 0
-    public var sx_fixedSpaceWidth: CGFloat = -20
-    public var sx_disableFixSpace: Bool = false
+    public var sx_defultFixSpace: CGFloat = 0 //iOS11及以后item距离两端的间距
+    public var sx_fixedSpaceWidth: CGFloat = -20 //iOS7-iOS11设置的fixedSpace的item的宽度
+    public var sx_disableFixSpace: Bool = false //是否禁用距离调整
     
     public class var shared: UINavigationSXFixSpace {
         struct Static {
@@ -58,37 +58,21 @@ extension UIApplication {
     }
 }
 
-private var sx_tempDisableFixSpace: Bool = false
 extension UIViewController {
     
     static let sx_initialize: Void = {
         swizzleMethod(UINavigationController.self,
                       originalSelector: #selector(UINavigationController.viewWillAppear(_:)),
                       swizzleSelector: #selector(UINavigationController.sx_viewWillAppear(_:)))
-        
-        swizzleMethod(UINavigationController.self,
-                      originalSelector: #selector(UINavigationController.viewWillDisappear(_:)),
-                      swizzleSelector: #selector(UINavigationController.sx_viewWillDisappear(_:)))
     }()
     
     @objc private func sx_viewWillAppear(_ animated: Bool) {
-        if self is UIImagePickerController {
-            sx_tempDisableFixSpace = UINavigationSXFixSpace.shared.sx_disableFixSpace;
-            UINavigationSXFixSpace.shared.sx_disableFixSpace = true;
-        }
         sx_viewWillAppear(animated)
         if #available(iOS 11.0, *) {
             if animated == false {
-                navigationController?.navigationBar.layoutSubviews()
+                navigationController?.navigationBar.setNeedsLayout()
             }
         }
-    }
-    
-    @objc private func sx_viewWillDisappear(_ animated: Bool) {
-        if self is UIImagePickerController {
-            UINavigationSXFixSpace.shared.sx_disableFixSpace = sx_tempDisableFixSpace;
-        }
-        sx_viewWillDisappear(animated)
     }
 }
 
@@ -140,18 +124,18 @@ extension UINavigationItem {
     }()
     
     @objc private func sx_setLeftBarButton(_ item: UIBarButtonItem?, animated: Bool) {
-        if UINavigationSXFixSpace.shared.sx_disableFixSpace {
+        if UINavigationSXFixSpace.shared.sx_disableFixSpace {//禁止了直接设置
             sx_setLeftBarButton(item, animated: animated)
-        } else {
+        } else {//没有禁止
             guard let item = item else { return }
             setLeftBarButtonItems([item], animated: animated)
         }
     }
     
     @objc private func sx_setRightBarButton(_ item: UIBarButtonItem?, animated: Bool) {
-        if UINavigationSXFixSpace.shared.sx_disableFixSpace {
+        if UINavigationSXFixSpace.shared.sx_disableFixSpace {//禁止了直接设置
             sx_setRightBarButton(item, animated: animated)
-        } else {
+        } else {//没有禁止
             guard let item = item else { return }
             setRightBarButtonItems([item], animated: animated)
         }

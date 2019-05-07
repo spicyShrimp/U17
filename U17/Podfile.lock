@@ -21,10 +21,10 @@ PODS:
   - Reusable/Storyboard (4.0.5)
   - Reusable/View (4.0.5)
   - SnapKit (4.2.0)
-  - SnapKitExtend (1.0.6):
+  - SnapKitExtend (1.0.7):
     - SnapKit
   - Then (2.4.0)
-  - UINavigation-SXFixSpace-Swift (1.1.5)
+  - UINavigation-SXFixSpace-Swift (1.1.7)
 
 DEPENDENCIES:
   - EmptyDataSet-Swift
@@ -74,9 +74,9 @@ SPEC CHECKSUMS:
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   Reusable: 188be1a54ac0691bc66e5bb24ec6eb91971b315b
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
-  SnapKitExtend: 8a018ef80fd8e2658f5436e8722592ad05652f5b
+  SnapKitExtend: 00ee4db6d1f80bee01a1e75745f2a6ae695ba662
   Then: 71866660c7af35a7343831f7668e7cd2b62ee0f2
-  UINavigation-SXFixSpace-Swift: d4a55f6a1c866afa3cc4ac68df5eccb1ca82e800
+  UINavigation-SXFixSpace-Swift: 6db89c7d9565060d84133b1fd4d02182f88a1d7c
 
 PODFILE CHECKSUM: 3e8f9ceb22548966de72c4c3bab3303da0e8e60d
 
