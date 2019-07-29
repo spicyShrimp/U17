@@ -17,6 +17,6 @@ pod 'MBProgressHUD'
 pod 'HMSegmentedControl'
 pod 'IQKeyboardManagerSwift'
 pod 'EmptyDataSet-Swift'
-pod 'UINavigation-SXFixSpace-Swift'
+pod 'UINavigation-SXFixSpace'
 
 end

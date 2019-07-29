@@ -1,0 +1,6 @@
+framework module UINavigation_SXFixSpace {
+  umbrella header "UINavigation-SXFixSpace-umbrella.h"
+
+  export *
+  module * { export * }
+}

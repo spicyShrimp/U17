@@ -523,7 +523,7 @@ SOFTWARE.
 			<key>License</key>
 			<string>MIT</string>
 			<key>Title</key>
-			<string>UINavigation-SXFixSpace-Swift</string>
+			<string>UINavigation-SXFixSpace</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

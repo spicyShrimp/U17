@@ -10,7 +10,8 @@
 #endif
 #endif
 
+#import "UINavigationSXFixSpace.h"
 
-FOUNDATION_EXPORT double UINavigation_SXFixSpace_SwiftVersionNumber;
-FOUNDATION_EXPORT const unsigned char UINavigation_SXFixSpace_SwiftVersionString[];
+FOUNDATION_EXPORT double UINavigation_SXFixSpaceVersionNumber;
+FOUNDATION_EXPORT const unsigned char UINavigation_SXFixSpaceVersionString[];
 

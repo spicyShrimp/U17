@@ -24,7 +24,7 @@ PODS:
   - SnapKitExtend (1.0.7):
     - SnapKit
   - Then (2.4.0)
-  - UINavigation-SXFixSpace-Swift (1.1.7)
+  - UINavigation-SXFixSpace (1.2.4)
 
 DEPENDENCIES:
   - EmptyDataSet-Swift
@@ -39,7 +39,7 @@ DEPENDENCIES:
   - Reusable
   - SnapKitExtend
   - Then
-  - UINavigation-SXFixSpace-Swift
+  - UINavigation-SXFixSpace
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -58,7 +58,7 @@ SPEC REPOS:
     - SnapKit
     - SnapKitExtend
     - Then
-    - UINavigation-SXFixSpace-Swift
+    - UINavigation-SXFixSpace
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -76,8 +76,8 @@ SPEC CHECKSUMS:
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SnapKitExtend: 00ee4db6d1f80bee01a1e75745f2a6ae695ba662
   Then: 71866660c7af35a7343831f7668e7cd2b62ee0f2
-  UINavigation-SXFixSpace-Swift: 6db89c7d9565060d84133b1fd4d02182f88a1d7c
+  UINavigation-SXFixSpace: 10f223253ebff2ceefa26694e23b7694269763c4
 
-PODFILE CHECKSUM: 3e8f9ceb22548966de72c4c3bab3303da0e8e60d
+PODFILE CHECKSUM: dd1f4836e01e478e034366b1a90be18bddebae03
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.7.5
