@@ -1,37 +1,34 @@
 # EmptyDataSet-Swift
-![pod](https://img.shields.io/badge/pod-4.0.5-brightgreen.svg)
+![pod](https://img.shields.io/badge/pod-5.0.0-brightgreen.svg)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![iOS](https://img.shields.io/badge/iOS-8.0-green.svg)
 ![lisence](https://img.shields.io/badge/license-MIT-orange.svg)
-![swift](https://img.shields.io/badge/swift-4.0-red.svg)
+![swift](https://img.shields.io/badge/swift-5.0-red.svg)
 
-当 UITableView/UICollectionView  数据为空时显示占位图
-
->A drop-in UITableView/UICollectionView superclass category for showing empty datasets whenever the view has no content to display. DZNEmptyDataSet with Swift.
+A drop-in UITableView/UICollectionView superclass category for showing empty datasets whenever the view has no content to display.  [DZNEmptyDataSet](https://github.com/dzenbot/DZNEmptyDataSet/blob/master/README.md) with Swift.
 
 ## ScreenShot
 
-![Screenshots_row1](https://github.com/Xiaoye220/EmptyDataSet-Swift/blob/master/EmptyDataSet-Swift/ScreenShot/Screenshots_row1.png)
+![Screenshots_row1](Example/ScreenShot/Screenshots_row1.png)
 
-![Screenshots_row2](https://github.com/Xiaoye220/EmptyDataSet-Swift/blob/master/EmptyDataSet-Swift/ScreenShot/Screenshots_row2.png)
+![Screenshots_row2](Example/ScreenShot/Screenshots_row2.png)
 
-## CocoaPods
+## Installation
+
+### CocoaPods
 ```
-use_frameworks!
-pod 'EmptyDataSet-Swift', '~> 4.0.5'
+pod 'EmptyDataSet-Swift', '~> 5.0.0'
 ```
-## History
-**4.0.3:** Fix issues [#6](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/6)、[#7](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/7)
 
-**4.0.4:** Fix issues [#8](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/8)、[#9](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/9)、[#10](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/10).
-The problem that customView layout will be failed.
+### Carthage
 
-**4.0.5:** Fix issues [#13](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/13)、[#14](https://github.com/Xiaoye220/EmptyDataSet-Swift/issues/14)
+```
+github "Xiaoye220/EmptyDataSet-Swift" "4.2.0"
+```
 
 ## Usage
 ### Basic 
-基本用法和 [DZNEmptyDataSet](https://github.com/dzenbot/DZNEmptyDataSet/blob/master/README.md) 一样
-
->Same as [DZNEmptyDataSet](https://github.com/dzenbot/DZNEmptyDataSet/blob/master/README.md)
+Same as [DZNEmptyDataSet](https://github.com/dzenbot/DZNEmptyDataSet/blob/master/README.md)
 
 ```swift
 import EmptyDataSet_Swift
@@ -140,18 +137,13 @@ public protocol EmptyDataSetSource: class {
 ```
 
 ### Extensions
-除了 DZNEmptyDataSet 中介绍的用法，另外拓展了不需要通过实现协议 DZNEmptyDataSetSource 和 DZNEmptyDataSetDelegate 的用法。
-只要给需要的 tableView 调用下面方法
-
->Usage without conform to datasource and/or delegate.Tableview just calls the following method.
+Usage without conform to datasource and/or delegate.Tableview just calls the following method.
 
 ```swift
 public func emptyDataSetView(_ closure: @escaping (EmptyDataSetView) -> Void)
 ```
 
-像这样子使用
-
->Like this
+Example:
 
 ```swift
 tableView.emptyDataSetView { view in
@@ -182,20 +174,12 @@ tableView.emptyDataSetView { view in
 ```
 
 ### About CustomView
-**注意:** 通过 EmptyDataSetSource 设置了 CustomView 其他设置都会无效。通过链式方式设置 CustomView 其他控件的自动布局会无效。
+Set customView by using EmptyDataSetSource, other setting will be invalid.Set customView by using Extensions, other autolayout will be invalid.
 
->Set customView by using EmptyDataSetSource, other setting will be invalid.Set customView by using Extensions, other autolayout will be invalid.
-
-CustomView 显示的规则是：
-
-1. 居中显示
-2. 垂直偏移量根据 EmptyDataSetSource 中 verticalOffset 设置
-3. 长宽以 CustomView 实际值为准。但是 CustomView 是 UILabel 这类 UIView，那么如果未设置 frame 的话会根据内容自动布局合适的长宽
-
->Rule for displaying CustomView
->1. CustomView will Display in the center of tableView
->2. The verticalOffset of customView can be setted by ```func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat```
->3. The width and height is equel to the frame of customView.But if the customView is UILabel and it's frame is CGRect.zero,it's width and height will be autolayout by it's content.
+Rule for displaying CustomView
+1. CustomView will Display in the center of tableView
+2. The verticalOffset of customView can be setted by ```func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat```
+3. The width and height is equel to the frame of customView.But if the customView is UILabel and it's frame is CGRect.zero,it's width and height will be autolayout by it's content.
 
 **Example:**
 
@@ -211,11 +195,9 @@ tableView.emptyDataSetView { [weak self] view in
     view.customView(CustomView(frame: CGRect(x: 0, y: 0, width: 150, height: 150)))
 }
 ```
-上述代码显示效果如下:
+above code will show as follows
 
->above code will show as follows
-
-![CustomScreenShot_1](https://github.com/Xiaoye220/EmptyDataSet-Swift/blob/master/EmptyDataSet-Swift/ScreenShot/CustomViewScreenShot_1.png)
+![CustomScreenShot_1](Example/ScreenShot/CustomViewScreenShot_1.png)
 
 #### Rule 2
 
@@ -235,11 +217,9 @@ tableView.emptyDataSetView { [weak self] view in
 }
 ```
 
-上述代码显示效果如下:
+above code will show as follows
 
->above code will show as follows
-
-![CustomScreenShot_2](https://github.com/Xiaoye220/EmptyDataSet-Swift/blob/master/EmptyDataSet-Swift/ScreenShot/CustomViewScreenShot_2.png)
+![CustomScreenShot_2](Example/ScreenShot/CustomViewScreenShot_2.png)
 
 #### Rule 3
 
@@ -252,8 +232,6 @@ func customView(forEmptyDataSet scrollView: UIScrollView) -> UIView? {
 }
 ```
 
-上述代码显示效果如下:
+above code will show as follows
 
->above code will show as follows
-
-![CustomScreenShot_3](https://github.com/Xiaoye220/EmptyDataSet-Swift/blob/master/EmptyDataSet-Swift/ScreenShot/CustomViewScreenShot_3.png)
+![CustomScreenShot_3](Example/ScreenShot/CustomViewScreenShot_3.png)

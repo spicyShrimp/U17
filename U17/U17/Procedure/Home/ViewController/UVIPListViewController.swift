@@ -39,7 +39,7 @@ class UVIPListViewController: UBaseViewController {
     private func loadData() {
         ApiLoadingProvider.request(UApi.vipList, model: VipListModel.self) { (returnData) in
             
-            self.collectionView.uHead.endRefreshing()
+            self.collectionView.uHead?.endRefreshing()
             self.collectionView.uempty?.allowShow = true
             
             self.vipList = returnData?.newVipList ?? []

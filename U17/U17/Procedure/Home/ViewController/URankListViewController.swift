@@ -34,7 +34,7 @@ class URankListViewController: UBaseViewController {
     
     @objc private func loadData() {
         ApiLoadingProvider.request(UApi.rankList, model: RankinglistModel.self) { (returnData) in
-            self.tableView.uHead.endRefreshing()
+            self.tableView.uHead?.endRefreshing()
             self.tableView.uempty?.allowShow = true
             
             self.rankList = returnData?.rankinglist ?? []

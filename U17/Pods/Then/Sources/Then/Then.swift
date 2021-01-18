@@ -21,7 +21,9 @@
 // SOFTWARE.
 
 import Foundation
-import CoreGraphics
+#if !os(Linux)
+  import CoreGraphics
+#endif
 #if os(iOS) || os(tvOS)
   import UIKit.UIGeometry
 #endif
@@ -36,6 +38,7 @@ extension Then where Self: Any {
   ///       $0.origin.x = 10
   ///       $0.size.width = 100
   ///     }
+  @inlinable
   public func with(_ block: (inout Self) throws -> Void) rethrows -> Self {
     var copy = self
     try block(&copy)
@@ -49,6 +52,7 @@ extension Then where Self: Any {
   ///       $0.set("devxoul@gmail.com", forKey: "email")
   ///       $0.synchronize()
   ///     }
+  @inlinable
   public func `do`(_ block: (Self) throws -> Void) rethrows {
     try block(self)
   }
@@ -64,6 +68,7 @@ extension Then where Self: AnyObject {
   ///       $0.textColor = UIColor.black
   ///       $0.text = "Hello, World!"
   ///     }
+  @inlinable
   public func then(_ block: (Self) throws -> Void) rethrows -> Self {
     try block(self)
     return self
@@ -73,10 +78,16 @@ extension Then where Self: AnyObject {
 
 extension NSObject: Then {}
 
-extension CGPoint: Then {}
-extension CGRect: Then {}
-extension CGSize: Then {}
-extension CGVector: Then {}
+#if !os(Linux)
+  extension CGPoint: Then {}
+  extension CGRect: Then {}
+  extension CGSize: Then {}
+  extension CGVector: Then {}
+#endif
+
+extension Array: Then {}
+extension Dictionary: Then {}
+extension Set: Then {}
 
 #if os(iOS) || os(tvOS)
   extension UIEdgeInsets: Then {}

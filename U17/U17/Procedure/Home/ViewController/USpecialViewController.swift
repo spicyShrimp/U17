@@ -44,11 +44,11 @@ class USpecialViewController: UBaseViewController {
         page = (more ? ( page + 1) : 1)
         ApiLoadingProvider.request(UApi.special(argCon: argCon, page: page), model: ComicListModel.self) { [weak self] (returnData) in
 
-            self?.tableView.uHead.endRefreshing()
+            self?.tableView.uHead?.endRefreshing()
             if returnData?.hasMore == false {
-                self?.tableView.uFoot.endRefreshingWithNoMoreData()
+                self?.tableView.uFoot?.endRefreshingWithNoMoreData()
             } else {
-                self?.tableView.uFoot.endRefreshing()
+                self?.tableView.uFoot?.endRefreshing()
             }
             self?.tableView.uempty?.allowShow = true
             

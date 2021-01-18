@@ -60,7 +60,7 @@ class UCateListViewController: UBaseViewController {
 
             self.searchButon.setTitle(self.searchString, for: .normal)
             self.collectionView.reloadData()
-            self.collectionView.uHead.endRefreshing()
+            self.collectionView.uHead?.endRefreshing()
         }
     }
     

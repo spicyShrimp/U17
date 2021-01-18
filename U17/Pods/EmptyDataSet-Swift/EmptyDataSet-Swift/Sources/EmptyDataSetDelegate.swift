@@ -113,7 +113,7 @@ public extension EmptyDataSetDelegate {
     }
     
     func emptyDataSetShouldAnimateImageView(_ scrollView: UIScrollView) -> Bool {
-        return false
+        return true
     }
     
     func emptyDataSet(_ scrollView: UIScrollView, didTapView view: UIView) {

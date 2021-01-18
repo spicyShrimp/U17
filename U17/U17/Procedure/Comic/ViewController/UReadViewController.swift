@@ -125,17 +125,17 @@ class UReadViewController: UBaseViewController {
         topBar.titleLabel.text = detailStatic.comic?.name
         
         if index <= -1 {
-            collectionView.uHead.endRefreshing()
+            collectionView.uHead?.endRefreshing()
             UNoticeBar(config: UNoticeBarConfig(title: "亲,这已经是第一页了")).show(duration: 2)
         } else if index >= detailStatic.chapter_list?.count ?? 0 {
-            collectionView.uFoot.endRefreshingWithNoMoreData()
+            collectionView.uFoot?.endRefreshingWithNoMoreData()
             UNoticeBar(config: UNoticeBarConfig(title: "亲,已经木有了")).show(duration: 2)
         } else {
             guard let chapterId = detailStatic.chapter_list?[index].chapter_id else { return }
             ApiLoadingProvider.request(UApi.chapter(chapter_id: chapterId), model: ChapterModel.self) { (returnData) in
     
-                self.collectionView.uHead.endRefreshing()
-                self.collectionView.uFoot.endRefreshing()
+                self.collectionView.uHead?.endRefreshing()
+                self.collectionView.uFoot?.endRefreshing()
                 
                 guard let chapter = returnData else { return }
                 if needClear { self.chapterList.removeAll() }

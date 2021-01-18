@@ -38,7 +38,7 @@ public protocol EmptyDataSetSource {
     ///
     /// - Parameter scrollView: A scrollView subclass object informing the data source.
     /// - Returns: A color to tint the image of the dataset.
-    func imagetintColor(forEmptyDataSet scrollView: UIScrollView) -> UIColor?
+    func imageTintColor(forEmptyDataSet scrollView: UIScrollView) -> UIColor?
 
     /// Asks the data source for the image animation of the dataset.
     ///
@@ -115,7 +115,7 @@ public extension EmptyDataSetSource {
         return nil
     }
     
-    func imagetintColor(forEmptyDataSet scrollView: UIScrollView) -> UIColor? {
+    func imageTintColor(forEmptyDataSet scrollView: UIScrollView) -> UIColor? {
         return nil
     }
     

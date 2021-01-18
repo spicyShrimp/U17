@@ -68,6 +68,9 @@ class UBoutiqueListViewController: UBaseViewController {
     }
     
     private func didSelectBanner(index: NSInteger) {
+        guard index < galleryItems.count else {
+            return
+        }
         let item = galleryItems[index]
         if item.linkType == 2 {
             guard let url = item.ext?.compactMap({ return $0.key == "url" ? $0.val : nil }).joined() else { return }
@@ -97,7 +100,7 @@ class UBoutiqueListViewController: UBaseViewController {
             self?.sexTypeButton.setImage(UIImage(named: self?.sexType == 1 ? "gender_male" : "gender_female"),
                                          for: .normal)
             
-            self?.collectionView.uHead.endRefreshing()
+            self?.collectionView.uHead?.endRefreshing()
             self?.collectionView.uempty?.allowShow = true
             
             self?.collectionView.reloadData()

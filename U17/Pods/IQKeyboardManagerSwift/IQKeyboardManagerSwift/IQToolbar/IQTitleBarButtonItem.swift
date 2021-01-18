@@ -68,7 +68,11 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
             if let color = selectableTitleColor {
                 titleButton?.setTitleColor(color, for: .normal)
             } else {
-                titleButton?.setTitleColor(UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for: .normal)
+                #if swift(>=5.1)
+                titleButton?.setTitleColor(UIColor.systemBlue, for: .normal)
+                #else
+                titleButton?.setTitleColor(UIColor(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for: .normal)
+                #endif
             }
         }
     }
@@ -110,7 +114,11 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         titleButton?.isEnabled = false
         titleButton?.titleLabel?.numberOfLines = 3
         titleButton?.setTitleColor(UIColor.lightGray, for: .disabled)
-        titleButton?.setTitleColor(UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for: .normal)
+        #if swift(>=5.1)
+        titleButton?.setTitleColor(UIColor.systemBlue, for: .normal)
+        #else
+        titleButton?.setTitleColor(UIColor(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for: .normal)
+        #endif
         titleButton?.backgroundColor = UIColor.clear
         titleButton?.titleLabel?.textAlignment = .center
         titleButton?.setTitle(title, for: .normal)
@@ -118,7 +126,6 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         titleButton?.titleLabel?.font = self.titleFont
         _titleView?.addSubview(titleButton!)
         
-#if swift(>=3.2)
         if #available(iOS 11, *) {
             
             var layoutDefaultLowPriority: UILayoutPriority
@@ -156,10 +163,6 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
             _titleView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             titleButton?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
-#else
-    _titleView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    titleButton?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-#endif
 
         customView = _titleView
     }

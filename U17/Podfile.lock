@@ -1,29 +1,29 @@
 PODS:
-  - Alamofire (4.8.2)
-  - EmptyDataSet-Swift (4.2.0)
-  - HandyJSON (5.0.0)
-  - HMSegmentedControl (1.5.5)
-  - IQKeyboardManagerSwift (6.4.1)
+  - Alamofire (4.9.1)
+  - EmptyDataSet-Swift (5.0.0)
+  - HandyJSON (5.0.2)
+  - HMSegmentedControl (1.5.6)
+  - IQKeyboardManagerSwift (6.5.6)
   - Kingfisher (4.10.1)
   - LLCycleScrollView (1.5.4):
     - Kingfisher (<= 4.10.1)
-  - MBProgressHUD (1.1.0)
-  - MJRefresh (3.2.0)
+  - MBProgressHUD (1.2.0)
+  - MJRefresh (3.5.0)
   - Moya (13.0.1):
     - Moya/Core (= 13.0.1)
   - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.1)
   - Result (4.1.0)
-  - Reusable (4.1.0):
-    - Reusable/Storyboard (= 4.1.0)
-    - Reusable/View (= 4.1.0)
-  - Reusable/Storyboard (4.1.0)
-  - Reusable/View (4.1.0)
+  - Reusable (4.1.1):
+    - Reusable/Storyboard (= 4.1.1)
+    - Reusable/View (= 4.1.1)
+  - Reusable/Storyboard (4.1.1)
+  - Reusable/View (4.1.1)
   - SnapKit (4.2.0)
   - SnapKitExtend (1.0.7):
     - SnapKit
-  - Then (2.5.0)
+  - Then (2.7.0)
   - UINavigation-SXFixSpace (1.2.4)
 
 DEPENDENCIES:
@@ -42,7 +42,7 @@ DEPENDENCIES:
   - UINavigation-SXFixSpace
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Alamofire
     - EmptyDataSet-Swift
     - HandyJSON
@@ -61,23 +61,23 @@ SPEC REPOS:
     - UINavigation-SXFixSpace
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  EmptyDataSet-Swift: 1fa0b35f530a35f852ecb2b53564728b0c300aaf
-  HandyJSON: 992f2d661716d6a91de82d0056927bc7813b5770
-  HMSegmentedControl: f514c6dad47aa3065e0ed2e8046b73efc71221b9
-  IQKeyboardManagerSwift: d2df660d0b8d64a15cb2537c9ff303213fa515b2
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
+  HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
+  HMSegmentedControl: 34c1f54d822d8308e7b24f5d901ec674dfa31352
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   LLCycleScrollView: 77f6e11980d1cd010ee9ee87e94da4e8026ccd21
-  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
-  MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
-  Reusable: 82be188f29d96dc5eff0db7b2393bcc08d2cdd5b
+  Reusable: 53a9acf5c536f229b31b5865782414b508252ddb
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SnapKitExtend: 00ee4db6d1f80bee01a1e75745f2a6ae695ba662
-  Then: 0157115e883545c77967b452fe74a1d25fb796e1
+  Then: acfe0be7e98221c6204e12f8161459606d5d822d
   UINavigation-SXFixSpace: 10f223253ebff2ceefa26694e23b7694269763c4
 
 PODFILE CHECKSUM: b93c84114ab0eed503b642162d77e21e5b2f603e
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4

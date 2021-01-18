@@ -85,7 +85,7 @@ class UPageViewController: UBaseViewController {
                                            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
             segment.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(r: 127, g: 221, b: 146),
                                                    NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
-            segment.selectionIndicatorLocation = .down
+            segment.selectionIndicatorLocation = .bottom
             segment.selectionIndicatorColor = UIColor(r: 127, g: 221, b: 146)
             segment.selectionIndicatorHeight = 2
             segment.borderType = .bottom
@@ -108,7 +108,7 @@ class UPageViewController: UBaseViewController {
         guard let titles = titles else { return }
         segment.sectionTitles = titles
         currentSelectIndex = 0
-        segment.selectedSegmentIndex = currentSelectIndex
+        segment.selectedSegmentIndex = UInt(currentSelectIndex)
     }
 }
 

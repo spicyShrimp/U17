@@ -158,7 +158,7 @@ extension UIScrollView: UIGestureRecognizerDelegate {
     }
     
     private var imageTintColor: UIColor? {
-        return emptyDataSetSource?.imagetintColor(forEmptyDataSet: self)
+        return emptyDataSetSource?.imageTintColor(forEmptyDataSet: self)
     }
     
     private func buttonTitle(for state: UIControl.State) -> NSAttributedString? {
@@ -212,7 +212,7 @@ extension UIScrollView: UIGestureRecognizerDelegate {
     }
     
     private var isImageViewAnimateAllowed: Bool {
-        return emptyDataSetDelegate?.emptyDataSetShouldAnimateImageView(self) ?? false
+        return emptyDataSetDelegate?.emptyDataSetShouldAnimateImageView(self) ?? true
     }
     
     private func willAppear() {

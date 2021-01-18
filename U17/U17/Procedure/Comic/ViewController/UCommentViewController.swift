@@ -42,9 +42,9 @@ class UCommentViewController: UBaseViewController {
                                              page: commentList?.serverNextPage ?? 0),
                             model: CommentListModel.self) { (returnData) in
                                 if returnData?.hasMore == true {
-                                    self.tableView.uFoot.endRefreshing()
+                                    self.tableView.uFoot?.endRefreshing()
                                 } else {
-                                    self.tableView.uFoot.endRefreshingWithNoMoreData()
+                                    self.tableView.uFoot?.endRefreshingWithNoMoreData()
                                 }
                                 self.commentList = returnData
                                 self.tableView.reloadData()

@@ -38,7 +38,7 @@ class USubscibeListViewController: UBaseViewController {
     
     private func loadData() {
         ApiLoadingProvider.request(UApi.subscribeList, model: SubscribeListModel.self) { (returnData) in
-            self.collectionView.uHead.endRefreshing()
+            self.collectionView.uHead?.endRefreshing()
             self.collectionView.uempty?.allowShow = true
             
             self.subscribeList = returnData?.newSubscribeList ?? []

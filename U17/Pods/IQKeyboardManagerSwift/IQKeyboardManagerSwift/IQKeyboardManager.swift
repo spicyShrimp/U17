@@ -56,11 +56,6 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     ///---------------------------
     
     /**
-     Registered classes list with library.
-     */
-    private var registeredClasses  = [UIView.Type]()
-    
-    /**
     Enable/disable managing distance between keyboard and textField. Default is YES(Enabled when class loads in `+(void)load` method).
     */
     @objc public var enable = false {
@@ -86,15 +81,19 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         
         var isEnabled = enable
         
-//        let enableMode = _textFieldView?.enableMode
-//
-//        if enableMode == .enabled {
-//            isEnabled = true
-//        } else if enableMode == .disabled {
-//            isEnabled = false
-//        } else {
-        
-            if let textFieldViewController = _textFieldView?.viewContainingController() {
+        let enableMode = _textFieldView?.enableMode
+
+        if enableMode == .enabled {
+            isEnabled = true
+        } else if enableMode == .disabled {
+            isEnabled = false
+        } else {
+            if var textFieldViewController = _textFieldView?.viewContainingController() {
+                
+                //If it is searchBar textField embedded in Navigation Bar
+                if _textFieldView?.textFieldSearchBar() != nil, let navController = textFieldViewController as? UINavigationController, let topController = navController.topViewController {
+                    textFieldViewController = topController
+                }
                 
                 if isEnabled == false {
                     
@@ -131,7 +130,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                     }
                 }
             }
-//        }
+        }
         
         return isEnabled
     }
@@ -165,19 +164,16 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         
         return _privateMovedDistance
     }
+    
+    /**
+    Will be called then movedDistance will be changed
+     */
+    @objc public var movedDistanceChanged: ((CGFloat) -> Void)?
 
     /**
     Returns the default singleton instance.
     */
-    @objc public class var shared: IQKeyboardManager {
-        struct Static {
-            //Singleton instance. Initializing keyboard manger.
-            static let kbManager = IQKeyboardManager()
-        }
-        
-        /** @return Returns the default singleton instance. */
-        return Static.kbManager
-    }
+    @objc public static let shared = IQKeyboardManager()
     
     ///-------------------------
     /// MARK: IQToolbar handling
@@ -202,8 +198,13 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         
         var enableToolbar = enableAutoToolbar
         
-        if let textFieldViewController = _textFieldView?.viewContainingController() {
+        if var textFieldViewController = _textFieldView?.viewContainingController() {
             
+            //If it is searchBar textField embedded in Navigation Bar
+            if _textFieldView?.textFieldSearchBar() != nil, let navController = textFieldViewController as? UINavigationController, let topController = navController.topViewController {
+                textFieldViewController = topController
+            }
+
             if enableToolbar == false {
                 
                 //If found any toolbar enabled classes then return.
@@ -256,7 +257,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     @objc public var toolbarManageBehaviour = IQAutoToolbarManageBehaviour.bySubviews
 
     /**
-    If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
+    If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is default. Default is NO.
     */
     @objc public var shouldToolbarUsesTextFieldTintColor = false
     
@@ -266,7 +267,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     @objc public var toolbarTintColor: UIColor?
 
     /**
-     This is used for toolbar.barTintColor. Default is nil and uses white color.
+     This is used for toolbar.barTintColor. Default is nil.
      */
     @objc public var toolbarBarTintColor: UIColor?
 
@@ -288,8 +289,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
      Toolbar previous/next/done button text, If nothing is provided then system default 'UIBarButtonSystemItemDone' will be used.
      */
     @objc public var toolbarPreviousBarButtonItemText: String?
+    @objc public var toolbarPreviousBarButtonItemAccessibilityLabel: String?
     @objc public var toolbarNextBarButtonItemText: String?
+    @objc public var toolbarNextBarButtonItemAccessibilityLabel: String?
     @objc public var toolbarDoneBarButtonItemText: String?
+    @objc public var toolbarDoneBarButtonItemAccessibilityLabel: String?
 
     /**
     If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
@@ -307,7 +311,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     @objc public var placeholderColor: UIColor?
     
     /**
-     Placeholder Button Color when it's treated as button. Default is nil. Which means iOS Blue for light toolbar and Yellow for dark toolbar
+     Placeholder Button Color when it's treated as button. Default is nil.
      */
     @objc public var placeholderButtonColor: UIColor?
 
@@ -379,8 +383,13 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         } else if enableMode == .disabled {
             shouldResign = false
         } else {
-            if let textFieldViewController = _textFieldView?.viewContainingController() {
+            if var textFieldViewController = _textFieldView?.viewContainingController() {
                 
+                //If it is searchBar textField embedded in Navigation Bar
+                if _textFieldView?.textFieldSearchBar() != nil, let navController = textFieldViewController as? UINavigationController, let topController = navController.topViewController {
+                    textFieldViewController = topController
+                }
+
                 if shouldResign == false {
                     
                     //If viewController is kind of enable viewController class, then assuming shouldResignOnTouchOutside is enabled.
@@ -752,8 +761,6 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     */
     
     @objc public func registerTextFieldViewClass(_ aClass: UIView.Type, didBeginEditingNotificationName: String, didEndEditingNotificationName: String) {
-        
-        registeredClasses.append(aClass)
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldViewDidBeginEditing(_:)), name: Notification.Name(rawValue: didBeginEditingNotificationName), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldViewDidEndEditing(_:)), name: Notification.Name(rawValue: didEndEditingNotificationName), object: nil)
@@ -761,12 +768,6 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     
     @objc public func unregisterTextFieldViewClass(_ aClass: UIView.Type, didBeginEditingNotificationName: String, didEndEditingNotificationName: String) {
         
-        if let index = registeredClasses.firstIndex(where: { element in
-            return element == aClass.self
-        }) {
-            registeredClasses.remove(at: index)
-        }
-
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: didBeginEditingNotificationName), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: didEndEditingNotificationName), object: nil)
     }
@@ -828,7 +829,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /** Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
     private var         _privateIsKeyboardShowing = false
 
-    private var         _privateMovedDistance: CGFloat = 0.0
+    private var         _privateMovedDistance: CGFloat = 0.0 {
+        didSet {
+            movedDistanceChanged?(_privateMovedDistance)
+        }
+    }
     
     /** To use with keyboardDistanceFromTextField. */
     private var         _privateKeyboardDistanceFromTextField: CGFloat = 10.0
@@ -899,9 +904,25 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 static weak var keyWindow: UIWindow?
             }
 
+            var originalKeyWindow : UIWindow? = nil
+            
+            #if swift(>=5.1)
+            if #available(iOS 13, *) {
+                originalKeyWindow = UIApplication.shared.connectedScenes
+                    .compactMap { $0 as? UIWindowScene }
+                    .flatMap { $0.windows }
+                    .first(where: { $0.isKeyWindow })
+            } else {
+                originalKeyWindow = UIApplication.shared.keyWindow
+            }
+            #else
+            originalKeyWindow = UIApplication.shared.keyWindow
+            #endif
+
+            
+            
             //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
-            if let originalKeyWindow = UIApplication.shared.keyWindow,
-                (Static.keyWindow == nil || Static.keyWindow != originalKeyWindow) {
+            if let originalKeyWindow = originalKeyWindow {
                 Static.keyWindow = originalKeyWindow
             }
 
@@ -927,7 +948,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /* Adjusting RootViewController's frame according to interface orientation. */
     private func adjustPosition() {
         
-        //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
+        //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
         if _privateHasPendingAdjustRequest == true,
             let textFieldView = _textFieldView,
             let rootController = textFieldView.parentContainerViewController(),
@@ -984,7 +1005,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             let layoutAreaHeight: CGFloat = rootController.view.layoutMargins.bottom
 
             let topLayoutGuide: CGFloat = max(navigationBarAreaHeight, layoutAreaHeight) + 5
-            let bottomLayoutGuide: CGFloat = (textFieldView is UITextView) ? 0 : rootController.view.layoutMargins.bottom  //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
+            let bottomLayoutGuide: CGFloat = (textFieldView is UIScrollView && textFieldView.responds(to: #selector(getter: UITextView.isEditable))) ? 0 : rootController.view.layoutMargins.bottom  //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
 
             //  Move positive = textField is hidden.
             //  Move negative = textField is showing.
@@ -1183,7 +1204,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             //nextScrollView == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
                             //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                             //shouldOffsetY >= 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
-                            if textFieldView is UITextView == true &&
+                            if (textFieldView is UIScrollView && textFieldView.responds(to: #selector(getter: UITextView.isEditable))) &&
                                 nextScrollView == nil &&
                                 shouldOffsetY >= 0 {
                                 
@@ -1248,35 +1269,46 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 }
                 
                 //Updating contentInset
-                if let lastScrollViewRect = lastScrollView.superview?.convert(lastScrollView.frame, to: window) {
+                if let lastScrollViewRect = lastScrollView.superview?.convert(lastScrollView.frame, to: window),
+                    lastScrollView.shouldIgnoreContentInsetAdjustment == false {
                     
-                    let bottom: CGFloat = (kbSize.height-newKeyboardDistanceFromTextField)-(window.frame.height-lastScrollViewRect.maxY)
-                    
+                    var bottomInset: CGFloat = (kbSize.height)-(window.frame.height-lastScrollViewRect.maxY)
+                    var bottomScrollIndicatorInset = bottomInset - newKeyboardDistanceFromTextField
+
                     // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
+                    bottomInset = max(_startingContentInsets.bottom, bottomInset)
+                    bottomScrollIndicatorInset = max(_startingScrollIndicatorInsets.bottom, bottomScrollIndicatorInset)
+
+                    #if swift(>=4.0)
+                    if #available(iOS 11, *) {
+                        bottomInset -= lastScrollView.safeAreaInsets.bottom
+                        bottomScrollIndicatorInset -= lastScrollView.safeAreaInsets.bottom
+                    }
+                    #endif
+
                     var movedInsets = lastScrollView.contentInset
-                    
-                    movedInsets.bottom = max(_startingContentInsets.bottom, bottom)
-                    
+                    movedInsets.bottom = bottomInset
+
                     if lastScrollView.contentInset != movedInsets {
                         showLog("old ContentInset: \(lastScrollView.contentInset) new ContentInset: \(movedInsets)")
 
                         UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
                             lastScrollView.contentInset = movedInsets
                             
-                            var newInset : UIEdgeInsets
+                            var newScrollIndicatorInset : UIEdgeInsets
                             
                             #if swift(>=5.1)
                             if #available(iOS 11.1, *) {
-                                newInset = lastScrollView.verticalScrollIndicatorInsets
+                                newScrollIndicatorInset = lastScrollView.verticalScrollIndicatorInsets
                             } else {
-                                newInset = lastScrollView.scrollIndicatorInsets
+                                newScrollIndicatorInset = lastScrollView.scrollIndicatorInsets
                             }
                             #else
-                            newInset = lastScrollView.scrollIndicatorInsets
+                            newScrollIndicatorInset = lastScrollView.scrollIndicatorInsets
                             #endif
 
-                            newInset.bottom = movedInsets.bottom
-                            lastScrollView.scrollIndicatorInsets = newInset
+                            newScrollIndicatorInset.bottom = bottomScrollIndicatorInset
+                            lastScrollView.scrollIndicatorInsets = newScrollIndicatorInset
                         })
                     }
                 }
@@ -1286,7 +1318,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             //Special case for UITextView(Readjusting textView.contentInset when textView hight is too big to fit on screen)
             //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
             //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-            if let textView = textFieldView as? UITextView {
+            if let textView = textFieldView as? UIScrollView, textView.isScrollEnabled, textFieldView.responds(to: #selector(getter: UITextView.isEditable)) {
                 
 //                CGRect rootSuperViewFrameInWindow = [_rootViewController.view.superview convertRect:_rootViewController.view.superview.bounds toView:keyWindow];
 //
@@ -1324,6 +1356,12 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
                     var newContentInset = textView.contentInset
                     newContentInset.bottom = textView.frame.size.height-textViewHeight
+
+                    #if swift(>=4.0)
+                    if #available(iOS 11, *) {
+                        newContentInset.bottom -= textView.safeAreaInsets.bottom
+                    }
+                    #endif
 
                     if textView.contentInset != newContentInset {
                         self.showLog("\(textFieldView) Old UITextView.contentInset: \(textView.contentInset) New UITextView.contentInset: \(newContentInset)")
@@ -1514,6 +1552,8 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         }
 
         if privateIsEnabled() == false {
+            restorePosition()
+            _topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
             return
         }
         
@@ -1615,8 +1655,8 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******", indentation: 1)
 
-        //Commented due to #56. Added all the conditions below to handle UIWebView's textFields.    (Bug ID: #56)
-        //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
+        //Commented due to #56. Added all the conditions below to handle WKWebView's textFields.    (Bug ID: #56)
+        //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
         //    if (_textFieldView == nil)   return
 
         //Restoring the contentOffset of the lastScrollView
@@ -1723,20 +1763,15 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         _textFieldView = notification.object as? UIView
         
         if overrideKeyboardAppearance == true {
-            
-            if let textFieldView = _textFieldView as? UITextField {
-                //If keyboard appearance is not like the provided appearance
-                if textFieldView.keyboardAppearance != keyboardAppearance {
+            if let textInput = _textFieldView as? UITextInput {
+                if textInput.keyboardAppearance != keyboardAppearance {
                     //Setting textField keyboard appearance and reloading inputViews.
-                    textFieldView.keyboardAppearance = keyboardAppearance
-                    textFieldView.reloadInputViews()
-                }
-            } else if  let textFieldView = _textFieldView as? UITextView {
-                //If keyboard appearance is not like the provided appearance
-                if textFieldView.keyboardAppearance != keyboardAppearance {
-                    //Setting textField keyboard appearance and reloading inputViews.
-                    textFieldView.keyboardAppearance = keyboardAppearance
-                    textFieldView.reloadInputViews()
+                    if let textFieldView = _textFieldView as? UITextField {
+                        textFieldView.keyboardAppearance = keyboardAppearance
+                    } else if  let textFieldView = _textFieldView as? UITextView {
+                        textFieldView.keyboardAppearance = keyboardAppearance
+                    }
+                    _textFieldView?.reloadInputViews()
                 }
             }
         }
@@ -1745,7 +1780,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         if privateIsEnableAutoToolbar() == true {
 
             //UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
-            if let textView = _textFieldView as? UITextView,
+            if let textView = _textFieldView as? UIScrollView, textView.responds(to: #selector(getter: UITextView.isEditable)),
                 textView.inputAccessoryView == nil {
                 
                 UIView.animate(withDuration: 0.00001, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
@@ -1768,7 +1803,10 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         resignFirstResponderGesture.isEnabled = privateShouldResignOnTouchOutside()
         _textFieldView?.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
 
-        if privateIsEnabled() == true {
+        if privateIsEnabled() == false {
+            restorePosition()
+            _topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
+        } else {
             if _topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == true {    //  (Bug ID: #5)
                 
                 _rootViewController = _textFieldView?.parentContainerViewController()
@@ -1814,7 +1852,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         
         // We check if there's a change in original frame or not.
         
-        if let textView = _textFieldView as? UITextView {
+        if let textView = _textFieldView as? UIScrollView, textView.responds(to: #selector(getter: UITextView.isEditable)) {
 
             if isTextViewContentInsetChanged == true {
                 self.isTextViewContentInsetChanged = false
@@ -1872,7 +1910,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         showLog("****** \(#function) started ******", indentation: 1)
         
         //If textViewContentInsetChanged is saved then restore it.
-        if let textView = _textFieldView as? UITextView {
+        if let textView = _textFieldView as? UITextView, textView.responds(to: #selector(getter: UITextView.isEditable)) {
             
             if isTextViewContentInsetChanged == true {
 
@@ -1970,15 +2008,16 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         } else {
                             rightConfiguration = IQBarButtonItemConfiguration(barButtonSystemItem: .done, action: #selector(self.doneAction(_:)))
                         }
+                        rightConfiguration.accessibilityLabel = toolbarDoneBarButtonItemAccessibilityLabel ?? "Done"
                         
                         //	If only one object is found, then adding only Done button.
-                        if (siblings.count == 1 && previousNextDisplayMode == .default) || previousNextDisplayMode == .alwaysHide {
+                        if (siblings.count <= 1 && previousNextDisplayMode == .default) || previousNextDisplayMode == .alwaysHide {
                             
                             textField.addKeyboardToolbarWithTarget(target: self, titleText: (shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder: nil), rightBarButtonConfiguration: rightConfiguration, previousBarButtonConfiguration: nil, nextBarButtonConfiguration: nil)
 
                             textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
                             
-                        } else if (siblings.count > 1 && previousNextDisplayMode == .default) || previousNextDisplayMode == .alwaysShow {
+                        } else if previousNextDisplayMode == .default || previousNextDisplayMode == .alwaysShow {
                             
                             let prevConfiguration: IQBarButtonItemConfiguration
                             
@@ -1989,6 +2028,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             } else {
                                 prevConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardPreviousImage() ?? UIImage()), action: #selector(self.previousAction(_:)))
                             }
+                            prevConfiguration.accessibilityLabel = toolbarPreviousBarButtonItemAccessibilityLabel ?? "Previous"
 
                             let nextConfiguration: IQBarButtonItemConfiguration
                             
@@ -1999,6 +2039,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             } else {
                                 nextConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardNextImage() ?? UIImage()), action: #selector(self.nextAction(_:)))
                             }
+                            nextConfiguration.accessibilityLabel = toolbarNextBarButtonItemAccessibilityLabel ?? "Next"
 
                             textField.addKeyboardToolbarWithTarget(target: self, titleText: (shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder: nil), rightBarButtonConfiguration: rightConfiguration, previousBarButtonConfiguration: prevConfiguration, nextBarButtonConfiguration: nextConfiguration)
 
@@ -2007,49 +2048,27 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
                         let toolbar = textField.keyboardToolbar
 
-                        //  Setting toolbar to keyboard.
-                        if let textField = textField as? UITextField {
-                            
-                            //Bar style according to keyboard appearance
-                            switch textField.keyboardAppearance {
-                                
-                            case .dark:
-                                toolbar.barStyle = UIBarStyle.black
-                                toolbar.tintColor = UIColor.white
-                                toolbar.barTintColor = nil
-                            default:
-                                toolbar.barStyle = UIBarStyle.default
-                                toolbar.barTintColor = toolbarBarTintColor
-                                
-                                //Setting toolbar tintColor //  (Enhancement ID: #30)
-                                if shouldToolbarUsesTextFieldTintColor {
-                                    toolbar.tintColor = textField.tintColor
-                                } else if let tintColor = toolbarTintColor {
-                                    toolbar.tintColor = tintColor
-                                } else {
-                                    toolbar.tintColor = UIColor.black
-                                }
-                            }
-                        } else if let textView = textField as? UITextView {
-                            
-                            //Bar style according to keyboard appearance
-                            switch textView.keyboardAppearance {
-                                
-                            case .dark:
-                                toolbar.barStyle = UIBarStyle.black
-                                toolbar.tintColor = UIColor.white
-                                toolbar.barTintColor = nil
-                            default:
-                                toolbar.barStyle = UIBarStyle.default
-                                toolbar.barTintColor = toolbarBarTintColor
+                        //Setting toolbar tintColor //  (Enhancement ID: #30)
+                        if shouldToolbarUsesTextFieldTintColor {
+                            toolbar.tintColor = textField.tintColor
+                        } else if let tintColor = toolbarTintColor {
+                            toolbar.tintColor = tintColor
+                        } else {
+                            toolbar.tintColor = nil
+                        }
 
-                                if shouldToolbarUsesTextFieldTintColor {
-                                    toolbar.tintColor = textView.tintColor
-                                } else if let tintColor = toolbarTintColor {
-                                    toolbar.tintColor = tintColor
-                                } else {
-                                    toolbar.tintColor = UIColor.black
-                                }
+                        //  Setting toolbar to keyboard.
+                        if let textFieldView = textField as? UITextInput {
+                            
+                            //Bar style according to keyboard appearance
+                            switch textFieldView.keyboardAppearance {
+                                
+                            case .dark?:
+                                toolbar.barStyle = .black
+                                toolbar.barTintColor = nil
+                            default:
+                                toolbar.barStyle = .default
+                                toolbar.barTintColor = toolbarBarTintColor
                             }
                         }
 
@@ -2130,11 +2149,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         
                         if let textField = view as? UITextField {
                             textField.inputAccessoryView = nil
-                            textField.reloadInputViews()
                         } else if let textView = view as? UITextView {
                             textView.inputAccessoryView = nil
-                            textView.reloadInputViews()
                         }
+
+                        view.reloadInputViews()
                     }
                 }
             }
