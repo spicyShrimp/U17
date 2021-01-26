@@ -12,7 +12,7 @@ import Kingfisher
 import SnapKit
 import MJRefresh
 
-//MRAK: 应用默认颜色
+//MARK: 应用默认颜色
 extension UIColor {
     class var background: UIColor {
         return UIColor(r: 242, g: 242, b: 242)
@@ -32,8 +32,8 @@ extension NSNotification.Name {
     static let USexTypeDidChange = NSNotification.Name("USexTypeDidChange")
 }
 
-let screenWidth = UIScreen.main.bounds.width
-let screenHeight = UIScreen.main.bounds.height
+let UScreenWidth = UIScreen.main.bounds.width
+let UScreenHeight = UIScreen.main.bounds.height
 
 var topVC: UIViewController? {
     var resultVC: UIViewController?
@@ -88,9 +88,9 @@ extension Kingfisher where Base: UIButton {
         
     }
 }
+
 //MARK: SnapKit
 extension ConstraintView {
-    
     var usnp: ConstraintBasicAttributesDSL {
         if #available(iOS 11.0, *) {
             return self.safeAreaLayoutGuide.snp
@@ -101,7 +101,6 @@ extension ConstraintView {
 }
 
 extension UICollectionView {
-    
     func reloadData(animation: Bool = true) {
         if animation {
             reloadData()
@@ -113,4 +112,18 @@ extension UICollectionView {
     }
 }
 
+extension UIApplication {
+    class func changeOrientationTo(landscapeRight: Bool) {
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        if landscapeRight == true {
+            delegate.orientation = .landscapeRight
+            UIApplication.shared.supportedInterfaceOrientations(for: delegate.window)
+            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+        } else {
+            delegate.orientation = .portrait
+            UIApplication.shared.supportedInterfaceOrientations(for: delegate.window)
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        }
+    }
+}
 

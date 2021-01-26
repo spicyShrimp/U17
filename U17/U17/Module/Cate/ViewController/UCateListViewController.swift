@@ -117,7 +117,7 @@ extension UCateListViewController: UICollectionViewDelegateFlowLayout, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = floor(Double(screenWidth - 40.0) / 3.0)
+        let width = floor(Double(UScreenWidth - 40.0) / 3.0)
         return CGSize(width: width, height: (indexPath.section == 0 ? 55 : (width * 0.75 + 30)))
     }
     

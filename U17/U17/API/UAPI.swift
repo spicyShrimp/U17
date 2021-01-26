@@ -10,6 +10,7 @@ import Moya
 import HandyJSON
 import MBProgressHUD
 
+//MARK: loading插件，组合API请求，可在请求中自动补充loading
 let LoadingPlugin = NetworkActivityPlugin { (type, target) in
     guard let vc = topVC else { return }
     switch type {
@@ -21,6 +22,7 @@ let LoadingPlugin = NetworkActivityPlugin { (type, target) in
     }
 }
 
+//MARK: 超时中间件
 let timeoutClosure = {(endpoint: Endpoint, closure: MoyaProvider<UApi>.RequestResultClosure) -> Void in
     
     if var urlRequest = try? endpoint.urlRequest() {
@@ -31,9 +33,12 @@ let timeoutClosure = {(endpoint: Endpoint, closure: MoyaProvider<UApi>.RequestRe
     }
 }
 
+//MARK: 无loading请求
 let ApiProvider = MoyaProvider<UApi>(requestClosure: timeoutClosure)
+//MARK: 有loading请求
 let ApiLoadingProvider = MoyaProvider<UApi>(requestClosure: timeoutClosure, plugins: [LoadingPlugin])
 
+//MARK: API定义
 enum UApi {
     case searchHot//搜索热门
     case searchRelative(inputText: String)//相关搜索
@@ -134,7 +139,7 @@ extension UApi: TargetType {
     var headers: [String : String]? { return nil }
 }
 
-
+//MARK: 请求结果模型解析
 extension Response {
     func mapModel<T: HandyJSON>(_ type: T.Type) throws -> T {
         let jsonString = String(data: data, encoding: .utf8)
@@ -145,6 +150,7 @@ extension Response {
     }
 }
 
+//MARK: 统一请求封装
 extension MoyaProvider {
     @discardableResult
     open func request<T: HandyJSON>(_ target: Target,

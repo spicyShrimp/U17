@@ -18,7 +18,6 @@
 		566B6A7E1FCFA686003E0CA7 /* ParallaxHeaderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A721FCFA686003E0CA7 /* ParallaxHeaderMode.swift */; };
 		566B6A7F1FCFA686003E0CA7 /* UIScrollView+ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A731FCFA686003E0CA7 /* UIScrollView+ParallaxHeader.swift */; };
 		566B6A801FCFA686003E0CA7 /* ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A741FCFA686003E0CA7 /* ParallaxHeader.swift */; };
-		566B6A811FCFA686003E0CA7 /* UHairPowder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A751FCFA686003E0CA7 /* UHairPowder.swift */; };
 		566B6A821FCFA686003E0CA7 /* UNoticeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A771FCFA686003E0CA7 /* UNoticeBar.swift */; };
 		566B6AD21FCFA878003E0CA7 /* UComicCHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A861FCFA878003E0CA7 /* UComicCHead.swift */; };
 		566B6AD31FCFA878003E0CA7 /* URankTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566B6A871FCFA878003E0CA7 /* URankTCell.swift */; };
@@ -104,7 +103,6 @@
 		566B6A721FCFA686003E0CA7 /* ParallaxHeaderMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeaderMode.swift; sourceTree = "<group>"; };
 		566B6A731FCFA686003E0CA7 /* UIScrollView+ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ParallaxHeader.swift"; sourceTree = "<group>"; };
 		566B6A741FCFA686003E0CA7 /* ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeader.swift; sourceTree = "<group>"; };
-		566B6A751FCFA686003E0CA7 /* UHairPowder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UHairPowder.swift; sourceTree = "<group>"; };
 		566B6A771FCFA686003E0CA7 /* UNoticeBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNoticeBar.swift; sourceTree = "<group>"; };
 		566B6A861FCFA878003E0CA7 /* UComicCHead.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UComicCHead.swift; sourceTree = "<group>"; };
 		566B6A871FCFA878003E0CA7 /* URankTCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URankTCell.swift; sourceTree = "<group>"; };
@@ -234,7 +232,7 @@
 				566B6B0C1FCFA899003E0CA7 /* Extension */,
 				5668D36D1F7E146B00D24C39 /* LaunchScreen.storyboard */,
 				56286F591F9F1EDA0055DD81 /* Model */,
-				566B6A831FCFA878003E0CA7 /* Procedure */,
+				566B6A831FCFA878003E0CA7 /* Module */,
 			);
 			path = U17;
 			sourceTree = "<group>";
@@ -242,7 +240,6 @@
 		566B6A661FCFA686003E0CA7 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				56BAA6C71FD7815C005D47E1 /* HairPowder */,
 				566B6A671FCFA686003E0CA7 /* CollectionViewLayout */,
 				566B6A6A1FCFA686003E0CA7 /* Refresh */,
 				566B6A6C1FCFA686003E0CA7 /* EmptyDataSet */,
@@ -295,7 +292,7 @@
 			path = NoticeBar;
 			sourceTree = "<group>";
 		};
-		566B6A831FCFA878003E0CA7 /* Procedure */ = {
+		566B6A831FCFA878003E0CA7 /* Module */ = {
 			isa = PBXGroup;
 			children = (
 				566B6AC51FCFA878003E0CA7 /* AppDelegate.swift */,
@@ -308,7 +305,7 @@
 				566B6AB91FCFA878003E0CA7 /* Mine */,
 				566B6A961FCFA878003E0CA7 /* Search */,
 			);
-			path = Procedure;
+			path = Module;
 			sourceTree = "<group>";
 		};
 		566B6A841FCFA878003E0CA7 /* Home */ = {
@@ -544,14 +541,6 @@
 			path = API;
 			sourceTree = "<group>";
 		};
-		56BAA6C71FD7815C005D47E1 /* HairPowder */ = {
-			isa = PBXGroup;
-			children = (
-				566B6A751FCFA686003E0CA7 /* UHairPowder.swift */,
-			);
-			path = HairPowder;
-			sourceTree = "<group>";
-		};
 		9EEB24EB93BB2AA700B97EF9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,7 +739,6 @@
 				566B6AE91FCFA878003E0CA7 /* UChapterCCell.swift in Sources */,
 				566B6B201FCFA899003E0CA7 /* DictionaryExtension.swift in Sources */,
 				566B6B181FCFA899003E0CA7 /* UIColorExtension.swift in Sources */,
-				566B6A811FCFA686003E0CA7 /* UHairPowder.swift in Sources */,
 				566B6AED1FCFA878003E0CA7 /* UDescriptionTCell.swift in Sources */,
 				566B6B1A1FCFA899003E0CA7 /* UIViewExtension.swift in Sources */,
 				566B6AFB1FCFA878003E0CA7 /* UMineHead.swift in Sources */,

@@ -31,8 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = UIColor.white
         window?.rootViewController = UTabBarController()
         window?.makeKeyAndVisible()
-        //MARK: 修正齐刘海
-//        UHairPowder.instance.spread()
         
         return true
     }
@@ -84,24 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-
-}
-
-extension UIApplication {
-    //MRAK: 强制旋转屏幕
-    class func changeOrientationTo(landscapeRight: Bool) {
-        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        if landscapeRight == true {
-            delegate.orientation = .landscapeRight
-            UIApplication.shared.supportedInterfaceOrientations(for: delegate.window)
-            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-        } else {
-            delegate.orientation = .portrait
-            UIApplication.shared.supportedInterfaceOrientations(for: delegate.window)
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-        }
     }
 }
 

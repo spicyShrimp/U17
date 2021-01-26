@@ -44,7 +44,7 @@ extension UNoticeBarAnimationType {
 extension UNoticeBarStyle {
     
     fileprivate func noticeBarProperties() -> UNoticeBarProperties {
-        let screenWidth = UIScreen.main.bounds.width
+        let UScreenWidth = UIScreen.main.bounds.width
         
         var properties: UNoticeBarProperties
         switch self {
@@ -53,14 +53,14 @@ extension UNoticeBarStyle {
                                               fontSizeScaleFactor: 0.55,
                                               textFont: UIFont.systemFont(ofSize: 18),
                                               viewFrame: CGRect(origin: CGPoint.zero,
-                                                                size: CGSize(width: screenWidth,
+                                                                size: CGSize(width: UScreenWidth,
                                                                              height: 44.0 + UIApplication.shared.statusBarFrame.height)))
         case .onStatusBar:
             properties = UNoticeBarProperties(shadowOffsetY: 2,
                                               fontSizeScaleFactor: 0.75,
                                               textFont: UIFont.systemFont(ofSize: 13),
                                               viewFrame: CGRect(origin: CGPoint.zero,
-                                                                size: CGSize(width: screenWidth,
+                                                                size: CGSize(width: UScreenWidth,
                                                                              height: UIApplication.shared.statusBarFrame.height)))
         }
         

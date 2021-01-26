@@ -89,11 +89,11 @@ extension UVIPListViewController: UCollectionViewSectionBackgroundLayoutDelegate
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let comicList = vipList[section]
-        return comicList.itemTitle?.count ?? 0 > 0 ? CGSize(width: screenWidth, height: 44) : CGSize.zero
+        return comicList.itemTitle?.count ?? 0 > 0 ? CGSize(width: UScreenWidth, height: 44) : CGSize.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return vipList.count - 1 != section ? CGSize(width: screenWidth, height: 10) : CGSize.zero
+        return vipList.count - 1 != section ? CGSize(width: UScreenWidth, height: 10) : CGSize.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -105,7 +105,7 @@ extension UVIPListViewController: UCollectionViewSectionBackgroundLayoutDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = floor(Double(screenWidth - 10.0) / 3.0)
+        let width = floor(Double(UScreenWidth - 10.0) / 3.0)
         return CGSize(width: width, height: 240)
     }
     

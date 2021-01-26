@@ -47,7 +47,7 @@ class UDescriptionTCell: UBaseTableViewCell {
         guard let model = detailStatic else { return height }
         let textView = UITextView().then{ $0.font = UIFont.systemFont(ofSize: 15) }
         textView.text = "【\(model.comic?.cate_id ?? "")】\(model.comic?.description ?? "")"
-        height += textView.sizeThatFits(CGSize(width: screenWidth - 30, height: CGFloat.infinity)).height
+        height += textView.sizeThatFits(CGSize(width: UScreenWidth - 30, height: CGFloat.infinity)).height
         return height
     }
 }

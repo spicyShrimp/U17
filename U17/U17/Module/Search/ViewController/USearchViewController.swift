@@ -149,7 +149,7 @@ class USearchViewController: UBaseViewController {
     
     override func configNavigationBar() {
         super.configNavigationBar()
-        searchBar.frame = CGRect(x: 0, y: 0, width: screenWidth - 50, height: 30)
+        searchBar.frame = CGRect(x: 0, y: 0, width: UScreenWidth - 50, height: 30)
         navigationItem.titleView = searchBar
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: nil,
                                                            style: .plain,

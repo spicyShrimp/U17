@@ -45,7 +45,7 @@ class UBoutiqueListViewController: UBaseViewController {
         cw.delegate = self
         cw.dataSource = self
         cw.alwaysBounceVertical = true
-        cw.contentInset = UIEdgeInsets(top: screenWidth * 0.467, left: 0, bottom: 0, right: 0)
+        cw.contentInset = UIEdgeInsets(top: UScreenWidth * 0.467, left: 0, bottom: 0, right: 0)
         cw.scrollIndicatorInsets = cw.contentInset
         cw.register(cellType: UComicCCell.self)
         cw.register(cellType: UBoardCCell.self)
@@ -59,7 +59,6 @@ class UBoutiqueListViewController: UBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         loadData(false)
     }
     
@@ -186,11 +185,11 @@ extension UBoutiqueListViewController: UCollectionViewSectionBackgroundLayoutDel
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let comicList = comicLists[section]
-        return comicList.itemTitle?.count ?? 0 > 0 ? CGSize(width: screenWidth, height: 44) : CGSize.zero
+        return comicList.itemTitle?.count ?? 0 > 0 ? CGSize(width: UScreenWidth, height: 44) : CGSize.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return comicLists.count - 1 != section ? CGSize(width: screenWidth, height: 10) : CGSize.zero
+        return comicLists.count - 1 != section ? CGSize(width: UScreenWidth, height: 10) : CGSize.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -216,16 +215,16 @@ extension UBoutiqueListViewController: UCollectionViewSectionBackgroundLayoutDel
         
         let comicList = comicLists[indexPath.section]
         if comicList.comicType == .billboard {
-            let width = floor((screenWidth - 15.0) / 4.0)
+            let width = floor((UScreenWidth - 15.0) / 4.0)
             return CGSize(width: width, height: 80)
         }else {
             if comicList.comicType == .thematic {
-                let width = floor((screenWidth - 5.0) / 2.0)
+                let width = floor((UScreenWidth - 5.0) / 2.0)
                 return CGSize(width: width, height: 120)
             } else {
                 let count = comicList.comics?.takeMax(4).count ?? 0
                 let warp = count % 2 + 2
-                let width = floor((screenWidth - CGFloat(warp - 1) * 5.0) / CGFloat(warp))
+                let width = floor((UScreenWidth - CGFloat(warp - 1) * 5.0) / CGFloat(warp))
                 return CGSize(width: width, height: CGFloat(warp * 80))
             }
         }

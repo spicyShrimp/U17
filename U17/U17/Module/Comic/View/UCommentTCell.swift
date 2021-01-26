@@ -78,7 +78,7 @@ class UCommentViewModel {
         
         let tw = UITextView().then { $0.font = UIFont.systemFont(ofSize: 13) }
         tw.text = model.content_filter
-        let height = tw.sizeThatFits(CGSize(width: screenWidth - 70, height: CGFloat.infinity)).height
+        let height = tw.sizeThatFits(CGSize(width: UScreenWidth - 70, height: CGFloat.infinity)).height
         self.height = max(60, height + 45)
     }
     
