@@ -12,7 +12,7 @@ Swift4自正式版出来至今已经很长一段时间了, 相信很多开发者
 
 1. 90%精仿原版有妖气漫画(登录,充值等涉及版权或者会员等功能均不作实现)
 2. 在原版APP中加入自己的一些优化效果
-3. 在原版基础上适配iOS11及iPhone X
+3. 在原版基础上适配全面屏
 4. 三方框架,感谢 SnapKit, SnapKitExtend, Then, Moya, Alamofire, HandyJSON, Kingfisher, Reusable, LLCycleScrollView, MJRefresh, MBProgressHUD, HMSegmentedControl, IQKeyboardManagerSwift, EmptyDataSet-Swift, UINavigation-SXFixSpace
     (其中本人的库,SnapKitExtend, UINavigation-SXFixSpace 希望大家支持)
 5. 修正导航栏按钮在iOS11中的位置偏移问题
