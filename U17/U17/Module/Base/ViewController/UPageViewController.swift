@@ -66,7 +66,7 @@ class UPageViewController: UBaseViewController {
         pageVC.setViewControllers([vcs[0]], direction: .forward, animated: false, completion: nil)
         
         switch pageStyle {
-        case .none:
+        case .none?:
             pageVC.view.snp.makeConstraints { $0.edges.equalToSuperview() }
         case .navgationBarSegment?:
             segment.backgroundColor = UIColor.clear
@@ -134,7 +134,7 @@ extension UPageViewController: UIPageViewControllerDataSource, UIPageViewControl
         }
         currentSelectIndex = index
         segment.setSelectedSegmentIndex(UInt(index), animated: true)
-        guard titles != nil && pageStyle == .none else { return }
+        guard titles != nil && pageStyle == UPageStyle.none else { return }
         navigationItem.title = titles[index]
     }
 }
