@@ -105,6 +105,12 @@ class UBoutiqueListViewController: UBaseViewController {
             
             self?.collectionView.reloadData()
             self?.bannerView.imagePaths = self?.galleryItems.filter { $0.cover != nil }.map { $0.cover! } ?? []
+            
+            let topOffsetY = ((self?.galleryItems.count)! > 0) ? UScreenWidth * 0.467 : 0
+            self?.collectionView.contentInset = UIEdgeInsets(top: topOffsetY, left: 0, bottom: 0, right: 0)
+            self?.bannerView.snp.updateConstraints{
+                $0.height.equalTo(topOffsetY)
+            }
         }
     }
     
