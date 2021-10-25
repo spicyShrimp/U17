@@ -31,7 +31,7 @@ extension UNoticeBarAnimationType {
         case (_, .top):
             transform = CGAffineTransform(translationX: 0, y: -frame.height)
         case (_, .bottom):
-            transform = CGAffineTransform(translationX: 0, y: -frame.height)
+            transform = CGAffineTransform(translationX: 0, y: frame.height)
         case (_, .left):
             transform = CGAffineTransform(translationX: -frame.width, y: 0)
         case (_, .right):
